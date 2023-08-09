@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.IO;
+using System.Windows.Forms;
 
 namespace PCPRO_실기
 {
@@ -34,32 +35,57 @@ namespace PCPRO_실기
             {
                 if (module == 1)
                 {
-                    FileSave(Module1FilePath, msg);
+                    FileSave(DirctionaryPath(Module1FilePath), msg);
                 }
                 else if (module == 2)
                 {
-                    FileSave(Module2FilePath, msg);
+                    FileSave(DirctionaryPath(Module2FilePath), msg);
                 }
             }
             else if (mode == 2)
             {
                 if (module == 1)
                 {
-                    logString = FileLoad(Module1FilePath);
+                    logString = FileLoad(DirctionaryPath(Module1FilePath));
                 }
                 else if (module == 2)
                 {
-                    logString = FileLoad(Module2FilePath);
+                    logString = FileLoad(DirctionaryPath(Module2FilePath));
                 }
                 // 추가해야됨
             }
+
+            string DirctionaryPath(string filePath)
+            {
+                string str = DateTime.Now.Year.ToString() + "_" + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString();
+                DirectoryInfo di = new DirectoryInfo(str);
+
+                if (di.Exists == false)
+                {
+                    di.Create();
+                }
+
+                return str + "\\" + filePath;
+            }   // 로컬함수, 오늘날짜 폴더 생성 및 폴더파일경로 반환
         }
 
         private void FileSave(string fileSaveFilePath, string msg)
         { 
             StreamWriter sw = File.AppendText(fileSaveFilePath);
-            sw.WriteLine(msg);
+            sw.WriteLine(LogDataTime() + msg);
             sw.Close();
+                        
+            string LogDataTime()
+            {
+                string str = DateTime.Now.Year.ToString() + "_" +
+                                DateTime.Now.Month.ToString() + "/" +
+                                DateTime.Now.Day.ToString() + "_" +
+                                DateTime.Now.Hour.ToString() + ":" +
+                                DateTime.Now.Minute.ToString() + ":" +
+                                DateTime.Now.Second.ToString() + " ";
+
+                return str;
+            }   // 로컬함수, 로그메시지 앞단 날짜시간 추가
         }
 
         private string[] FileLoad(string fileSaveFilePath)
@@ -68,5 +94,7 @@ namespace PCPRO_실기
             return str;
             // Log파일 로드 부분, Return 부분 추가해야됨
         }
+
+    
     }
 }

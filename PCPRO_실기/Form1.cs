@@ -36,6 +36,7 @@ namespace PCPRO_실기
             int tag = int.Parse(btn.Tag.ToString());
             int tabIndex = btn.TabIndex;
 
+            
 
             TestResultTextBox(tag.ToString() + ", " + btn.TabIndex.ToString());
 
@@ -49,11 +50,20 @@ namespace PCPRO_실기
             {
                 FileIO fi = new FileIO();
                 fi.FileIOFuction(2, 1, "");
-                tb_Module1.Text = fi.logString[0];
+                for (int i = 0; i < fi.logString.Length; i++)
+                {
+                    tb_Module1.AppendText(fi.logString[i] + "\r\n");
+                }
             }
 
-
         }
+
+        void ButtonColor_Down(Control btn)
+        {
+            // 버튼 컬러 바꾸기 함수
+        }
+
+
 
         private void TestResultTextBox(string msg)
         {
