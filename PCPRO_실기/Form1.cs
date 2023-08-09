@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 
 namespace PCPRO_실기
@@ -32,11 +33,24 @@ namespace PCPRO_실기
         private void BtnAction(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            int Tag = int.Parse(btn.Tag.ToString());
+            int tag = int.Parse(btn.Tag.ToString());
             int tabIndex = btn.TabIndex;
 
 
-            TestResultTextBox(Tag.ToString() + ", " + btn.TabIndex.ToString());
+            TestResultTextBox(tag.ToString() + ", " + btn.TabIndex.ToString());
+
+            if (tabIndex == 1 && tag == 8)
+            {
+                FileIO fi = new FileIO();
+                fi.FileIOFuction(1, 1, "Test");
+            }
+
+            if (tabIndex == 1 && tag == 9)
+            {
+                FileIO fi = new FileIO();
+                fi.FileIOFuction(2, 1, "");
+                tb_Module1.Text = fi.logString[0];
+            }
 
 
         }
