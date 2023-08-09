@@ -8,15 +8,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
+using ActUtlTypeLib;    // MX Component .dll
 
 namespace PCPRO_실기
 {
     public partial class EQUIPMENT01 : Form
     {
+        const string IECEIPAddress = "";
+        ActUtlType plc;
         public EQUIPMENT01()
         {
             InitializeComponent();
+            
+            // 메인폼 관련 초기화
             // WindowState = FormWindowState.Maximized; // form 최대 사이즈 적용
+
+            // IECE 연결 초기화
+
+
+            // PLC 연결(MX Component) 초기화
+            // plc.ActLogicalStationNumber = 0;
+
         }
 
         private void EQUIPMENT01_Load(object sender, EventArgs e)
