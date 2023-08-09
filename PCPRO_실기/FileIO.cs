@@ -94,7 +94,5 @@ namespace PCPRO_실기
             return str;
             // Log파일 로드 부분, Return 부분 추가해야됨
         }
-
-    
     }
 }
