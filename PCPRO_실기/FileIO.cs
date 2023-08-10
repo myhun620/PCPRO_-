@@ -12,13 +12,13 @@ namespace PCPRO_실기
     internal class FileIO
     {
         // 모듈별 파일명
-        string Module1FilePath = "Snd_01.txt";
-        string Module2FilePath = "Rcv_01.txt";
-        
+        const string Module1FilePath = "Snd_01.txt";
+        const string Module2FilePath = "Rcv_01.txt";
         // 반환되는 Log값
-        public string[] logString;
+        private string[] logString;
+        public string[] LogString { get => logString; set => logString = value; }
 
-        public FileIO(string[] filePath)
+        public FileIO()
         {
 
         }
