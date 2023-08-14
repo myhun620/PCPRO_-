@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tb_iecsIPAddress = new System.Windows.Forms.TextBox();
             this.btn_disconnect = new System.Windows.Forms.Button();
             this.btn_connect = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -52,13 +54,11 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.btn_load_receive = new System.Windows.Forms.Button();
             this.btn_load_Send = new System.Windows.Forms.Button();
             this.btn_clear = new System.Windows.Forms.Button();
             this.btn_save = new System.Windows.Forms.Button();
             this.tb_Message = new System.Windows.Forms.TextBox();
-            this.btn_load_receive = new System.Windows.Forms.Button();
-            this.tb_iecsIPAddress = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -80,6 +80,22 @@
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "IECS 연결";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 130);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 12);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "IP ADDRESS : ";
+            // 
+            // tb_iecsIPAddress
+            // 
+            this.tb_iecsIPAddress.Location = new System.Drawing.Point(101, 125);
+            this.tb_iecsIPAddress.Name = "tb_iecsIPAddress";
+            this.tb_iecsIPAddress.Size = new System.Drawing.Size(163, 21);
+            this.tb_iecsIPAddress.TabIndex = 3;
             // 
             // btn_disconnect
             // 
@@ -261,7 +277,7 @@
             this.groupBox5.Size = new System.Drawing.Size(270, 130);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "PLC 연결";
+            this.groupBox5.Text = "PLC/MMC 연결";
             // 
             // button2
             // 
@@ -283,7 +299,7 @@
             this.button3.Size = new System.Drawing.Size(117, 44);
             this.button3.TabIndex = 3;
             this.button3.Tag = "2";
-            this.button3.Text = "PLC 연결";
+            this.button3.Text = "PLC/MMC 연결";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.BtnAction);
             this.button3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
@@ -360,6 +376,20 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Message";
             // 
+            // btn_load_receive
+            // 
+            this.btn_load_receive.Location = new System.Drawing.Point(602, 372);
+            this.btn_load_receive.Name = "btn_load_receive";
+            this.btn_load_receive.Size = new System.Drawing.Size(96, 42);
+            this.btn_load_receive.TabIndex = 1;
+            this.btn_load_receive.TabStop = false;
+            this.btn_load_receive.Tag = "10";
+            this.btn_load_receive.Text = "Receive Log Load";
+            this.btn_load_receive.UseVisualStyleBackColor = true;
+            this.btn_load_receive.Click += new System.EventHandler(this.BtnAction);
+            this.btn_load_receive.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_load_receive.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
             // btn_load_Send
             // 
             this.btn_load_Send.Location = new System.Drawing.Point(500, 372);
@@ -409,36 +439,6 @@
             this.tb_Message.Name = "tb_Message";
             this.tb_Message.Size = new System.Drawing.Size(793, 345);
             this.tb_Message.TabIndex = 0;
-            // 
-            // btn_load_receive
-            // 
-            this.btn_load_receive.Location = new System.Drawing.Point(602, 372);
-            this.btn_load_receive.Name = "btn_load_receive";
-            this.btn_load_receive.Size = new System.Drawing.Size(96, 42);
-            this.btn_load_receive.TabIndex = 1;
-            this.btn_load_receive.TabStop = false;
-            this.btn_load_receive.Tag = "10";
-            this.btn_load_receive.Text = "Receive Log Load";
-            this.btn_load_receive.UseVisualStyleBackColor = true;
-            this.btn_load_receive.Click += new System.EventHandler(this.BtnAction);
-            this.btn_load_receive.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_load_receive.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
-            // tb_iecsIPAddress
-            // 
-            this.tb_iecsIPAddress.Location = new System.Drawing.Point(101, 125);
-            this.tb_iecsIPAddress.Name = "tb_iecsIPAddress";
-            this.tb_iecsIPAddress.Size = new System.Drawing.Size(163, 21);
-            this.tb_iecsIPAddress.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 130);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 12);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "IP ADDRESS : ";
             // 
             // EQUIPMENT01
             // 

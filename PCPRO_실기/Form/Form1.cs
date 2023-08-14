@@ -8,25 +8,34 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
-using ActUtlTypeLib;    // MX Component .dll
+
+using SocketNet;
+//using ActUtlTypeLib;    // MX Component .dll
 
 namespace PCPRO_실기
 {
     public partial class EQUIPMENT01 : Form
     {
+        Socket socket = new Socket();
         const string IECEIPAddress = "";
-        ActUtlType plc;
+        MotionKit motionkit;
+        
+        //ActUtlType plc;
         public EQUIPMENT01()
         {
             InitializeComponent();
             // 메인폼 관련 초기화
-            //WindowState = FormWindowState.Maximized; // form 최대 사이즈 적용
+            WindowState = FormWindowState.Maximized; // form 최대 사이즈 적용
 
             // IECE 연결 초기화
 
 
+
             // PLC 연결(MX Component) 초기화
             // plc.ActLogicalStationNumber = 0;
+
+            // MMC 연결 초기화
+            motionkit = new MotionKit();
 
         }
 
@@ -67,19 +76,24 @@ namespace PCPRO_실기
 
             if (tabIndex == 1 && tag == 6)
             {
-                Manual manual = new Manual();
+                Manual manual = new Manual(motionkit);
                 if (manual.Visible == true)
                 {
                     return;
                 }
                 manual.Location = new Point(1135, 0);
                 manual.Height = Screen.PrimaryScreen.Bounds.Height - 40;
-                manual.Show();
+                manual.ShowDialog();
             }
 
             if (tabIndex == 1 && tag == 11) // 메세지 텍스트박스 클리어
             {
                 tb_Message.Clear();
+            }
+
+            if (tabIndex == 3 && tag == 2)
+            {
+                motionkit.bdInit();
             }
 
         }

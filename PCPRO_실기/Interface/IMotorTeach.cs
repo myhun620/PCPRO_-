@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace PCPRO_실기
 {
-    internal class _
+    public interface IMotorTeach
     {
+        void JogMove(Dir dir);
+        void JogStop();
+        void InchingMove(double dist);
     }
 }
