@@ -29,39 +29,39 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btn_md1_supplyCylinder_fwd = new System.Windows.Forms.Button();
             this.btn_md1_supplyCylinder_bwd = new System.Windows.Forms.Button();
+            this.btn_md1_supplyCylinder_fwd = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btn_md1_conveyor_cw = new System.Windows.Forms.Button();
             this.btn_md1_conveyor_ccw = new System.Windows.Forms.Button();
+            this.btn_md1_conveyor_cw = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btn_md1_axisZ_down = new System.Windows.Forms.Button();
-            this.btn_md1_axisZ_up = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.btn_md1_axisX_right = new System.Windows.Forms.Button();
             this.btn_md1_axisX_left = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btn_md1_axisZ_down = new System.Windows.Forms.Button();
+            this.btn_md1_axisZ_up = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.btn_md2_transferCylinder_grip = new System.Windows.Forms.Button();
+            this.btn_md2_transferCylinder_ungrip = new System.Windows.Forms.Button();
+            this.btn_md2_transferCylinder_right = new System.Windows.Forms.Button();
+            this.btn_md2_transferCylinder_left = new System.Windows.Forms.Button();
+            this.btn_md2_transferCylinder_down = new System.Windows.Forms.Button();
             this.btn_md2_transferCylinder_up = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.btn_md2_itemCylinder_bwd = new System.Windows.Forms.Button();
             this.btn_md2_itemCylinder_fwd = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.btn_md2_transferCylinder_down = new System.Windows.Forms.Button();
-            this.btn_md2_transferCylinder_left = new System.Windows.Forms.Button();
-            this.btn_md2_transferCylinder_right = new System.Windows.Forms.Button();
-            this.btn_md2_transferCylinder_ungrip = new System.Windows.Forms.Button();
-            this.btn_md2_transferCylinder_grip = new System.Windows.Forms.Button();
-            this.btn_md2_supplyCylinder_up = new System.Windows.Forms.Button();
-            this.btn_md2_supplyCylinder_down = new System.Windows.Forms.Button();
-            this.btn_md2_supplyCylinder_ccw = new System.Windows.Forms.Button();
             this.btn_md2_supplyCylinder_cw = new System.Windows.Forms.Button();
+            this.btn_md2_supplyCylinder_ccw = new System.Windows.Forms.Button();
+            this.btn_md2_supplyCylinder_down = new System.Windows.Forms.Button();
+            this.btn_md2_supplyCylinder_up = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -79,18 +79,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "공급실린더";
             // 
-            // btn_md1_supplyCylinder_fwd
-            // 
-            this.btn_md1_supplyCylinder_fwd.Location = new System.Drawing.Point(6, 20);
-            this.btn_md1_supplyCylinder_fwd.Name = "btn_md1_supplyCylinder_fwd";
-            this.btn_md1_supplyCylinder_fwd.Size = new System.Drawing.Size(103, 60);
-            this.btn_md1_supplyCylinder_fwd.TabIndex = 0;
-            this.btn_md1_supplyCylinder_fwd.Tag = "0";
-            this.btn_md1_supplyCylinder_fwd.Text = "전진";
-            this.btn_md1_supplyCylinder_fwd.UseVisualStyleBackColor = true;
-            this.btn_md1_supplyCylinder_fwd.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md1_supplyCylinder_fwd.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
             // btn_md1_supplyCylinder_bwd
             // 
             this.btn_md1_supplyCylinder_bwd.Location = new System.Drawing.Point(6, 86);
@@ -103,6 +91,18 @@
             this.btn_md1_supplyCylinder_bwd.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
             this.btn_md1_supplyCylinder_bwd.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
+            // btn_md1_supplyCylinder_fwd
+            // 
+            this.btn_md1_supplyCylinder_fwd.Location = new System.Drawing.Point(6, 20);
+            this.btn_md1_supplyCylinder_fwd.Name = "btn_md1_supplyCylinder_fwd";
+            this.btn_md1_supplyCylinder_fwd.Size = new System.Drawing.Size(103, 60);
+            this.btn_md1_supplyCylinder_fwd.TabIndex = 0;
+            this.btn_md1_supplyCylinder_fwd.Tag = "0";
+            this.btn_md1_supplyCylinder_fwd.Text = "전진";
+            this.btn_md1_supplyCylinder_fwd.UseVisualStyleBackColor = true;
+            this.btn_md1_supplyCylinder_fwd.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md1_supplyCylinder_fwd.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btn_md1_conveyor_ccw);
@@ -113,18 +113,6 @@
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = " 컨베이어";
-            // 
-            // btn_md1_conveyor_cw
-            // 
-            this.btn_md1_conveyor_cw.Location = new System.Drawing.Point(6, 20);
-            this.btn_md1_conveyor_cw.Name = "btn_md1_conveyor_cw";
-            this.btn_md1_conveyor_cw.Size = new System.Drawing.Size(103, 60);
-            this.btn_md1_conveyor_cw.TabIndex = 2;
-            this.btn_md1_conveyor_cw.Tag = "2";
-            this.btn_md1_conveyor_cw.Text = "작동";
-            this.btn_md1_conveyor_cw.UseVisualStyleBackColor = true;
-            this.btn_md1_conveyor_cw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md1_conveyor_cw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // btn_md1_conveyor_ccw
             // 
@@ -138,6 +126,18 @@
             this.btn_md1_conveyor_ccw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
             this.btn_md1_conveyor_ccw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
+            // btn_md1_conveyor_cw
+            // 
+            this.btn_md1_conveyor_cw.Location = new System.Drawing.Point(6, 20);
+            this.btn_md1_conveyor_cw.Name = "btn_md1_conveyor_cw";
+            this.btn_md1_conveyor_cw.Size = new System.Drawing.Size(103, 60);
+            this.btn_md1_conveyor_cw.TabIndex = 2;
+            this.btn_md1_conveyor_cw.Tag = "2";
+            this.btn_md1_conveyor_cw.Text = "작동";
+            this.btn_md1_conveyor_cw.UseVisualStyleBackColor = true;
+            this.btn_md1_conveyor_cw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md1_conveyor_cw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.groupBox5);
@@ -150,41 +150,6 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Module1 : Work Feeding";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.btn_md1_axisZ_down);
-            this.groupBox4.Controls.Add(this.btn_md1_axisZ_up);
-            this.groupBox4.Location = new System.Drawing.Point(6, 185);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(115, 159);
-            this.groupBox4.TabIndex = 0;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Z축";
-            // 
-            // btn_md1_axisZ_down
-            // 
-            this.btn_md1_axisZ_down.Location = new System.Drawing.Point(6, 86);
-            this.btn_md1_axisZ_down.Name = "btn_md1_axisZ_down";
-            this.btn_md1_axisZ_down.Size = new System.Drawing.Size(103, 60);
-            this.btn_md1_axisZ_down.TabIndex = 5;
-            this.btn_md1_axisZ_down.Tag = "5";
-            this.btn_md1_axisZ_down.Text = "▼";
-            this.btn_md1_axisZ_down.UseVisualStyleBackColor = true;
-            this.btn_md1_axisZ_down.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md1_axisZ_down.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
-            // btn_md1_axisZ_up
-            // 
-            this.btn_md1_axisZ_up.Location = new System.Drawing.Point(6, 20);
-            this.btn_md1_axisZ_up.Name = "btn_md1_axisZ_up";
-            this.btn_md1_axisZ_up.Size = new System.Drawing.Size(103, 60);
-            this.btn_md1_axisZ_up.TabIndex = 4;
-            this.btn_md1_axisZ_up.Tag = "4";
-            this.btn_md1_axisZ_up.Text = "▲";
-            this.btn_md1_axisZ_up.UseVisualStyleBackColor = true;
-            this.btn_md1_axisZ_up.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md1_axisZ_up.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // groupBox5
             // 
@@ -221,6 +186,41 @@
             this.btn_md1_axisX_left.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
             this.btn_md1_axisX_left.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.btn_md1_axisZ_down);
+            this.groupBox4.Controls.Add(this.btn_md1_axisZ_up);
+            this.groupBox4.Location = new System.Drawing.Point(6, 185);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(115, 159);
+            this.groupBox4.TabIndex = 0;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Z축";
+            // 
+            // btn_md1_axisZ_down
+            // 
+            this.btn_md1_axisZ_down.Location = new System.Drawing.Point(6, 86);
+            this.btn_md1_axisZ_down.Name = "btn_md1_axisZ_down";
+            this.btn_md1_axisZ_down.Size = new System.Drawing.Size(103, 60);
+            this.btn_md1_axisZ_down.TabIndex = 5;
+            this.btn_md1_axisZ_down.Tag = "5";
+            this.btn_md1_axisZ_down.Text = "▼";
+            this.btn_md1_axisZ_down.UseVisualStyleBackColor = true;
+            this.btn_md1_axisZ_down.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md1_axisZ_down.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
+            // btn_md1_axisZ_up
+            // 
+            this.btn_md1_axisZ_up.Location = new System.Drawing.Point(6, 20);
+            this.btn_md1_axisZ_up.Name = "btn_md1_axisZ_up";
+            this.btn_md1_axisZ_up.Size = new System.Drawing.Size(103, 60);
+            this.btn_md1_axisZ_up.TabIndex = 4;
+            this.btn_md1_axisZ_up.Tag = "4";
+            this.btn_md1_axisZ_up.Text = "▲";
+            this.btn_md1_axisZ_up.UseVisualStyleBackColor = true;
+            this.btn_md1_axisZ_up.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md1_axisZ_up.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.groupBox8);
@@ -247,6 +247,66 @@
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "이송 실린더";
+            // 
+            // btn_md2_transferCylinder_grip
+            // 
+            this.btn_md2_transferCylinder_grip.Location = new System.Drawing.Point(225, 20);
+            this.btn_md2_transferCylinder_grip.Name = "btn_md2_transferCylinder_grip";
+            this.btn_md2_transferCylinder_grip.Size = new System.Drawing.Size(72, 60);
+            this.btn_md2_transferCylinder_grip.TabIndex = 18;
+            this.btn_md2_transferCylinder_grip.Tag = "18";
+            this.btn_md2_transferCylinder_grip.Text = "GRIP";
+            this.btn_md2_transferCylinder_grip.UseVisualStyleBackColor = true;
+            this.btn_md2_transferCylinder_grip.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_transferCylinder_grip.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
+            // btn_md2_transferCylinder_ungrip
+            // 
+            this.btn_md2_transferCylinder_ungrip.Location = new System.Drawing.Point(303, 20);
+            this.btn_md2_transferCylinder_ungrip.Name = "btn_md2_transferCylinder_ungrip";
+            this.btn_md2_transferCylinder_ungrip.Size = new System.Drawing.Size(72, 60);
+            this.btn_md2_transferCylinder_ungrip.TabIndex = 19;
+            this.btn_md2_transferCylinder_ungrip.Tag = "19";
+            this.btn_md2_transferCylinder_ungrip.Text = "UNGRIP";
+            this.btn_md2_transferCylinder_ungrip.UseVisualStyleBackColor = true;
+            this.btn_md2_transferCylinder_ungrip.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_transferCylinder_ungrip.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
+            // btn_md2_transferCylinder_right
+            // 
+            this.btn_md2_transferCylinder_right.Location = new System.Drawing.Point(169, 86);
+            this.btn_md2_transferCylinder_right.Name = "btn_md2_transferCylinder_right";
+            this.btn_md2_transferCylinder_right.Size = new System.Drawing.Size(72, 60);
+            this.btn_md2_transferCylinder_right.TabIndex = 17;
+            this.btn_md2_transferCylinder_right.Tag = "17";
+            this.btn_md2_transferCylinder_right.Text = "RIGHT";
+            this.btn_md2_transferCylinder_right.UseVisualStyleBackColor = true;
+            this.btn_md2_transferCylinder_right.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_transferCylinder_right.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
+            // btn_md2_transferCylinder_left
+            // 
+            this.btn_md2_transferCylinder_left.Location = new System.Drawing.Point(13, 86);
+            this.btn_md2_transferCylinder_left.Name = "btn_md2_transferCylinder_left";
+            this.btn_md2_transferCylinder_left.Size = new System.Drawing.Size(72, 60);
+            this.btn_md2_transferCylinder_left.TabIndex = 16;
+            this.btn_md2_transferCylinder_left.Tag = "16";
+            this.btn_md2_transferCylinder_left.Text = "LEFT";
+            this.btn_md2_transferCylinder_left.UseVisualStyleBackColor = true;
+            this.btn_md2_transferCylinder_left.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_transferCylinder_left.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
+            // btn_md2_transferCylinder_down
+            // 
+            this.btn_md2_transferCylinder_down.Location = new System.Drawing.Point(91, 86);
+            this.btn_md2_transferCylinder_down.Name = "btn_md2_transferCylinder_down";
+            this.btn_md2_transferCylinder_down.Size = new System.Drawing.Size(72, 60);
+            this.btn_md2_transferCylinder_down.TabIndex = 15;
+            this.btn_md2_transferCylinder_down.Tag = "15";
+            this.btn_md2_transferCylinder_down.Text = "DOWN";
+            this.btn_md2_transferCylinder_down.UseVisualStyleBackColor = true;
+            this.btn_md2_transferCylinder_down.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_transferCylinder_down.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // btn_md2_transferCylinder_up
             // 
@@ -308,88 +368,17 @@
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "공급실린더";
             // 
-            // btn_md2_transferCylinder_down
+            // btn_md2_supplyCylinder_cw
             // 
-            this.btn_md2_transferCylinder_down.Location = new System.Drawing.Point(91, 86);
-            this.btn_md2_transferCylinder_down.Name = "btn_md2_transferCylinder_down";
-            this.btn_md2_transferCylinder_down.Size = new System.Drawing.Size(72, 60);
-            this.btn_md2_transferCylinder_down.TabIndex = 0;
-            this.btn_md2_transferCylinder_down.Text = "DOWN";
-            this.btn_md2_transferCylinder_down.UseVisualStyleBackColor = true;
-            this.btn_md2_transferCylinder_down.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md2_transferCylinder_down.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
-            // btn_md2_transferCylinder_left
-            // 
-            this.btn_md2_transferCylinder_left.Location = new System.Drawing.Point(13, 86);
-            this.btn_md2_transferCylinder_left.Name = "btn_md2_transferCylinder_left";
-            this.btn_md2_transferCylinder_left.Size = new System.Drawing.Size(72, 60);
-            this.btn_md2_transferCylinder_left.TabIndex = 15;
-            this.btn_md2_transferCylinder_left.Tag = "15";
-            this.btn_md2_transferCylinder_left.Text = "LEFT";
-            this.btn_md2_transferCylinder_left.UseVisualStyleBackColor = true;
-            this.btn_md2_transferCylinder_left.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md2_transferCylinder_left.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
-            // btn_md2_transferCylinder_right
-            // 
-            this.btn_md2_transferCylinder_right.Location = new System.Drawing.Point(169, 86);
-            this.btn_md2_transferCylinder_right.Name = "btn_md2_transferCylinder_right";
-            this.btn_md2_transferCylinder_right.Size = new System.Drawing.Size(72, 60);
-            this.btn_md2_transferCylinder_right.TabIndex = 16;
-            this.btn_md2_transferCylinder_right.Tag = "16";
-            this.btn_md2_transferCylinder_right.Text = "RIGHT";
-            this.btn_md2_transferCylinder_right.UseVisualStyleBackColor = true;
-            this.btn_md2_transferCylinder_right.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md2_transferCylinder_right.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
-            // btn_md2_transferCylinder_ungrip
-            // 
-            this.btn_md2_transferCylinder_ungrip.Location = new System.Drawing.Point(303, 20);
-            this.btn_md2_transferCylinder_ungrip.Name = "btn_md2_transferCylinder_ungrip";
-            this.btn_md2_transferCylinder_ungrip.Size = new System.Drawing.Size(72, 60);
-            this.btn_md2_transferCylinder_ungrip.TabIndex = 18;
-            this.btn_md2_transferCylinder_ungrip.Tag = "18";
-            this.btn_md2_transferCylinder_ungrip.Text = "UNGRIP";
-            this.btn_md2_transferCylinder_ungrip.UseVisualStyleBackColor = true;
-            this.btn_md2_transferCylinder_ungrip.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md2_transferCylinder_ungrip.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
-            // btn_md2_transferCylinder_grip
-            // 
-            this.btn_md2_transferCylinder_grip.Location = new System.Drawing.Point(225, 20);
-            this.btn_md2_transferCylinder_grip.Name = "btn_md2_transferCylinder_grip";
-            this.btn_md2_transferCylinder_grip.Size = new System.Drawing.Size(72, 60);
-            this.btn_md2_transferCylinder_grip.TabIndex = 17;
-            this.btn_md2_transferCylinder_grip.Tag = "17";
-            this.btn_md2_transferCylinder_grip.Text = "GRIP";
-            this.btn_md2_transferCylinder_grip.UseVisualStyleBackColor = true;
-            this.btn_md2_transferCylinder_grip.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md2_transferCylinder_grip.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
-            // btn_md2_supplyCylinder_up
-            // 
-            this.btn_md2_supplyCylinder_up.Location = new System.Drawing.Point(86, 20);
-            this.btn_md2_supplyCylinder_up.Name = "btn_md2_supplyCylinder_up";
-            this.btn_md2_supplyCylinder_up.Size = new System.Drawing.Size(72, 60);
-            this.btn_md2_supplyCylinder_up.TabIndex = 8;
-            this.btn_md2_supplyCylinder_up.Tag = "8";
-            this.btn_md2_supplyCylinder_up.Text = "UP";
-            this.btn_md2_supplyCylinder_up.UseVisualStyleBackColor = true;
-            this.btn_md2_supplyCylinder_up.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md2_supplyCylinder_up.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
-            // btn_md2_supplyCylinder_down
-            // 
-            this.btn_md2_supplyCylinder_down.Location = new System.Drawing.Point(86, 86);
-            this.btn_md2_supplyCylinder_down.Name = "btn_md2_supplyCylinder_down";
-            this.btn_md2_supplyCylinder_down.Size = new System.Drawing.Size(72, 60);
-            this.btn_md2_supplyCylinder_down.TabIndex = 9;
-            this.btn_md2_supplyCylinder_down.Tag = "9";
-            this.btn_md2_supplyCylinder_down.Text = "DOWN";
-            this.btn_md2_supplyCylinder_down.UseVisualStyleBackColor = true;
-            this.btn_md2_supplyCylinder_down.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md2_supplyCylinder_down.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.btn_md2_supplyCylinder_cw.Location = new System.Drawing.Point(164, 86);
+            this.btn_md2_supplyCylinder_cw.Name = "btn_md2_supplyCylinder_cw";
+            this.btn_md2_supplyCylinder_cw.Size = new System.Drawing.Size(72, 60);
+            this.btn_md2_supplyCylinder_cw.TabIndex = 11;
+            this.btn_md2_supplyCylinder_cw.Tag = "11";
+            this.btn_md2_supplyCylinder_cw.Text = "CW";
+            this.btn_md2_supplyCylinder_cw.UseVisualStyleBackColor = true;
+            this.btn_md2_supplyCylinder_cw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_supplyCylinder_cw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // btn_md2_supplyCylinder_ccw
             // 
@@ -403,17 +392,29 @@
             this.btn_md2_supplyCylinder_ccw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
             this.btn_md2_supplyCylinder_ccw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
-            // btn_md2_supplyCylinder_cw
+            // btn_md2_supplyCylinder_down
             // 
-            this.btn_md2_supplyCylinder_cw.Location = new System.Drawing.Point(164, 86);
-            this.btn_md2_supplyCylinder_cw.Name = "btn_md2_supplyCylinder_cw";
-            this.btn_md2_supplyCylinder_cw.Size = new System.Drawing.Size(72, 60);
-            this.btn_md2_supplyCylinder_cw.TabIndex = 11;
-            this.btn_md2_supplyCylinder_cw.Tag = "11";
-            this.btn_md2_supplyCylinder_cw.Text = "CW";
-            this.btn_md2_supplyCylinder_cw.UseVisualStyleBackColor = true;
-            this.btn_md2_supplyCylinder_cw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md2_supplyCylinder_cw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.btn_md2_supplyCylinder_down.Location = new System.Drawing.Point(86, 86);
+            this.btn_md2_supplyCylinder_down.Name = "btn_md2_supplyCylinder_down";
+            this.btn_md2_supplyCylinder_down.Size = new System.Drawing.Size(72, 60);
+            this.btn_md2_supplyCylinder_down.TabIndex = 9;
+            this.btn_md2_supplyCylinder_down.Tag = "9";
+            this.btn_md2_supplyCylinder_down.Text = "DOWN";
+            this.btn_md2_supplyCylinder_down.UseVisualStyleBackColor = true;
+            this.btn_md2_supplyCylinder_down.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_supplyCylinder_down.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
+            // btn_md2_supplyCylinder_up
+            // 
+            this.btn_md2_supplyCylinder_up.Location = new System.Drawing.Point(86, 20);
+            this.btn_md2_supplyCylinder_up.Name = "btn_md2_supplyCylinder_up";
+            this.btn_md2_supplyCylinder_up.Size = new System.Drawing.Size(72, 60);
+            this.btn_md2_supplyCylinder_up.TabIndex = 8;
+            this.btn_md2_supplyCylinder_up.Tag = "8";
+            this.btn_md2_supplyCylinder_up.Text = "UP";
+            this.btn_md2_supplyCylinder_up.UseVisualStyleBackColor = true;
+            this.btn_md2_supplyCylinder_up.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_supplyCylinder_up.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // Manual
             // 
@@ -430,8 +431,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);

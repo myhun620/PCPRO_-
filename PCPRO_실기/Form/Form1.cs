@@ -58,13 +58,28 @@ namespace PCPRO_실기
             int tabIndex = btn.TabIndex;
 
             // 버튼별 동작
-            if (tabIndex == 1 && tag == 8)
+
+            // 모듈1 운전모드
+            if (tabIndex == 1 && tag == 6)  // 메뉴얼
+            {
+                Manual manual = new Manual(motionkit);
+                if (manual.Visible == true)
+                {
+                    return;
+                }
+                manual.Location = new Point(Screen.PrimaryScreen.Bounds.Width - manual.Width, 0);
+                manual.Height = this.Height;
+                manual.ShowDialog();
+            }
+
+            // Log 버튼
+            if (tabIndex == 1 && tag == 8)  // log save
             {
                 FileIO fi = new FileIO();
                 fi.FileIOFuction(1, 1, "");
             }
 
-            if (tabIndex == 1 && tag == 9)
+            if (tabIndex == 1 && tag == 9)  // send log load
             {
                 FileIO fi = new FileIO();
                 fi.FileIOFuction(2, 1, "");
@@ -74,22 +89,19 @@ namespace PCPRO_실기
                 }
             }
 
-            if (tabIndex == 1 && tag == 6)
+            if (tabIndex == 1 && tag == 10)  // receive log load
             {
-                Manual manual = new Manual(motionkit);
-                if (manual.Visible == true)
-                {
-                    return;
-                }
-                manual.Location = new Point(1135, 0);
-                manual.Height = Screen.PrimaryScreen.Bounds.Height - 40;
-                manual.ShowDialog();
+                
             }
 
             if (tabIndex == 1 && tag == 11) // 메세지 텍스트박스 클리어
             {
                 tb_Message.Clear();
             }
+
+           
+
+            
 
             if (tabIndex == 3 && tag == 2)
             {

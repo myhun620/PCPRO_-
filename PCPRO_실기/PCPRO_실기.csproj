@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SocketNet">
-      <HintPath>D:\PC_PRO\SocketNet.dll</HintPath>
+      <HintPath>Lib\SocketNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
