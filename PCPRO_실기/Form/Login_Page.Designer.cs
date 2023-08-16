@@ -59,6 +59,7 @@
             this.tb_loginID.Name = "tb_loginID";
             this.tb_loginID.Size = new System.Drawing.Size(100, 21);
             this.tb_loginID.TabIndex = 1;
+            this.tb_loginID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_passWord_KeyDown);
             // 
             // tb_passWord
             // 
@@ -66,6 +67,7 @@
             this.tb_passWord.Name = "tb_passWord";
             this.tb_passWord.Size = new System.Drawing.Size(100, 21);
             this.tb_passWord.TabIndex = 2;
+            this.tb_passWord.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_passWord_KeyDown);
             // 
             // btn_confirm
             // 
@@ -76,6 +78,7 @@
             this.btn_confirm.Text = "확인";
             this.btn_confirm.UseVisualStyleBackColor = true;
             this.btn_confirm.Click += new System.EventHandler(this.btn_confirm_Click);
+            this.btn_confirm.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_passWord_KeyDown);
             // 
             // Login_Page
             // 
@@ -95,6 +98,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Login_Page";
             this.TopMost = true;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_passWord_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

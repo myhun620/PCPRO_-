@@ -68,15 +68,22 @@
             this.btn_md2_pause = new System.Windows.Forms.Button();
             this.btn_md2_stop = new System.Windows.Forms.Button();
             this.btn_md2_run = new System.Windows.Forms.Button();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.lb_still = new System.Windows.Forms.Label();
+            this.lb_unstill = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox3
@@ -330,6 +337,8 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.groupBox12);
+            this.groupBox6.Controls.Add(this.groupBox11);
             this.groupBox6.Location = new System.Drawing.Point(837, 309);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(270, 112);
@@ -476,6 +485,9 @@
             this.btn_md2_1cycle.Tag = "7";
             this.btn_md2_1cycle.Text = "1회 운전";
             this.btn_md2_1cycle.UseVisualStyleBackColor = true;
+            this.btn_md2_1cycle.Click += new System.EventHandler(this.BtnAction);
+            this.btn_md2_1cycle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_1cycle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // btn_md2_manual
             // 
@@ -487,6 +499,9 @@
             this.btn_md2_manual.Tag = "6";
             this.btn_md2_manual.Text = "수동운전";
             this.btn_md2_manual.UseVisualStyleBackColor = true;
+            this.btn_md2_manual.Click += new System.EventHandler(this.BtnAction);
+            this.btn_md2_manual.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_manual.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // btn_md2_Auto
             // 
@@ -498,6 +513,9 @@
             this.btn_md2_Auto.Tag = "5";
             this.btn_md2_Auto.Text = "자동운전";
             this.btn_md2_Auto.UseVisualStyleBackColor = true;
+            this.btn_md2_Auto.Click += new System.EventHandler(this.BtnAction);
+            this.btn_md2_Auto.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_Auto.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // groupBox10
             // 
@@ -556,6 +574,46 @@
             this.btn_md2_run.Text = "RUN";
             this.btn_md2_run.UseVisualStyleBackColor = true;
             // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.lb_still);
+            this.groupBox11.Location = new System.Drawing.Point(9, 20);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(103, 85);
+            this.groupBox11.TabIndex = 0;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "금속";
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.lb_unstill);
+            this.groupBox12.Location = new System.Drawing.Point(118, 20);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(103, 85);
+            this.groupBox12.TabIndex = 0;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "비금속";
+            // 
+            // lb_still
+            // 
+            this.lb_still.AutoSize = true;
+            this.lb_still.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_still.Location = new System.Drawing.Point(38, 32);
+            this.lb_still.Name = "lb_still";
+            this.lb_still.Size = new System.Drawing.Size(31, 29);
+            this.lb_still.TabIndex = 0;
+            this.lb_still.Text = "-";
+            // 
+            // lb_unstill
+            // 
+            this.lb_unstill.AutoSize = true;
+            this.lb_unstill.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_unstill.Location = new System.Drawing.Point(38, 32);
+            this.lb_unstill.Name = "lb_unstill";
+            this.lb_unstill.Size = new System.Drawing.Size(31, 29);
+            this.lb_unstill.TabIndex = 0;
+            this.lb_unstill.Text = "-";
+            // 
             // EQUIPMENT01
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -575,6 +633,8 @@
             this.Name = "EQUIPMENT01";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "EQUIPMENT01";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EQUIPMENT01_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EQUIPMENT01_FormClosed);
             this.Load += new System.EventHandler(this.EQUIPMENT01_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -583,10 +643,15 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -632,6 +697,10 @@
         private System.Windows.Forms.Button btn_md2_pause;
         private System.Windows.Forms.Button btn_md2_stop;
         private System.Windows.Forms.Button btn_md2_run;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.Label lb_unstill;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.Label lb_still;
     }
 }
 
