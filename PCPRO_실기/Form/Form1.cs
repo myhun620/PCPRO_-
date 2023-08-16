@@ -60,6 +60,7 @@ namespace PCPRO_실기
             //}
         }
 
+        // 각 버튼별 Action 함수
         private void BtnAction(object sender, EventArgs e)
         {
             Button btn = sender as Button;
@@ -176,7 +177,7 @@ namespace PCPRO_실기
 
         }
 
-        // 
+        // Main form 모듈별 상태 업데이트 Thread
         private void StatusUpdate()
         {
             while (!bStatusUpdateThread)
