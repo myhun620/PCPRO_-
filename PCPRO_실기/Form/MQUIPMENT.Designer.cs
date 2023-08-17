@@ -45,20 +45,6 @@
             this.btn_md1_stop = new System.Windows.Forms.Button();
             this.btn_md1_run = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.btn_plc_disconnect = new System.Windows.Forms.Button();
-            this.btn_plc_connect = new System.Windows.Forms.Button();
-            this.btn_plc_status = new System.Windows.Forms.Button();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.btn_initialize = new System.Windows.Forms.Button();
-            this.btn_dio = new System.Windows.Forms.Button();
-            this.btn_logoff = new System.Windows.Forms.Button();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.btn_load_receive = new System.Windows.Forms.Button();
-            this.btn_load_Send = new System.Windows.Forms.Button();
-            this.btn_clear = new System.Windows.Forms.Button();
-            this.btn_save = new System.Windows.Forms.Button();
-            this.tb_Message = new System.Windows.Forms.TextBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.btn_md2_1cycle = new System.Windows.Forms.Button();
             this.btn_md2_manual = new System.Windows.Forms.Button();
@@ -68,22 +54,36 @@
             this.btn_md2_pause = new System.Windows.Forms.Button();
             this.btn_md2_stop = new System.Windows.Forms.Button();
             this.btn_md2_run = new System.Windows.Forms.Button();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btn_plc_disconnect = new System.Windows.Forms.Button();
+            this.btn_plc_connect = new System.Windows.Forms.Button();
+            this.btn_plc_status = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.lb_still = new System.Windows.Forms.Label();
             this.lb_unstill = new System.Windows.Forms.Label();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.lb_still = new System.Windows.Forms.Label();
+            this.btn_initialize = new System.Windows.Forms.Button();
+            this.btn_dio = new System.Windows.Forms.Button();
+            this.btn_logoff = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.btn_load_receive = new System.Windows.Forms.Button();
+            this.btn_load_Send = new System.Windows.Forms.Button();
+            this.btn_clear = new System.Windows.Forms.Button();
+            this.btn_save = new System.Windows.Forms.Button();
+            this.tb_Message = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
-            this.groupBox11.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBox12.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox3
@@ -288,6 +288,117 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Module2 : Pick and Place Feeding Station";
             // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.btn_md2_1cycle);
+            this.groupBox9.Controls.Add(this.btn_md2_manual);
+            this.groupBox9.Controls.Add(this.btn_md2_Auto);
+            this.groupBox9.Location = new System.Drawing.Point(7, 199);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(387, 133);
+            this.groupBox9.TabIndex = 1;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "운전 모드";
+            // 
+            // btn_md2_1cycle
+            // 
+            this.btn_md2_1cycle.Location = new System.Drawing.Point(266, 20);
+            this.btn_md2_1cycle.Name = "btn_md2_1cycle";
+            this.btn_md2_1cycle.Size = new System.Drawing.Size(115, 102);
+            this.btn_md2_1cycle.TabIndex = 2;
+            this.btn_md2_1cycle.TabStop = false;
+            this.btn_md2_1cycle.Tag = "7";
+            this.btn_md2_1cycle.Text = "1회 운전";
+            this.btn_md2_1cycle.UseVisualStyleBackColor = true;
+            this.btn_md2_1cycle.Click += new System.EventHandler(this.BtnAction);
+            this.btn_md2_1cycle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_1cycle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
+            // btn_md2_manual
+            // 
+            this.btn_md2_manual.Location = new System.Drawing.Point(136, 20);
+            this.btn_md2_manual.Name = "btn_md2_manual";
+            this.btn_md2_manual.Size = new System.Drawing.Size(115, 102);
+            this.btn_md2_manual.TabIndex = 2;
+            this.btn_md2_manual.TabStop = false;
+            this.btn_md2_manual.Tag = "6";
+            this.btn_md2_manual.Text = "수동운전";
+            this.btn_md2_manual.UseVisualStyleBackColor = true;
+            this.btn_md2_manual.Click += new System.EventHandler(this.BtnAction);
+            this.btn_md2_manual.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_manual.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
+            // btn_md2_Auto
+            // 
+            this.btn_md2_Auto.Location = new System.Drawing.Point(6, 20);
+            this.btn_md2_Auto.Name = "btn_md2_Auto";
+            this.btn_md2_Auto.Size = new System.Drawing.Size(115, 102);
+            this.btn_md2_Auto.TabIndex = 2;
+            this.btn_md2_Auto.TabStop = false;
+            this.btn_md2_Auto.Tag = "5";
+            this.btn_md2_Auto.Text = "자동운전";
+            this.btn_md2_Auto.UseVisualStyleBackColor = true;
+            this.btn_md2_Auto.Click += new System.EventHandler(this.BtnAction);
+            this.btn_md2_Auto.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md2_Auto.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.btn_md2_ems);
+            this.groupBox10.Controls.Add(this.btn_md2_pause);
+            this.groupBox10.Controls.Add(this.btn_md2_stop);
+            this.groupBox10.Controls.Add(this.btn_md2_run);
+            this.groupBox10.Location = new System.Drawing.Point(7, 17);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(387, 172);
+            this.groupBox10.TabIndex = 2;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "운영 상태";
+            // 
+            // btn_md2_ems
+            // 
+            this.btn_md2_ems.Location = new System.Drawing.Point(196, 93);
+            this.btn_md2_ems.Name = "btn_md2_ems";
+            this.btn_md2_ems.Size = new System.Drawing.Size(185, 67);
+            this.btn_md2_ems.TabIndex = 2;
+            this.btn_md2_ems.TabStop = false;
+            this.btn_md2_ems.Tag = "4";
+            this.btn_md2_ems.Text = "EMS";
+            this.btn_md2_ems.UseVisualStyleBackColor = true;
+            // 
+            // btn_md2_pause
+            // 
+            this.btn_md2_pause.Location = new System.Drawing.Point(6, 93);
+            this.btn_md2_pause.Name = "btn_md2_pause";
+            this.btn_md2_pause.Size = new System.Drawing.Size(185, 67);
+            this.btn_md2_pause.TabIndex = 2;
+            this.btn_md2_pause.TabStop = false;
+            this.btn_md2_pause.Tag = "3";
+            this.btn_md2_pause.Text = "PAUSE";
+            this.btn_md2_pause.UseVisualStyleBackColor = true;
+            // 
+            // btn_md2_stop
+            // 
+            this.btn_md2_stop.Location = new System.Drawing.Point(196, 20);
+            this.btn_md2_stop.Name = "btn_md2_stop";
+            this.btn_md2_stop.Size = new System.Drawing.Size(185, 67);
+            this.btn_md2_stop.TabIndex = 2;
+            this.btn_md2_stop.TabStop = false;
+            this.btn_md2_stop.Tag = "2";
+            this.btn_md2_stop.Text = "STOP";
+            this.btn_md2_stop.UseVisualStyleBackColor = true;
+            // 
+            // btn_md2_run
+            // 
+            this.btn_md2_run.Location = new System.Drawing.Point(6, 20);
+            this.btn_md2_run.Name = "btn_md2_run";
+            this.btn_md2_run.Size = new System.Drawing.Size(185, 67);
+            this.btn_md2_run.TabIndex = 2;
+            this.btn_md2_run.TabStop = false;
+            this.btn_md2_run.Tag = "1";
+            this.btn_md2_run.Text = "RUN";
+            this.btn_md2_run.UseVisualStyleBackColor = true;
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.btn_plc_disconnect);
@@ -345,6 +456,46 @@
             this.groupBox6.TabIndex = 1;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "생산 수량";
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.lb_unstill);
+            this.groupBox12.Location = new System.Drawing.Point(118, 20);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(103, 85);
+            this.groupBox12.TabIndex = 0;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "비금속";
+            // 
+            // lb_unstill
+            // 
+            this.lb_unstill.AutoSize = true;
+            this.lb_unstill.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_unstill.Location = new System.Drawing.Point(38, 32);
+            this.lb_unstill.Name = "lb_unstill";
+            this.lb_unstill.Size = new System.Drawing.Size(31, 29);
+            this.lb_unstill.TabIndex = 0;
+            this.lb_unstill.Text = "-";
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.lb_still);
+            this.groupBox11.Location = new System.Drawing.Point(9, 20);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(103, 85);
+            this.groupBox11.TabIndex = 0;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "금속";
+            // 
+            // lb_still
+            // 
+            this.lb_still.AutoSize = true;
+            this.lb_still.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_still.Location = new System.Drawing.Point(38, 32);
+            this.lb_still.Name = "lb_still";
+            this.lb_still.Size = new System.Drawing.Size(31, 29);
+            this.lb_still.TabIndex = 0;
+            this.lb_still.Text = "-";
             // 
             // btn_initialize
             // 
@@ -463,157 +614,6 @@
             this.tb_Message.Size = new System.Drawing.Size(793, 345);
             this.tb_Message.TabIndex = 0;
             // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.btn_md2_1cycle);
-            this.groupBox9.Controls.Add(this.btn_md2_manual);
-            this.groupBox9.Controls.Add(this.btn_md2_Auto);
-            this.groupBox9.Location = new System.Drawing.Point(7, 195);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(387, 133);
-            this.groupBox9.TabIndex = 1;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "운전 모드";
-            // 
-            // btn_md2_1cycle
-            // 
-            this.btn_md2_1cycle.Location = new System.Drawing.Point(266, 20);
-            this.btn_md2_1cycle.Name = "btn_md2_1cycle";
-            this.btn_md2_1cycle.Size = new System.Drawing.Size(115, 102);
-            this.btn_md2_1cycle.TabIndex = 2;
-            this.btn_md2_1cycle.TabStop = false;
-            this.btn_md2_1cycle.Tag = "7";
-            this.btn_md2_1cycle.Text = "1회 운전";
-            this.btn_md2_1cycle.UseVisualStyleBackColor = true;
-            this.btn_md2_1cycle.Click += new System.EventHandler(this.BtnAction);
-            this.btn_md2_1cycle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md2_1cycle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
-            // btn_md2_manual
-            // 
-            this.btn_md2_manual.Location = new System.Drawing.Point(136, 20);
-            this.btn_md2_manual.Name = "btn_md2_manual";
-            this.btn_md2_manual.Size = new System.Drawing.Size(115, 102);
-            this.btn_md2_manual.TabIndex = 2;
-            this.btn_md2_manual.TabStop = false;
-            this.btn_md2_manual.Tag = "6";
-            this.btn_md2_manual.Text = "수동운전";
-            this.btn_md2_manual.UseVisualStyleBackColor = true;
-            this.btn_md2_manual.Click += new System.EventHandler(this.BtnAction);
-            this.btn_md2_manual.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md2_manual.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
-            // btn_md2_Auto
-            // 
-            this.btn_md2_Auto.Location = new System.Drawing.Point(6, 20);
-            this.btn_md2_Auto.Name = "btn_md2_Auto";
-            this.btn_md2_Auto.Size = new System.Drawing.Size(115, 102);
-            this.btn_md2_Auto.TabIndex = 2;
-            this.btn_md2_Auto.TabStop = false;
-            this.btn_md2_Auto.Tag = "5";
-            this.btn_md2_Auto.Text = "자동운전";
-            this.btn_md2_Auto.UseVisualStyleBackColor = true;
-            this.btn_md2_Auto.Click += new System.EventHandler(this.BtnAction);
-            this.btn_md2_Auto.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md2_Auto.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.btn_md2_ems);
-            this.groupBox10.Controls.Add(this.btn_md2_pause);
-            this.groupBox10.Controls.Add(this.btn_md2_stop);
-            this.groupBox10.Controls.Add(this.btn_md2_run);
-            this.groupBox10.Location = new System.Drawing.Point(7, 17);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(387, 172);
-            this.groupBox10.TabIndex = 2;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "운영 상태";
-            // 
-            // btn_md2_ems
-            // 
-            this.btn_md2_ems.Location = new System.Drawing.Point(196, 93);
-            this.btn_md2_ems.Name = "btn_md2_ems";
-            this.btn_md2_ems.Size = new System.Drawing.Size(185, 67);
-            this.btn_md2_ems.TabIndex = 2;
-            this.btn_md2_ems.TabStop = false;
-            this.btn_md2_ems.Tag = "4";
-            this.btn_md2_ems.Text = "EMS";
-            this.btn_md2_ems.UseVisualStyleBackColor = true;
-            // 
-            // btn_md2_pause
-            // 
-            this.btn_md2_pause.Location = new System.Drawing.Point(6, 93);
-            this.btn_md2_pause.Name = "btn_md2_pause";
-            this.btn_md2_pause.Size = new System.Drawing.Size(185, 67);
-            this.btn_md2_pause.TabIndex = 2;
-            this.btn_md2_pause.TabStop = false;
-            this.btn_md2_pause.Tag = "3";
-            this.btn_md2_pause.Text = "PAUSE";
-            this.btn_md2_pause.UseVisualStyleBackColor = true;
-            // 
-            // btn_md2_stop
-            // 
-            this.btn_md2_stop.Location = new System.Drawing.Point(196, 20);
-            this.btn_md2_stop.Name = "btn_md2_stop";
-            this.btn_md2_stop.Size = new System.Drawing.Size(185, 67);
-            this.btn_md2_stop.TabIndex = 2;
-            this.btn_md2_stop.TabStop = false;
-            this.btn_md2_stop.Tag = "2";
-            this.btn_md2_stop.Text = "STOP";
-            this.btn_md2_stop.UseVisualStyleBackColor = true;
-            // 
-            // btn_md2_run
-            // 
-            this.btn_md2_run.Location = new System.Drawing.Point(6, 20);
-            this.btn_md2_run.Name = "btn_md2_run";
-            this.btn_md2_run.Size = new System.Drawing.Size(185, 67);
-            this.btn_md2_run.TabIndex = 2;
-            this.btn_md2_run.TabStop = false;
-            this.btn_md2_run.Tag = "1";
-            this.btn_md2_run.Text = "RUN";
-            this.btn_md2_run.UseVisualStyleBackColor = true;
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.lb_still);
-            this.groupBox11.Location = new System.Drawing.Point(9, 20);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(103, 85);
-            this.groupBox11.TabIndex = 0;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "금속";
-            // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.lb_unstill);
-            this.groupBox12.Location = new System.Drawing.Point(118, 20);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(103, 85);
-            this.groupBox12.TabIndex = 0;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "비금속";
-            // 
-            // lb_still
-            // 
-            this.lb_still.AutoSize = true;
-            this.lb_still.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_still.Location = new System.Drawing.Point(38, 32);
-            this.lb_still.Name = "lb_still";
-            this.lb_still.Size = new System.Drawing.Size(31, 29);
-            this.lb_still.TabIndex = 0;
-            this.lb_still.Text = "-";
-            // 
-            // lb_unstill
-            // 
-            this.lb_unstill.AutoSize = true;
-            this.lb_unstill.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_unstill.Location = new System.Drawing.Point(38, 32);
-            this.lb_unstill.Name = "lb_unstill";
-            this.lb_unstill.Size = new System.Drawing.Size(31, 29);
-            this.lb_unstill.TabIndex = 0;
-            this.lb_unstill.Text = "-";
-            // 
             // EQUIPMENT01
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -642,16 +642,16 @@
             this.groupBox7.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
