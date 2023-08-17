@@ -33,8 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SocketNet">
-      <HintPath>Lib\SocketNet.dll</HintPath>
+    <Reference Include="SocketProtocol, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\SocketProtocol.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

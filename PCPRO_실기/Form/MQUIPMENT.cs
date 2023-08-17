@@ -10,14 +10,17 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 
-using SocketNet;
+using System.Net;
+using System.Net.Sockets;
+using SocketProtocol;
+
 //using ActUtlTypeLib;    // MX Component .dll
 
 namespace PCPRO_실기
 {
     public partial class EQUIPMENT01 : Form
     {
-        Socket socket = new Socket();
+        // Socket socket = new Socket();
         const string IECEIPAddress = "";
         MotionKit motionkit;
 
