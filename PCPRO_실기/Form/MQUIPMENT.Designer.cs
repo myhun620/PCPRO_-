@@ -655,7 +655,7 @@
             this.btn_module1_1cycle.Size = new System.Drawing.Size(115, 102);
             this.btn_module1_1cycle.TabIndex = 1;
             this.btn_module1_1cycle.TabStop = false;
-            this.btn_module1_1cycle.Tag = "7";
+            this.btn_module1_1cycle.Tag = "12";
             this.btn_module1_1cycle.Text = "Module1 1CYCLE";
             this.btn_module1_1cycle.UseVisualStyleBackColor = true;
             // 
@@ -666,7 +666,7 @@
             this.btn_module2_1cycle.Size = new System.Drawing.Size(115, 102);
             this.btn_module2_1cycle.TabIndex = 1;
             this.btn_module2_1cycle.TabStop = false;
-            this.btn_module2_1cycle.Tag = "7";
+            this.btn_module2_1cycle.Tag = "13";
             this.btn_module2_1cycle.Text = "Module2 1CYCLE";
             this.btn_module2_1cycle.UseVisualStyleBackColor = true;
             // 
@@ -676,7 +676,7 @@
             this.btn_servoTeach.Name = "btn_servoTeach";
             this.btn_servoTeach.Size = new System.Drawing.Size(135, 142);
             this.btn_servoTeach.TabIndex = 3;
-            this.btn_servoTeach.Tag = "5";
+            this.btn_servoTeach.Tag = "7";
             this.btn_servoTeach.Text = "SERVO TEACH";
             this.btn_servoTeach.UseVisualStyleBackColor = true;
             this.btn_servoTeach.Click += new System.EventHandler(this.BtnAction);

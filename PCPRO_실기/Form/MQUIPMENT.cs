@@ -199,15 +199,35 @@ namespace PCPRO_실기
 
         }
 
+        #region Thread
         // Main form 모듈별 상태 업데이트 Thread
         private void StatusUpdate()
         {
             while (!bStatusUpdateThread)
             {
+                try
+                {
+
+                }
+                catch (ThreadInterruptedException)
+                {
+                    throw;
+                }
+                catch(ThreadAbortException)
+                {
+                    bStatusUpdateThread = false;
+                    return;
+                }
+                catch (SocketException)
+                {
+                    bStatusUpdateThread = false;
+                    return;
+                }
                 Thread.Sleep(10);
             }
         }
 
+        #endregion
         // Test 용으로 임시사용
         private void TestResultTextBox(string msg)
         {
