@@ -19,6 +19,8 @@ namespace PCPRO_실기
         {
             InitializeComponent();
             login_OkNG = false;
+            tb_loginID.Text = loginID;  // Test 기간만 사용...
+            tb_passWord.Text = passWord;
         }
 
         private void btn_confirm_Click(object sender, EventArgs e)

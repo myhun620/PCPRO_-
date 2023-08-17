@@ -33,6 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Interop.ActUtlTypeLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Debug\Interop.ActUtlTypeLib.dll</HintPath>
+    </Reference>
     <Reference Include="SocketProtocol, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\SocketProtocol.dll</HintPath>
@@ -57,11 +62,11 @@
     <Compile Include="Class\MotionKit.cs" />
     <Compile Include="Class\Servo.cs" />
     <Compile Include="Class\sym.cs" />
-    <Compile Include="Form\MQUIPMENT.cs">
+    <Compile Include="Form\EQUIPMENT.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\MQUIPMENT.Designer.cs">
-      <DependentUpon>MQUIPMENT.cs</DependentUpon>
+    <Compile Include="Form\EQUIPMENT.Designer.cs">
+      <DependentUpon>EQUIPMENT.cs</DependentUpon>
     </Compile>
     <Compile Include="Interface\IMotionTeach.cs" />
     <Compile Include="Interface\IMotorConfig.cs" />
@@ -87,8 +92,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form\MQUIPMENT.resx">
-      <DependentUpon>MQUIPMENT.cs</DependentUpon>
+    <Compile Include="Form\Teach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Teach.Designer.cs">
+      <DependentUpon>Teach.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Form\EQUIPMENT.resx">
+      <DependentUpon>EQUIPMENT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\Login_Page.resx">
       <DependentUpon>Login_Page.cs</DependentUpon>
@@ -108,6 +119,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Form\Teach.resx">
+      <DependentUpon>Teach.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -131,6 +145,9 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
