@@ -56,15 +56,21 @@
     <Compile Include="Class\MotionKit.cs" />
     <Compile Include="Class\Servo.cs" />
     <Compile Include="Class\sym.cs" />
-    <Compile Include="Form\Form1.cs">
+    <Compile Include="Form\MQUIPMENT.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Form\MQUIPMENT.Designer.cs">
+      <DependentUpon>MQUIPMENT.cs</DependentUpon>
     </Compile>
     <Compile Include="Interface\IMotionTeach.cs" />
     <Compile Include="Interface\IMotorConfig.cs" />
     <Compile Include="Interface\IMotorTeach.cs" />
+    <Compile Include="Form\IOForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\IOForm.Designer.cs">
+      <DependentUpon>IOForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Lib\MMCWHP_CS_Lib.cs" />
     <Compile Include="Form\Login_Page.cs">
       <SubType>Form</SubType>
@@ -80,14 +86,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Form\MQUIPMENT.resx">
+      <DependentUpon>MQUIPMENT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\Login_Page.resx">
       <DependentUpon>Login_Page.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\Manual.resx">
       <DependentUpon>Manual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\IOForm.resx">
+      <DependentUpon>IOForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

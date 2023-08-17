@@ -27,4 +27,8 @@ namespace PCPRO_실기
         STEP00, STEP01, STEP02, STEP03, STEP04, STEP05, STEP06, STEP07, STEP08, STEP09, STEP10, STEP11, STEP12, STEP13,
         STEP100, STEP101
     }
+    public enum LogModule
+    {
+        SAVE, LOAD, RECEIVE, SEND
+    }
 }

@@ -115,13 +115,14 @@ namespace PCPRO_실기
             if (tabIndex == 1 && tag == 8)  // log save
             {
                 FileIO fi = new FileIO();
-                fi.FileIOFuction(1, 1, "");
+                fi.FileIOFuction(LogModule.SAVE, LogModule.RECEIVE, "RECEIVE");
+                fi.FileIOFuction(LogModule.SAVE, LogModule.SEND, "SEND");
             }
 
             if (tabIndex == 1 && tag == 9)  // send log load
             {
                 FileIO fi = new FileIO();
-                fi.FileIOFuction(2, 1, "");
+                fi.FileIOFuction(LogModule.LOAD, LogModule.RECEIVE, "");
                 for (int i = 0; i < fi.LogString.Length; i++)
                 {
                     tb_Message.AppendText(fi.LogString[i] + "\r\n");
@@ -130,7 +131,12 @@ namespace PCPRO_실기
 
             if (tabIndex == 1 && tag == 10)  // receive log load
             {
-                
+                FileIO fi = new FileIO();
+                fi.FileIOFuction(LogModule.LOAD, LogModule.SEND, "");
+                for (int i = 0; i < fi.LogString.Length; i++)
+                {
+                    tb_Message.AppendText(fi.LogString[i] + "\r\n");
+                }
             }
 
             if (tabIndex == 1 && tag == 11) // 메세지 텍스트박스 클리어
@@ -162,6 +168,19 @@ namespace PCPRO_실기
                 
             }
 
+            // DIO Form 열기
+            if (tabIndex == 3 && tag == 5)
+            {
+                IOForm io = new IOForm();
+                if (io.Visible == true)
+                {
+                    return;
+                }
+                io.Location = new Point(Screen.PrimaryScreen.Bounds.Width - io.Width, 0);
+                io.Height = this.Height;
+                io.ShowDialog();
+            }
+
             // Log OFF
             if (tabIndex == 3 && tag == 6)
             {
@@ -186,6 +205,7 @@ namespace PCPRO_실기
             }
         }
 
+        // Test 용으로 임시사용
         private void TestResultTextBox(string msg)
         {
             tb_Message.AppendText(msg);

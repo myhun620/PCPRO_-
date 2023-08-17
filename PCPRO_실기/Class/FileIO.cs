@@ -16,6 +16,7 @@ namespace PCPRO_실기
         const string Module2FilePath = "Rcv_01.txt";
         // 반환되는 Log값
         private string[] logString;
+       
         public string[] LogString { get => logString; set => logString = value; }
 
         public FileIO()
@@ -26,29 +27,29 @@ namespace PCPRO_실기
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="mode">1: save, 2: load</param>
-        /// <param name="module">1: MD1, 2: MD2</param>
-        /// <param name="msg"></param>
-        public void FileIOFuction(int mode, int module, string msg)
+        /// <param name="mode">SAVE, LOAD</param>
+        /// <param name="module">MODULE1, MODULE2</param>
+        /// <param name="msg">SAVE면 문자열입력</param>
+        public void FileIOFuction(LogModule mode, LogModule module, string msg)
         {
-            if (mode == 1)
+            if (mode == LogModule.SAVE)
             {
-                if (module == 1)
+                if (module == LogModule.RECEIVE)
                 {
                     FileSave(DirctionaryPath(Module1FilePath), msg);
                 }
-                else if (module == 2)
+                else if (module == LogModule.SEND)
                 {
                     FileSave(DirctionaryPath(Module2FilePath), msg);
                 }
             }
-            else if (mode == 2)
+            else if (mode == LogModule.LOAD)
             {
-                if (module == 1)
+                if (module == LogModule.RECEIVE)
                 {
                     logString = FileLoad(DirctionaryPath(Module1FilePath));
                 }
-                else if (module == 2)
+                else if (module == LogModule.SEND)
                 {
                     logString = FileLoad(DirctionaryPath(Module2FilePath));
                 }
