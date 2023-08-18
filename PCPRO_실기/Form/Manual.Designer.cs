@@ -81,6 +81,7 @@
             // 
             // btn_md1_supplyCylinder_bwd
             // 
+            this.btn_md1_supplyCylinder_bwd.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md1_supplyCylinder_bwd.Location = new System.Drawing.Point(6, 86);
             this.btn_md1_supplyCylinder_bwd.Name = "btn_md1_supplyCylinder_bwd";
             this.btn_md1_supplyCylinder_bwd.Size = new System.Drawing.Size(103, 60);
@@ -93,6 +94,7 @@
             // 
             // btn_md1_supplyCylinder_fwd
             // 
+            this.btn_md1_supplyCylinder_fwd.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md1_supplyCylinder_fwd.Location = new System.Drawing.Point(6, 20);
             this.btn_md1_supplyCylinder_fwd.Name = "btn_md1_supplyCylinder_fwd";
             this.btn_md1_supplyCylinder_fwd.Size = new System.Drawing.Size(103, 60);
@@ -116,6 +118,7 @@
             // 
             // btn_md1_conveyor_ccw
             // 
+            this.btn_md1_conveyor_ccw.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md1_conveyor_ccw.Location = new System.Drawing.Point(6, 86);
             this.btn_md1_conveyor_ccw.Name = "btn_md1_conveyor_ccw";
             this.btn_md1_conveyor_ccw.Size = new System.Drawing.Size(103, 60);
@@ -128,6 +131,7 @@
             // 
             // btn_md1_conveyor_cw
             // 
+            this.btn_md1_conveyor_cw.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md1_conveyor_cw.Location = new System.Drawing.Point(6, 20);
             this.btn_md1_conveyor_cw.Name = "btn_md1_conveyor_cw";
             this.btn_md1_conveyor_cw.Size = new System.Drawing.Size(103, 60);
@@ -164,6 +168,7 @@
             // 
             // btn_md1_axisX_right
             // 
+            this.btn_md1_axisX_right.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md1_axisX_right.Location = new System.Drawing.Point(115, 20);
             this.btn_md1_axisX_right.Name = "btn_md1_axisX_right";
             this.btn_md1_axisX_right.Size = new System.Drawing.Size(103, 60);
@@ -176,6 +181,7 @@
             // 
             // btn_md1_axisX_left
             // 
+            this.btn_md1_axisX_left.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md1_axisX_left.Location = new System.Drawing.Point(6, 20);
             this.btn_md1_axisX_left.Name = "btn_md1_axisX_left";
             this.btn_md1_axisX_left.Size = new System.Drawing.Size(103, 60);
@@ -199,6 +205,7 @@
             // 
             // btn_md1_axisZ_down
             // 
+            this.btn_md1_axisZ_down.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md1_axisZ_down.Location = new System.Drawing.Point(6, 86);
             this.btn_md1_axisZ_down.Name = "btn_md1_axisZ_down";
             this.btn_md1_axisZ_down.Size = new System.Drawing.Size(103, 60);
@@ -211,6 +218,7 @@
             // 
             // btn_md1_axisZ_up
             // 
+            this.btn_md1_axisZ_up.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md1_axisZ_up.Location = new System.Drawing.Point(6, 20);
             this.btn_md1_axisZ_up.Name = "btn_md1_axisZ_up";
             this.btn_md1_axisZ_up.Size = new System.Drawing.Size(103, 60);
@@ -250,6 +258,7 @@
             // 
             // btn_md2_transferCylinder_grip
             // 
+            this.btn_md2_transferCylinder_grip.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_transferCylinder_grip.Location = new System.Drawing.Point(225, 20);
             this.btn_md2_transferCylinder_grip.Name = "btn_md2_transferCylinder_grip";
             this.btn_md2_transferCylinder_grip.Size = new System.Drawing.Size(72, 60);
@@ -262,6 +271,7 @@
             // 
             // btn_md2_transferCylinder_ungrip
             // 
+            this.btn_md2_transferCylinder_ungrip.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_transferCylinder_ungrip.Location = new System.Drawing.Point(303, 20);
             this.btn_md2_transferCylinder_ungrip.Name = "btn_md2_transferCylinder_ungrip";
             this.btn_md2_transferCylinder_ungrip.Size = new System.Drawing.Size(72, 60);
@@ -274,6 +284,7 @@
             // 
             // btn_md2_transferCylinder_right
             // 
+            this.btn_md2_transferCylinder_right.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_transferCylinder_right.Location = new System.Drawing.Point(169, 86);
             this.btn_md2_transferCylinder_right.Name = "btn_md2_transferCylinder_right";
             this.btn_md2_transferCylinder_right.Size = new System.Drawing.Size(72, 60);
@@ -286,6 +297,7 @@
             // 
             // btn_md2_transferCylinder_left
             // 
+            this.btn_md2_transferCylinder_left.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_transferCylinder_left.Location = new System.Drawing.Point(13, 86);
             this.btn_md2_transferCylinder_left.Name = "btn_md2_transferCylinder_left";
             this.btn_md2_transferCylinder_left.Size = new System.Drawing.Size(72, 60);
@@ -298,6 +310,7 @@
             // 
             // btn_md2_transferCylinder_down
             // 
+            this.btn_md2_transferCylinder_down.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_transferCylinder_down.Location = new System.Drawing.Point(91, 86);
             this.btn_md2_transferCylinder_down.Name = "btn_md2_transferCylinder_down";
             this.btn_md2_transferCylinder_down.Size = new System.Drawing.Size(72, 60);
@@ -310,6 +323,7 @@
             // 
             // btn_md2_transferCylinder_up
             // 
+            this.btn_md2_transferCylinder_up.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_transferCylinder_up.Location = new System.Drawing.Point(91, 20);
             this.btn_md2_transferCylinder_up.Name = "btn_md2_transferCylinder_up";
             this.btn_md2_transferCylinder_up.Size = new System.Drawing.Size(72, 60);
@@ -333,6 +347,7 @@
             // 
             // btn_md2_itemCylinder_bwd
             // 
+            this.btn_md2_itemCylinder_bwd.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_itemCylinder_bwd.Location = new System.Drawing.Point(6, 86);
             this.btn_md2_itemCylinder_bwd.Name = "btn_md2_itemCylinder_bwd";
             this.btn_md2_itemCylinder_bwd.Size = new System.Drawing.Size(103, 60);
@@ -345,6 +360,7 @@
             // 
             // btn_md2_itemCylinder_fwd
             // 
+            this.btn_md2_itemCylinder_fwd.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_itemCylinder_fwd.Location = new System.Drawing.Point(6, 20);
             this.btn_md2_itemCylinder_fwd.Name = "btn_md2_itemCylinder_fwd";
             this.btn_md2_itemCylinder_fwd.Size = new System.Drawing.Size(103, 60);
@@ -370,6 +386,7 @@
             // 
             // btn_md2_supplyCylinder_cw
             // 
+            this.btn_md2_supplyCylinder_cw.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_supplyCylinder_cw.Location = new System.Drawing.Point(164, 86);
             this.btn_md2_supplyCylinder_cw.Name = "btn_md2_supplyCylinder_cw";
             this.btn_md2_supplyCylinder_cw.Size = new System.Drawing.Size(72, 60);
@@ -382,6 +399,7 @@
             // 
             // btn_md2_supplyCylinder_ccw
             // 
+            this.btn_md2_supplyCylinder_ccw.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_supplyCylinder_ccw.Location = new System.Drawing.Point(8, 86);
             this.btn_md2_supplyCylinder_ccw.Name = "btn_md2_supplyCylinder_ccw";
             this.btn_md2_supplyCylinder_ccw.Size = new System.Drawing.Size(72, 60);
@@ -394,6 +412,7 @@
             // 
             // btn_md2_supplyCylinder_down
             // 
+            this.btn_md2_supplyCylinder_down.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_supplyCylinder_down.Location = new System.Drawing.Point(86, 86);
             this.btn_md2_supplyCylinder_down.Name = "btn_md2_supplyCylinder_down";
             this.btn_md2_supplyCylinder_down.Size = new System.Drawing.Size(72, 60);
@@ -406,6 +425,7 @@
             // 
             // btn_md2_supplyCylinder_up
             // 
+            this.btn_md2_supplyCylinder_up.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_supplyCylinder_up.Location = new System.Drawing.Point(86, 20);
             this.btn_md2_supplyCylinder_up.Name = "btn_md2_supplyCylinder_up";
             this.btn_md2_supplyCylinder_up.Size = new System.Drawing.Size(72, 60);

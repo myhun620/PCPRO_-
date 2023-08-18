@@ -92,7 +92,18 @@ namespace PCPRO_실기
                 autoStep = 0;   // 자동운전 시작
                 RunModeStatus(gb, "RUN");
             }
-            if (tabIndex == 1 && tag == 2)  // 메뉴얼
+
+            if (tabIndex == 1 && tag == 2)  // 정지
+            {
+                RunModeStatus(gb, "STOP");
+            }
+
+            if (tabIndex == 1 && tag == 3)  // 일시정지
+            {
+                RunModeStatus(gb, "PAUSE");
+            }
+
+            if (tabIndex == 1 && tag == 4)  // 메뉴얼
             {
                 RunModeStatus(gb, "STOP");
                 Manual manual = new Manual(motionkit);
@@ -105,29 +116,34 @@ namespace PCPRO_실기
 
                 manual.ShowDialog();
             }
-            if (tabIndex == 1 && tag == 3)  // Equipment 1Cycle
+            if (tabIndex == 1 && tag == 5)  // Equipment 1Cycle
             {
                 RunModeStatus(gb, "RUN");
             }
 
-            if (tabIndex == 1 && tag == 4)  // Module1 1Cycle
+            if (tabIndex == 1 && tag == 6)  // Module1 1Cycle
             {
                 RunModeStatus(gb_module1, "RUN");
             }
-            if (tabIndex == 1 && tag == 5)  // Module2 1Cycle
+            if (tabIndex == 1 && tag == 7)  // Module2 1Cycle
             {
                 RunModeStatus(gb_module2, "RUN");
             }
 
+            if (tabIndex == 1 && tag == 8)  // EMS
+            {
+                RunModeStatus(gb, "EMS");
+            }
+
             // Log 버튼
-            if (tabIndex == 1 && tag == 6)  // log save
+            if (tabIndex == 1 && tag == 9)  // log save
             {
                 FileIO fi = new FileIO();
                 fi.FileIOFuction(LogModule.SAVE, LogModule.RECEIVE, "RECEIVE");
                 fi.FileIOFuction(LogModule.SAVE, LogModule.SEND, "SEND");
             }
 
-            if (tabIndex == 1 && tag == 7)  // send log load
+            if (tabIndex == 1 && tag == 10)  // send log load
             {
                 FileIO fi = new FileIO();
                 fi.FileIOFuction(LogModule.LOAD, LogModule.RECEIVE, "");
@@ -137,7 +153,7 @@ namespace PCPRO_실기
                 }
             }
 
-            if (tabIndex == 1 && tag == 8)  // receive log load
+            if (tabIndex == 1 && tag == 11)  // receive log load
             {
                 FileIO fi = new FileIO();
                 fi.FileIOFuction(LogModule.LOAD, LogModule.SEND, "");
@@ -147,7 +163,7 @@ namespace PCPRO_실기
                 }
             }
 
-            if (tabIndex == 1 && tag == 9) // 메세지 텍스트박스 클리어
+            if (tabIndex == 1 && tag == 12) // 메세지 텍스트박스 클리어
             {
                 tb_Message.Clear();
             }
@@ -236,7 +252,7 @@ namespace PCPRO_실기
                 {
                     if (control is Button button)
                     {
-                        control.Enabled = false;
+                        control.Enabled = true;
                         control.BackColor = SystemColors.Control;
                     }
                 }
@@ -280,7 +296,7 @@ namespace PCPRO_실기
             {
                 if (control is Button button)
                 {
-                    control.Enabled = false;
+                    control.Enabled = true;
                     control.BackColor = SystemColors.Control;
                 }
             }
