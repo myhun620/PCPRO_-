@@ -31,6 +31,7 @@ namespace PCPRO_실기
         bool bStatusUpdateThread;
         Thread statusUpdateThread;
         GroupBox[] gb;
+        NetWork tcpClientNetWork;
 
         //ActUtlType plc;
         public EQUIPMENT01()
@@ -90,6 +91,9 @@ namespace PCPRO_실기
             if (tabIndex == 1 && tag == 1)  // 자동운전
             {
                 autoStep = 0;   // 자동운전 시작
+                Protocol ptcMessage = new Protocol();
+                ptcMessage.Name = Modulename.Feed;
+                tcpClientNetWork.SendMessage(ptcMessage);
                 RunModeStatus(gb, "RUN");
             }
 
@@ -172,7 +176,9 @@ namespace PCPRO_실기
             if (tabIndex == 3 && tag == 0)
             {
                 string ipAddress = tb_iecsIPAddress.Text;
+                int portNumber = int.Parse(tb_iecsPort.Text);
                 // TCP/IP 서버연결 추가
+                tcpClientNetWork = new NetWork(ipAddress, portNumber);
             }
             else if (tabIndex == 3 && tag == 1)
             {

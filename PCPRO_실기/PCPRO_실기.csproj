@@ -36,7 +36,7 @@
     <Reference Include="Interop.ActUtlTypeLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>bin\Debug\Interop.ActUtlTypeLib.dll</HintPath>
+      <HintPath>Properties\Interop.ActUtlTypeLib.dll</HintPath>
     </Reference>
     <Reference Include="SocketProtocol, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -60,6 +60,7 @@
     <Compile Include="Class\DIO.cs" />
     <Compile Include="Class\FileIO.cs" />
     <Compile Include="Class\MotionKit.cs" />
+    <Compile Include="Class\NetWork.cs" />
     <Compile Include="Class\Servo.cs" />
     <Compile Include="Class\sym.cs" />
     <Compile Include="Form\EQUIPMENT.cs">
