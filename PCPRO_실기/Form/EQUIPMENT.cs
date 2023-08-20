@@ -47,6 +47,9 @@ namespace PCPRO_실기
             };
 
             // IECE 연결 초기화
+            tb_iecsIPAddress.Text = "210.181.151.214";
+            tb_iecsPort.Text = "20000";
+
 
             //자동운전관련필드 초기화
             autoStep = -1;
@@ -91,9 +94,9 @@ namespace PCPRO_실기
             if (tabIndex == 1 && tag == 1)  // 자동운전
             {
                 autoStep = 0;   // 자동운전 시작
-                Protocol ptcMessage = new Protocol();
-                ptcMessage.Name = Modulename.Feed;
-                tcpClientNetWork.SendMessage(ptcMessage);
+                // Protocol ptcMessage = new Protocol();
+                // ptcMessage.Name = Modulename.Feed;
+                // tcpClientNetWork.SendMessage(ptcMessage);
                 RunModeStatus(gb, "RUN");
             }
 
@@ -179,6 +182,7 @@ namespace PCPRO_실기
                 int portNumber = int.Parse(tb_iecsPort.Text);
                 // TCP/IP 서버연결 추가
                 tcpClientNetWork = new NetWork(ipAddress, portNumber);
+                tb_Message.Text = tcpClientNetWork.statusMessage;
             }
             else if (tabIndex == 3 && tag == 1)
             {
@@ -190,7 +194,7 @@ namespace PCPRO_실기
             if (tabIndex == 3 && tag == 2)
             {
                 // PLC 연결 추가
-                motionkit.bdInit();
+                short s = motionkit.bdInit();
             }
             else if (tabIndex == 3 && tag == 3)
             {

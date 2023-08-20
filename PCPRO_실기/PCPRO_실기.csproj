@@ -38,9 +38,8 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>Properties\Interop.ActUtlTypeLib.dll</HintPath>
     </Reference>
-    <Reference Include="SocketProtocol, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\SocketProtocol.dll</HintPath>
+    <Reference Include="SocketProtocol">
+      <HintPath>Lib\SocketProtocol.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

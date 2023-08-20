@@ -30,7 +30,7 @@ namespace PCPRO_실기
             ipep = new IPEndPoint(IPAddress.Parse(ipAddress), portNumber);
             bSendMessage = false;
             sendMessageList = new Queue<Protocol>();
-            statusMessage = Connect();
+            statusMessage = statusMessage = Connect();
         }
 
         private string Connect()
@@ -40,7 +40,7 @@ namespace PCPRO_실기
             {
                 tcpClient = new TcpClient();
                 tcpClient.Connect(ipep);
-                // thread = new Thread(new ThreadStart());
+                thd_Network = new Thread(new ThreadStart(SendMessageThread));
                 bSendMessage = true;
                 thd_Network.Start();
                 msg = "Server 접속 성공. Thread 시작합니다.";
