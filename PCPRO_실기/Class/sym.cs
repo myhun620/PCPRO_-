@@ -31,4 +31,9 @@ namespace PCPRO_실기
     {
         SAVE, LOAD, RECEIVE, SEND
     }
+    
+    public enum Axis
+    {
+        X, Z
+    }
 }

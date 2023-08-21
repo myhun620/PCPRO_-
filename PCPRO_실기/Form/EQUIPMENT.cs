@@ -20,12 +20,23 @@ namespace PCPRO_실기
 {
     public partial class EQUIPMENT01 : Form
     {
-        // Socket socket = new Socket();
-        const string IECEIPAddress = "";
+        // 원점복귀 필드
+        RptMsg rptOrg;
+        CmdMsg cmdOrg;
+        RptMsg rptInit;
+        CmdMsg cmdInit;
+
+        // MMC 필드
         MotionKit motionkit;
+
+        // PLC 필드
+        ActUtlType module1, module2;
+        PLC module1PLC, module2PLC;
+        Axis X, Z;
 
         // 자동운전관련 필드
         private int autoStep;
+        // 
 
         // Thread 선언
         bool bStatusUpdateThread;
@@ -33,7 +44,7 @@ namespace PCPRO_실기
         GroupBox[] gb;
         NetWork tcpClientNetWork;
 
-        //ActUtlType plc;
+      
         public EQUIPMENT01()
         {
             InitializeComponent();
@@ -45,9 +56,9 @@ namespace PCPRO_실기
                 gb_module1,
                 gb_module2
             };
-
+            
             // IECE 연결 초기화
-            tb_iecsIPAddress.Text = "210.181.151.214";
+            tb_iecsIPAddress.Text = "210.181.151.224";
             tb_iecsPort.Text = "20000";
 
 
@@ -56,10 +67,17 @@ namespace PCPRO_실기
 
 
             // PLC 연결(MX Component) 초기화
-            // plc.ActLogicalStationNumber = 0;
+            module1 = new ActUtlType();
+            module2 = new ActUtlType();
+
+            module1.ActLogicalStationNumber = 1;
+            module2.ActLogicalStationNumber = 2;
+
+            module1PLC = new PLC(module1);
+            module2PLC = new PLC(module2);
 
             // MMC 연결 초기화
-            motionkit = new MotionKit();
+            motionkit = new MotionKit(module1PLC);
 
             // Thread 초기화
             bStatusUpdateThread = true;
@@ -113,7 +131,9 @@ namespace PCPRO_실기
             if (tabIndex == 1 && tag == 4)  // 메뉴얼
             {
                 RunModeStatus(gb, "STOP");
-                Manual manual = new Manual(motionkit);
+                Manual manual = new Manual(motionkit, module1PLC, module2PLC);
+                
+                
                 if (manual.Visible == true)
                 {
                     return;
@@ -187,19 +207,34 @@ namespace PCPRO_실기
             else if (tabIndex == 3 && tag == 1)
             {
                 // IECS 연결 끊기
+
             }
 
 
-            // PLC/MMC 연결
+            // PLC 연결
             if (tabIndex == 3 && tag == 2)
             {
-                // PLC 연결 추가
-                short s = motionkit.bdInit();
+                module1PLC.IRet = module1PLC.PLCOpen();
+                module2PLC.IRet = module2PLC.PLCOpen();
+
+                motionkit.bdInit(); // 보드 연결
+
+                motionkit[(int)Axis.X].ServoOn();
+                motionkit[(int)Axis.Z].ServoOn();
+
+                motionkit[(int)Axis.X].GetSvrInfo();
+                motionkit[(int)Axis.Z].GetSvrInfo();
             }
             else if (tabIndex == 3 && tag == 3)
             {
-                // PLC / MMC 연결 끊기
+                module1PLC.IRet = module1.Close();
+                module2PLC.IRet = module2.Close();
 
+                motionkit[(int)Axis.X].ServoOff();
+                motionkit[(int)Axis.Z].ServoOff();
+
+                motionkit[(int)Axis.X].GetSvrInfo();
+                motionkit[(int)Axis.Z].GetSvrInfo();
             }
 
             // DIO Form 열기
@@ -232,6 +267,7 @@ namespace PCPRO_실기
             if (tabIndex == 3 && tag == 6)
             {
                 RunModeStatus(gb, "PAUSE");
+                InitTimer.Start();
             }
 
             // Log OFF
@@ -343,62 +379,20 @@ namespace PCPRO_실기
         // Main form 모듈별 상태 업데이트 Thread
         private void StatusUpdate()
         {
-            while (!bStatusUpdateThread)
+            while (bStatusUpdateThread)
             {
                 try
                 {
-                    switch (autoStep)
+                    if (module1PLC.IRet == 0 && module2PLC.IRet == 0 && motionkit[0].SvrEnable && motionkit[1].SvrEnable)
                     {
-                        // Module1 동작 영역
-                        case 0:// 제품 카트리지 이동?? Servo 동작
-                            // 작성 필요
-                            break;
-                        case 1: // 컨베이어 작동
-                            break;
-                        case 2: // 컨베이어 정지
-                            break;
-                        case 3: // Pick-Up Unit Cylinder Z축 하강
-                            break;
-                        case 4: // Pick-Up Unit Rotator -90도 회전
-                            break;
-                        case 5: // Pick-Up Unit Cylinder Z축 상승
-                            break;
-                        case 6: // 공급 실린더 전진
-                            break;
-                        case 7: // 공급 실린더 후진
-                            break;
-                        // Module2 동작 영역
-                        case 8: // 이송 실린더 Down
-                            break;
-                        case 9: // 이송 실린더 Grip
-                            break;
-                        case 10: // 이송 실린더 Up
-                            break;
-                        case 11: // 이송 실린더 Right
-                            break;
-                        case 12: // 이송 실린더 Down
-                            break;
-                        case 13: // 이송 실린더 Ungrip
-                            break;
-                        case 14: // 이송 실린더 Left
-                            break;
-                        case 15: // 공급 실린더 CW
-                            break;
-                        case 16: // 공급 실린더 정지
-                            break;
-                        case 17: // 검사기 동작??
-                            break;
-                        case 18: // 공급 실린더 CW
-                            break;
-                        case 19: // 공급 실린더 정지
-                            break;
-                        case 20: // 제품밀착 실린더 전진
-                            break;
-                        case 21: // 제품밀착 실린더 후진
-                            break;
-                        default:
-                            break;
+                        btn_plc_status.BackColor = Color.YellowGreen;
                     }
+                    else
+                    {
+                        btn_plc_status.BackColor = SystemColors.Control;
+                    }
+
+
                 }
                 catch (ThreadInterruptedException)
                 {
@@ -419,11 +413,7 @@ namespace PCPRO_실기
         }
 
         #endregion
-        // Test 용으로 임시사용
-        private void TestResultTextBox(string msg)
-        {
-            tb_Message.AppendText(msg);
-        }
+
 
         #region Form관련 영역
         private void ButtonColor_Down(object sender, MouseEventArgs e) // 버튼 컬러 바꾸기 함수
@@ -437,11 +427,44 @@ namespace PCPRO_실기
             Button btn = sender as Button;
             btn.BackColor = SystemColors.Control;
         }
+
+        private void InitTimer_Tick(object sender, EventArgs e)     // 이니셜용 타이머
+        {
+            rptOrg = motionkit.Origin(cmdOrg);
+            if (rptOrg == RptMsg.READY && cmdOrg == CmdMsg.CHECK)
+            {
+                cmdOrg = CmdMsg.START;
+            }
+            else if (rptOrg == RptMsg.BUSY)
+            {
+                cmdOrg = CmdMsg.CHECK;
+            }
+            else if (rptOrg == RptMsg.COMPLETE)
+            {
+                cmdOrg = CmdMsg.END;
+            }
+            else if (rptOrg == RptMsg.READY && cmdOrg == CmdMsg.END)
+            {
+                cmdOrg = CmdMsg.CHECK;
+                tb_Message.Text = "원점복귀 완료";
+                InitTimer.Stop();
+            }
+        }
+
         private void EQUIPMENT01_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Thread 종료
             bStatusUpdateThread = false;
-            statusUpdateThread.Interrupt();
+            statusUpdateThread.Abort();
+            module1PLC.bThdReadPLC = false;
+            module2PLC.bThdReadPLC = false;
+            module1PLC.thdReadPLC.Abort();
+            module2PLC.thdReadPLC.Abort();
+        }
+
+        private void button7_MouseDown(object sender, MouseEventArgs e) ///////////////////////////////////////////////////
+        {
+
         }
 
         private void EQUIPMENT01_FormClosed(object sender, FormClosedEventArgs e)

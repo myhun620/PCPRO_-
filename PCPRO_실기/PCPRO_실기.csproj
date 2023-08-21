@@ -60,6 +60,7 @@
     <Compile Include="Class\FileIO.cs" />
     <Compile Include="Class\MotionKit.cs" />
     <Compile Include="Class\NetWork.cs" />
+    <Compile Include="Class\PLC.cs" />
     <Compile Include="Class\Servo.cs" />
     <Compile Include="Class\sym.cs" />
     <Compile Include="Form\EQUIPMENT.cs">

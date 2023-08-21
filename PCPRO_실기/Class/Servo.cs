@@ -24,6 +24,7 @@ namespace PCPRO_실기
 
         RptMsg rptZr;
         Step stepZr;
+        PLC plc;
 
         #region Property
         public bool SvrEnable { get => svrEnable; }
@@ -51,8 +52,9 @@ namespace PCPRO_실기
         public double VelPos { get => velPos; set => velPos = value; }
         #endregion
 
-        public Servo(short axNo) : base(axNo)
+        public Servo(short axNo, PLC moudule1PLC) : base(axNo)
         {
+            this.plc = moudule1PLC;
             svrEnable = false;
             vel = 0;
             cmdPos = 0;
@@ -62,9 +64,9 @@ namespace PCPRO_실기
             pLimit = false;
             home = false;
             nLimit = false;
-            accJog = 10; accInch = 10; accOrg = 10; accPos = 10;
-            decJog = 10; decInch = 10; decOrg = 10; decPos = 10;
-            velJog = 20000; velInch = 20000; velOrg1 = 20000; velOrg2 = 5000; velOrg3 = 2000; velPos = 20000;
+            accJog = 100; accInch = 10; accOrg = 10; accPos = 10;
+            decJog = 100; decInch = 10; decOrg = 10; decPos = 10;
+            velJog = 2000; velInch = 2000; velOrg1 = 2000; velOrg2 = 5000; velOrg3 = 2000; velPos = 2000;
             rptZr = RptMsg.READY;
             stepZr = Step.STEP00;
             accTempOrg = 0;
@@ -157,24 +159,24 @@ namespace PCPRO_실기
                     }
                     break;
                 case Step.STEP01:
-                    if (AxNo == 0)
+                    if (AxNo == 2)
                     {
-                        JogMove(Dir.LEFT);
+                        JogMove(Dir.FWD);
                         stepZr = Step.STEP02;
                     }
-                    else if (AxNo == 1)
+                    else if (AxNo == 3)
                     {
-                        JogMove(Dir.BWD);
-                        stepZr = Step.STEP02;
-                    }
-                    else if (AxNo == 2)
-                    {
-                        JogMove(Dir.UP);
+                        JogMove(Dir.FWD);
                         stepZr = Step.STEP02;
                     }
                     break;
                 case Step.STEP02:
-                    if (home)
+                    if (AxNo == 2 && plc.cartridgeXAxisHome == 1)   // 2 : X
+                    {
+                        JogStop();
+                        stepZr = Step.STEP03;
+                    }
+                    if (AxNo == 3 && plc.cartridgeZAxisHome == 1)   // 3 : Z
                     {
                         JogStop();
                         stepZr = Step.STEP03;
@@ -188,24 +190,24 @@ namespace PCPRO_실기
                     }
                     break;
                 case Step.STEP04:
-                    if (AxNo == 0)
+                    if (AxNo == 2)
                     {
-                        JogMove(Dir.RIGHT);
+                        JogMove(Dir.BWD);
                         stepZr = Step.STEP05;
                     }
-                    else if (AxNo == 1)
+                    else if (AxNo == 3)
                     {
-                        JogMove(Dir.FWD);
-                        stepZr = Step.STEP05;
-                    }
-                    else if (AxNo == 2)
-                    {
-                        JogMove(Dir.DOWN);
+                        JogMove(Dir.BWD);
                         stepZr = Step.STEP05;
                     }
                     break;
                 case Step.STEP05:
-                    if (!home)
+                    if (AxNo == 2 && plc.cartridgeXAxisHome == 0)
+                    {
+                        JogStop();
+                        stepZr = Step.STEP06;
+                    }
+                    if (AxNo == 3 && plc.cartridgeZAxisHome == 0)
                     {
                         JogStop();
                         stepZr = Step.STEP06;
@@ -219,24 +221,24 @@ namespace PCPRO_실기
                     }
                     break;
                 case Step.STEP07:
-                    if (AxNo == 0)
+                    if (AxNo == 2)
                     {
-                        JogMove(Dir.LEFT);
+                        JogMove(Dir.FWD);
                         stepZr = Step.STEP08;
                     }
-                    else if (AxNo == 1)
+                    else if (AxNo == 3)
                     {
-                        JogMove(Dir.BWD);
-                        stepZr = Step.STEP08;
-                    }
-                    else if (AxNo == 2)
-                    {
-                        JogMove(Dir.UP);
+                        JogMove(Dir.FWD);
                         stepZr = Step.STEP08;
                     }
                     break;
                 case Step.STEP08:
-                    if (home)
+                    if (AxNo == 2 && plc.cartridgeXAxisHome == 1)
+                    {
+                        JogStop();
+                        stepZr = Step.STEP09;
+                    }
+                    if (AxNo == 3 && plc.cartridgeZAxisHome == 1)
                     {
                         JogStop();
                         stepZr = Step.STEP09;
@@ -301,6 +303,7 @@ namespace PCPRO_실기
 
                 switch (temp[0])
                 {
+
                     case "AccJog":
                         AccJog = Convert.ToInt16(temp[1]);
                         break;

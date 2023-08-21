@@ -31,6 +31,9 @@ namespace PCPRO_실기
 
         RptMsg rptInit;
         Step stepInit;
+
+        PLC module1PLC;
+
         #region Property
 
         public Servo[] Axes { get => axes; }
@@ -46,12 +49,13 @@ namespace PCPRO_실기
         }
         #endregion
 
-        public MotionKit()
+        public MotionKit(PLC module1PLC)
         {
-            axes = new Servo[3];
-            axes[0] = new Servo(0);
-            axes[1] = new Servo(1);
-            axes[2] = new Servo(2);
+            this.module1PLC = module1PLC;
+
+            axes = new Servo[2];
+            axes[0] = new Servo(2, module1PLC);     // X축
+            axes[1] = new Servo(3, module1PLC);     // Z축
             dio = new DIO();
             gripper = new Cylinder(3, dio);
             rptZr = new RptMsg[3];
@@ -90,7 +94,7 @@ namespace PCPRO_실기
                     }
                     break;
                 case Step.STEP01:
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0; i < 2; i++)
                     {
                         rptZr[i] = axes[i].ZeroReturn(cmdZr[i]);
                         if (rptZr[i] == RptMsg.READY && cmdZr[i] == CmdMsg.CHECK)
@@ -107,12 +111,10 @@ namespace PCPRO_실기
                         }
                     }
                     if (rptZr[0] == RptMsg.READY && cmdZr[0] == CmdMsg.END &&
-                        rptZr[1] == RptMsg.READY && cmdZr[1] == CmdMsg.END &&
-                        rptZr[2] == RptMsg.READY && cmdZr[2] == CmdMsg.END)
+                        rptZr[1] == RptMsg.READY && cmdZr[1] == CmdMsg.END)
                     {
                         cmdZr[0] = CmdMsg.CHECK;
                         cmdZr[1] = CmdMsg.CHECK;
-                        cmdZr[2] = CmdMsg.CHECK;
                         stepOrg = Step.STEP100;
                     }
                     break;
@@ -152,9 +154,9 @@ namespace PCPRO_실기
         public void posXY_Move(int posNo)
         {
             short[] map_array = new short[2] { 0, 1 };
-            MMCLib.map_axes(3, map_array);
-            MMCLib.set_move_speed(axes[0].VelPos);
-            MMCLib.set_move_accel(axes[0].AccPos);
+            MMCLib.map_axes(2, map_array);
+            MMCLib.set_move_speed(axes[0].VelPos);  // 속도 
+            MMCLib.set_move_accel(axes[0].AccPos);  // 가감속
             MMCLib.move_2(posXY[posNo].X, posXY[posNo].Y);
         }
         public void posZ_Move(int posNo)
@@ -315,5 +317,62 @@ namespace PCPRO_실기
             return rptInit;
         }
 
+
+        public void AutoRun()
+        {
+            int i = 0;
+            switch (i)
+            {
+                // Module1 동작 영역
+                case 0: // 제품 카트리지 이동?? Servo 동작
+                       
+                    break;
+                case 1: // 컨베이어 작동
+                    break;
+                case 2: // 컨베이어 정지
+                    break;
+                case 3: // Pick-Up Unit Cylinder Z축 하강
+                    break;
+                case 4: // Pick-Up Unit Rotator -90도 회전
+                    break;
+                case 5: // Pick-Up Unit Cylinder Z축 상승
+                    break;
+                case 6: // 공급 실린더 전진
+                    break;
+                case 7: // 공급 실린더 후진
+                    break;
+                // Module2 동작 영역
+                case 8: // 이송 실린더 Down
+                    break;
+                case 9: // 이송 실린더 Grip
+                    break;
+                case 10: // 이송 실린더 Up
+                    break;
+                case 11: // 이송 실린더 Right
+                    break;
+                case 12: // 이송 실린더 Down
+                    break;
+                case 13: // 이송 실린더 Ungrip
+                    break;
+                case 14: // 이송 실린더 Left
+                    break;
+                case 15: // 공급 실린더 CW
+                    break;
+                case 16: // 공급 실린더 정지
+                    break;
+                case 17: // 검사기 동작??
+                    break;
+                case 18: // 공급 실린더 CW
+                    break;
+                case 19: // 공급 실린더 정지
+                    break;
+                case 20: // 제품밀착 실린더 전진
+                    break;
+                case 21: // 제품밀착 실린더 후진
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -61,12 +62,16 @@
             this.btn_dio = new System.Windows.Forms.Button();
             this.btn_logoff = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.button7 = new System.Windows.Forms.Button();
             this.btn_load_receive = new System.Windows.Forms.Button();
             this.btn_load_Send = new System.Windows.Forms.Button();
             this.btn_clear = new System.Windows.Forms.Button();
             this.btn_save = new System.Windows.Forms.Button();
             this.tb_Message = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.btn_ems = new System.Windows.Forms.Button();
             this.btn_module2_1cycle = new System.Windows.Forms.Button();
             this.btn_module1_1cycle = new System.Windows.Forms.Button();
             this.btn_md1_1cycle = new System.Windows.Forms.Button();
@@ -79,9 +84,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.btn_servoTeach = new System.Windows.Forms.Button();
-            this.btn_ems = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.InitTimer = new System.Windows.Forms.Timer(this.components);
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gb_module1.SuspendLayout();
@@ -474,6 +477,7 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.button7);
             this.groupBox8.Controls.Add(this.btn_load_receive);
             this.groupBox8.Controls.Add(this.btn_load_Send);
             this.groupBox8.Controls.Add(this.btn_clear);
@@ -485,6 +489,16 @@
             this.groupBox8.TabIndex = 4;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Message";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(82, 385);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(112, 23);
+            this.button7.TabIndex = 2;
+            this.button7.Text = "button7";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button7_MouseDown);
             // 
             // btn_load_receive
             // 
@@ -570,6 +584,51 @@
             this.groupBox7.TabIndex = 5;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "운전 모드";
+            // 
+            // button6
+            // 
+            this.button6.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button6.Location = new System.Drawing.Point(127, 20);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(115, 102);
+            this.button6.TabIndex = 1;
+            this.button6.TabStop = false;
+            this.button6.Tag = "2";
+            this.button6.Text = "STOP";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.BtnAction);
+            this.button6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.button6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
+            // button5
+            // 
+            this.button5.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button5.Location = new System.Drawing.Point(248, 20);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(115, 102);
+            this.button5.TabIndex = 1;
+            this.button5.TabStop = false;
+            this.button5.Tag = "3";
+            this.button5.Text = "PAUSE";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.BtnAction);
+            this.button5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.button5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
+            // btn_ems
+            // 
+            this.btn_ems.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_ems.Location = new System.Drawing.Point(681, 20);
+            this.btn_ems.Name = "btn_ems";
+            this.btn_ems.Size = new System.Drawing.Size(115, 102);
+            this.btn_ems.TabIndex = 1;
+            this.btn_ems.TabStop = false;
+            this.btn_ems.Tag = "8";
+            this.btn_ems.Text = "EMS";
+            this.btn_ems.UseVisualStyleBackColor = true;
+            this.btn_ems.Click += new System.EventHandler(this.BtnAction);
+            this.btn_ems.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_ems.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // btn_module2_1cycle
             // 
@@ -735,50 +794,9 @@
             this.btn_servoTeach.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
             this.btn_servoTeach.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
-            // btn_ems
+            // InitTimer
             // 
-            this.btn_ems.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_ems.Location = new System.Drawing.Point(681, 20);
-            this.btn_ems.Name = "btn_ems";
-            this.btn_ems.Size = new System.Drawing.Size(115, 102);
-            this.btn_ems.TabIndex = 1;
-            this.btn_ems.TabStop = false;
-            this.btn_ems.Tag = "8";
-            this.btn_ems.Text = "EMS";
-            this.btn_ems.UseVisualStyleBackColor = true;
-            this.btn_ems.Click += new System.EventHandler(this.BtnAction);
-            this.btn_ems.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_ems.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
-            // button5
-            // 
-            this.button5.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button5.Location = new System.Drawing.Point(248, 20);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(115, 102);
-            this.button5.TabIndex = 1;
-            this.button5.TabStop = false;
-            this.button5.Tag = "3";
-            this.button5.Text = "PAUSE";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.BtnAction);
-            this.button5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.button5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
-            // button6
-            // 
-            this.button6.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button6.Location = new System.Drawing.Point(127, 20);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(115, 102);
-            this.button6.TabIndex = 1;
-            this.button6.TabStop = false;
-            this.button6.Tag = "2";
-            this.button6.Text = "STOP";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.BtnAction);
-            this.button6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.button6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.InitTimer.Tick += new System.EventHandler(this.InitTimer_Tick);
             // 
             // EQUIPMENT01
             // 
@@ -881,6 +899,8 @@
         private System.Windows.Forms.Button btn_ems;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Timer InitTimer;
     }
 }
 

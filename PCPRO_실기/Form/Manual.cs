@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ActUtlTypeLib;
 
 
 namespace PCPRO_실기
@@ -14,13 +15,19 @@ namespace PCPRO_실기
     public partial class Manual : Form
     {
         // 필드 영역
-        MotionKit motionkit;
+        MotionKit motionKit;
+        Axis X, Z;
+        PLC module1PLC, module2PLC;
         
-        public Manual(MotionKit motionkit)
+
+        public Manual(MotionKit motion, PLC module1PLC, PLC module2PLC)
         {
             InitializeComponent();
-            
-            this.motionkit = motionkit;
+
+            this.motionKit = motion;
+
+            this.module1PLC = module1PLC;
+            this.module2PLC = module2PLC;
         }
 
 
@@ -33,20 +40,23 @@ namespace PCPRO_실기
             // 모듈1 공급 실린더
             if (tag == 0)   // 모듈1 공급 실린더 전진
             {
-                motionkit.posXY_Move(1);
+                module1PLC.PLCWrite("Y24", 0);
+                module1PLC.PLCWrite("Y23", 1);
             }
             else if (tag == 1) // 모듈1 공급 실린더 후진
             {
-
+                module1PLC.PLCWrite("Y23", 0);
+                module1PLC.PLCWrite("Y24", 1);
             }
 
             // 모듈1 컨베이어
             if (tag == 2) // 모듈1 컨베이어 작동
             {
-
+                module1PLC.PLCWrite("Y28", 1);
             }
-            else if (tag == 3)  // 모듈1 컨베이어 후진
+            else if (tag == 3)  // 모듈1 컨베이어 정지
             {
+                module1PLC.PLCWrite("Y28", 0);
 
             }
 
@@ -126,25 +136,11 @@ namespace PCPRO_실기
 
             }
         }
-
-        private void RealTimeDisplay()
-        {
-            // 입력접점 실시간 표시
-        }
-
-        private void RunCondition()
-        {
-            // 운전 조건
-        }
-
-        public void StopCondition() { }
-
-        
-
+                
         #region 디자인
         private void ButtonColor_Down(object sender, MouseEventArgs e) // 버튼 컬러 바꾸기 함수
         {
-            Button btn = sender as Button;
+           Button btn = sender as Button;
             btn.BackColor = Color.YellowGreen;
         }
 
@@ -154,5 +150,57 @@ namespace PCPRO_실기
             btn.BackColor = SystemColors.Control;
         }
         #endregion
+
+
+
+        private void MMC_JogMoveMouseDown(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            int tag = int.Parse(btn.Tag.ToString());
+
+            if (tag == 4)
+            {
+                motionKit[(int)Axis.Z].JogMove(Dir.BWD);
+            }
+            else if (tag == 5)
+            {
+                motionKit[(int)Axis.Z].JogMove(Dir.FWD);
+            }
+            else if (tag == 6)
+            {
+                motionKit[(int)Axis.X].JogMove(Dir.FWD);
+            }
+            else if (tag == 7)
+            {
+                motionKit[(int)Axis.X].JogMove(Dir.BWD);
+            }
+
+            ButtonColor_Down(sender, e);
+        }
+
+        private void MMC_JogMoveMouseUp(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            int tag = int.Parse(btn.Tag.ToString());
+
+            if (tag == 4)
+            {
+                motionKit[(int)Axis.Z].JogStop();
+            }
+            else if (tag == 5)
+            {
+                motionKit[(int)Axis.Z].JogStop();
+            }
+            else if (tag == 6)
+            {
+                motionKit[(int)Axis.X].JogStop();
+            }
+            else if (tag == 7)
+            {
+                motionKit[(int)Axis.X].JogStop();
+            }
+
+            ButtonColor_Up(sender, e);
+        }
     }
 }

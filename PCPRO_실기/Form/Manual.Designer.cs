@@ -32,7 +32,7 @@
             this.btn_md1_supplyCylinder_bwd = new System.Windows.Forms.Button();
             this.btn_md1_supplyCylinder_fwd = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btn_md1_conveyor_ccw = new System.Windows.Forms.Button();
+            this.btn_md1_conveyor_stop = new System.Windows.Forms.Button();
             this.btn_md1_conveyor_cw = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -89,6 +89,7 @@
             this.btn_md1_supplyCylinder_bwd.Tag = "1";
             this.btn_md1_supplyCylinder_bwd.Text = "후진";
             this.btn_md1_supplyCylinder_bwd.UseVisualStyleBackColor = true;
+            this.btn_md1_supplyCylinder_bwd.Click += new System.EventHandler(this.ActuatorManualControl);
             this.btn_md1_supplyCylinder_bwd.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
             this.btn_md1_supplyCylinder_bwd.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
@@ -102,12 +103,13 @@
             this.btn_md1_supplyCylinder_fwd.Tag = "0";
             this.btn_md1_supplyCylinder_fwd.Text = "전진";
             this.btn_md1_supplyCylinder_fwd.UseVisualStyleBackColor = true;
+            this.btn_md1_supplyCylinder_fwd.Click += new System.EventHandler(this.ActuatorManualControl);
             this.btn_md1_supplyCylinder_fwd.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
             this.btn_md1_supplyCylinder_fwd.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.btn_md1_conveyor_ccw);
+            this.groupBox3.Controls.Add(this.btn_md1_conveyor_stop);
             this.groupBox3.Controls.Add(this.btn_md1_conveyor_cw);
             this.groupBox3.Location = new System.Drawing.Point(127, 20);
             this.groupBox3.Name = "groupBox3";
@@ -116,18 +118,19 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = " 컨베이어";
             // 
-            // btn_md1_conveyor_ccw
+            // btn_md1_conveyor_stop
             // 
-            this.btn_md1_conveyor_ccw.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_md1_conveyor_ccw.Location = new System.Drawing.Point(6, 86);
-            this.btn_md1_conveyor_ccw.Name = "btn_md1_conveyor_ccw";
-            this.btn_md1_conveyor_ccw.Size = new System.Drawing.Size(103, 60);
-            this.btn_md1_conveyor_ccw.TabIndex = 3;
-            this.btn_md1_conveyor_ccw.Tag = "3";
-            this.btn_md1_conveyor_ccw.Text = "후진";
-            this.btn_md1_conveyor_ccw.UseVisualStyleBackColor = true;
-            this.btn_md1_conveyor_ccw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md1_conveyor_ccw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.btn_md1_conveyor_stop.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_md1_conveyor_stop.Location = new System.Drawing.Point(6, 86);
+            this.btn_md1_conveyor_stop.Name = "btn_md1_conveyor_stop";
+            this.btn_md1_conveyor_stop.Size = new System.Drawing.Size(103, 60);
+            this.btn_md1_conveyor_stop.TabIndex = 3;
+            this.btn_md1_conveyor_stop.Tag = "3";
+            this.btn_md1_conveyor_stop.Text = "정지";
+            this.btn_md1_conveyor_stop.UseVisualStyleBackColor = true;
+            this.btn_md1_conveyor_stop.Click += new System.EventHandler(this.ActuatorManualControl);
+            this.btn_md1_conveyor_stop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_md1_conveyor_stop.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // btn_md1_conveyor_cw
             // 
@@ -139,6 +142,7 @@
             this.btn_md1_conveyor_cw.Tag = "2";
             this.btn_md1_conveyor_cw.Text = "작동";
             this.btn_md1_conveyor_cw.UseVisualStyleBackColor = true;
+            this.btn_md1_conveyor_cw.Click += new System.EventHandler(this.ActuatorManualControl);
             this.btn_md1_conveyor_cw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
             this.btn_md1_conveyor_cw.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
@@ -176,8 +180,8 @@
             this.btn_md1_axisX_right.Tag = "7";
             this.btn_md1_axisX_right.Text = "▶";
             this.btn_md1_axisX_right.UseVisualStyleBackColor = true;
-            this.btn_md1_axisX_right.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md1_axisX_right.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.btn_md1_axisX_right.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MMC_JogMoveMouseDown);
+            this.btn_md1_axisX_right.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MMC_JogMoveMouseUp);
             // 
             // btn_md1_axisX_left
             // 
@@ -189,8 +193,8 @@
             this.btn_md1_axisX_left.Tag = "6";
             this.btn_md1_axisX_left.Text = "◀";
             this.btn_md1_axisX_left.UseVisualStyleBackColor = true;
-            this.btn_md1_axisX_left.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md1_axisX_left.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.btn_md1_axisX_left.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MMC_JogMoveMouseDown);
+            this.btn_md1_axisX_left.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MMC_JogMoveMouseUp);
             // 
             // groupBox4
             // 
@@ -213,8 +217,8 @@
             this.btn_md1_axisZ_down.Tag = "5";
             this.btn_md1_axisZ_down.Text = "▼";
             this.btn_md1_axisZ_down.UseVisualStyleBackColor = true;
-            this.btn_md1_axisZ_down.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md1_axisZ_down.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.btn_md1_axisZ_down.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MMC_JogMoveMouseDown);
+            this.btn_md1_axisZ_down.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MMC_JogMoveMouseUp);
             // 
             // btn_md1_axisZ_up
             // 
@@ -226,8 +230,8 @@
             this.btn_md1_axisZ_up.Tag = "4";
             this.btn_md1_axisZ_up.Text = "▲";
             this.btn_md1_axisZ_up.UseVisualStyleBackColor = true;
-            this.btn_md1_axisZ_up.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md1_axisZ_up.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.btn_md1_axisZ_up.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MMC_JogMoveMouseDown);
+            this.btn_md1_axisZ_up.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MMC_JogMoveMouseUp);
             // 
             // groupBox6
             // 
@@ -467,7 +471,7 @@
         private System.Windows.Forms.Button btn_md1_supplyCylinder_bwd;
         private System.Windows.Forms.Button btn_md1_supplyCylinder_fwd;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button btn_md1_conveyor_ccw;
+        private System.Windows.Forms.Button btn_md1_conveyor_stop;
         private System.Windows.Forms.Button btn_md1_conveyor_cw;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox5;
