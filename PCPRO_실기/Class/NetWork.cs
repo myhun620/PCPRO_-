@@ -22,15 +22,19 @@ namespace PCPRO_실기
 
         TcpClient tcpClient;
         IPEndPoint ipep;
-        Thread thd_Network;
-        bool bSendMessage;
+        public Thread thd_Network, thd_Receive;
+        public bool bSendMessage;
         Queue<Protocol> sendMessageList;
+        public Queue<Protocol> ReceiveMessageList;
+        public Protocol receiveData;
+        public bool connected;
         public NetWork(string ipAddress, int portNumber)
         {
             ipep = new IPEndPoint(IPAddress.Parse(ipAddress), portNumber);
             bSendMessage = false;
             sendMessageList = new Queue<Protocol>();
-            statusMessage = statusMessage = Connect();
+            ReceiveMessageList = new Queue<Protocol>();
+            statusMessage = Connect();
         }
 
         private string Connect()
@@ -41,8 +45,10 @@ namespace PCPRO_실기
                 tcpClient = new TcpClient();
                 tcpClient.Connect(ipep);
                 thd_Network = new Thread(new ThreadStart(SendMessageThread));
+                thd_Receive = new Thread(new ThreadStart(ReceiveMessageThread));
                 bSendMessage = true;
                 thd_Network.Start();
+                thd_Receive.Start();
                 msg = "Server 접속 성공. Thread 시작합니다.";
             }
             catch (SocketException ex)
@@ -57,9 +63,26 @@ namespace PCPRO_실기
             return msg;
         }
 
+        public void DisConnect()
+        {
+            if (tcpClient.Connected)
+            {
+                bSendMessage = false;
+                thd_Network.Join();
+                thd_Receive.Join();
+                tcpClient.Close();
+            }
+        }
+
         public void SendMessage(Protocol ptcMessage)
         {
             sendMessageList.Enqueue(ptcMessage);
+        }
+
+        public Protocol ReceiveMessage()
+        {
+            Protocol ptcMessage = ReceiveMessageList.Dequeue();
+            return ptcMessage;
         }
 
         private void SendMessageThread()
@@ -70,13 +93,62 @@ namespace PCPRO_실기
                 {
                     if (sendMessageList.Count <= 0)
                         continue;
-                    Protocol socketMessage = sendMessageList.Dequeue();
 
+                    Protocol socketMessage = sendMessageList.Dequeue();
+                    
                     NetworkStream ns = tcpClient.GetStream();
                     BinaryFormatter bf = new BinaryFormatter();
                     bf.Serialize(ns, socketMessage);
 
-                    statusMessage = "서버에 메시지 전송을 성공했습니다.";
+                    statusMessage = "서버에 메시지 전송 했습니다.";
+                }
+                catch (ThreadInterruptedException ex)
+                {
+
+                }
+                catch (ThreadAbortException ex)
+                {
+                    bSendMessage = false;
+                    statusMessage = ex.Message;
+                    return;
+                }
+                catch (SocketException ex)
+                {
+                    bSendMessage = false;
+                    statusMessage = ex.Message;
+                    return;
+                }
+                Thread.Sleep(10);
+            }
+        }
+
+        private void ConnetedCheck()
+        {
+            if (tcpClient.Client.Poll(0, SelectMode.SelectRead) && tcpClient.Available == 0)
+                connected = false;
+            else
+                connected = true;
+        }
+
+        private void ReceiveMessageThread()
+        {
+            while (bSendMessage)
+            {
+                try
+                {
+                    ConnetedCheck();
+
+                    if (tcpClient.Available > 0)
+                    {
+                        NetworkStream ns = tcpClient.GetStream();
+                        BinaryFormatter bf = new BinaryFormatter();
+
+                        receiveData = (Protocol)bf.Deserialize(ns);
+
+                        ReceiveMessageList.Enqueue(receiveData);
+
+                        statusMessage = "서버에서 메시지를 받았습니다.";
+                    }
                 }
                 catch (ThreadInterruptedException ex)
                 {

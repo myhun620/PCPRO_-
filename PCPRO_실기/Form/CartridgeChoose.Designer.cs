@@ -398,7 +398,7 @@
             this.Controls.Add(this.gb_cartridge);
             this.Name = "Teach";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Teach";
+            this.Text = "Cartridge Choose";
             this.Load += new System.EventHandler(this.Teach_Load);
             this.gb_cartridge.ResumeLayout(false);
             this.ResumeLayout(false);

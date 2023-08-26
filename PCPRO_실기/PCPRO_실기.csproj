@@ -93,11 +93,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Form\Teach.cs">
+    <Compile Include="Form\CartridgeChoose.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\Teach.Designer.cs">
-      <DependentUpon>Teach.cs</DependentUpon>
+    <Compile Include="Form\CartridgeChoose.Designer.cs">
+      <DependentUpon>CartridgeChoose.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form\EQUIPMENT.resx">
       <DependentUpon>EQUIPMENT.cs</DependentUpon>
@@ -120,8 +120,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form\Teach.resx">
-      <DependentUpon>Teach.cs</DependentUpon>
+    <EmbeddedResource Include="Form\CartridgeChoose.resx">
+      <DependentUpon>CartridgeChoose.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

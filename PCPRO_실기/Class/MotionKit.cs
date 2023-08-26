@@ -12,6 +12,8 @@ namespace PCPRO_실기
 {
     public class MotionKit : IMotionTeach
     {
+        public string str;
+
         Servo[] axes;
         DIO dio;
         Cylinder gripper;
@@ -63,17 +65,79 @@ namespace PCPRO_실기
             rptOrg = RptMsg.READY;
             stepOrg = Step.STEP00;
             orgDone = false;
-            posXY = new Point[8];
-            for (int i = 0; i < 8; i++)
+            posXY = new Point[25];
+            for (int i = 0; i < 25; i++)
             {
                 posXY[i].X = 0;
                 posXY[i].Y = 0;
             }
-            posZ = new double[2];
-            posZ[0] = 0;
-            posZ[1] = 0;
+            XYPositionInit();
             stepPnp = Step.STEP00;
             stepInit = Step.STEP00;
+        }
+
+        private void XYPositionInit()
+        {
+            int startPosX = -39302;
+            int startPosY = -2100;
+            int offsetPosX = -10219;
+            int offsetPosY = -12053;
+
+            for (int i = 0; i < 25; i++)
+            {
+                if (i == 0) // 1열
+                {
+                    PosXY[0].X = startPosX;
+                    PosXY[0].Y = startPosY;
+                }
+                else if (i / 5 == 0)
+                {
+                    PosXY[i].X = PosXY[i - 1].X - offsetPosX;
+                    PosXY[i].Y = PosXY[i - 1].Y;
+                }
+                else if (i == 5)    // 2열
+                {
+                    PosXY[i].X = startPosX;
+                    PosXY[i].Y = PosXY[i - 1].Y + offsetPosY;
+                }
+                else if (i / 5 == 1)
+                {
+                    PosXY[i].X = PosXY[i - 1].X - offsetPosX;
+                    PosXY[i].Y = PosXY[i - 1].Y;
+                }
+                else if (i == 10)   // 3열
+                {
+                    PosXY[i].X = startPosX;
+                    PosXY[i].Y = PosXY[i - 1].Y + offsetPosY;
+                }
+                else if (i / 5 == 2)
+                {
+                    PosXY[i].X = PosXY[i - 1].X - offsetPosX;
+                    PosXY[i].Y = PosXY[i - 1].Y;
+                }
+                else if (i == 15)   // 4열
+                {
+                    PosXY[i].X = startPosX;
+                    PosXY[i].Y = PosXY[i - 1].Y + offsetPosY;
+                }
+                else if (i / 5 == 3)
+                {
+                    PosXY[i].X = PosXY[i - 1].X - offsetPosX;
+                    PosXY[i].Y = PosXY[i - 1].Y;
+                }
+                else if (i == 20)   // 5열
+                {
+                    PosXY[i].X = startPosX;
+                    PosXY[i].Y = PosXY[i - 1].Y + offsetPosY;
+                }
+                else if (i / 5 == 4)
+                {
+                    PosXY[i].X = PosXY[i - 1].X - offsetPosX;
+                    PosXY[i].Y = PosXY[i - 1].Y;
+                }
+
+            }
+                string str = posXY[24].X.ToString();
         }
         public short bdInit()
         {
@@ -134,36 +198,15 @@ namespace PCPRO_실기
 
             return rptOrg;
         }
-        public void posXY_Save()
-        {
-            int idx = 0;
-            for (int y = 0; y < 2; y++)
-            {
-                for (int x = 0; x < 4; x++)
-                {
-                    posXY[idx].X = (int)(axes[0].ActPos + x * 28000);
-                    posXY[idx].Y = (int)(axes[1].ActPos + y * 28000);
-                    idx++;
-                }
-            }
-        }
-        public void posZ_Save(int posNo)
-        {
-            posZ[posNo] = axes[2].ActPos;
-        }
         public void posXY_Move(int posNo)
         {
-            short[] map_array = new short[2] { 0, 1 };
-            MMCLib.map_axes(2, map_array);
+            short[] map_array = new short[2] { 2, 3 };
+            MMCLib.map_axes(3, map_array);
             MMCLib.set_move_speed(axes[0].VelPos);  // 속도 
             MMCLib.set_move_accel(axes[0].AccPos);  // 가감속
             MMCLib.move_2(posXY[posNo].X, posXY[posNo].Y);
         }
-        public void posZ_Move(int posNo)
-        {
-            MMCLib.start_move(2, posZ[posNo], axes[2].VelPos, axes[2].AccPos);
-        }
-        public RptMsg PickNPlace(int startPos, int endPos, CmdMsg cmd)
+        public RptMsg CartridgeRun(int targetPos, CmdMsg cmd)
         {
             switch (stepPnp)
             {
@@ -175,81 +218,20 @@ namespace PCPRO_실기
                     }
                     break;
                 case Step.STEP01:
-                    gripper.GripOpen();
-                    stepPnp = Step.STEP02;
+                    if (MMCLib.axis_done(2) == 1)
+                    {
+                        posXY_Move(targetPos);
+                        stepPnp = Step.STEP02;
+                    }
                     break;
                 case Step.STEP02:
-                    if (Gripper.Sen_Open)
+                    if (MMCLib.axis_done(2) == 1)
                     {
-                        posZ_Move(0);
                         stepPnp = Step.STEP03;
                     }
                     break;
                 case Step.STEP03:
-                    if (MMCLib.axis_done(2) == 1)
-                    {
-                        posXY_Move(startPos);
-                        stepPnp = Step.STEP04;
-                    }
-                    break;
-                case Step.STEP04:
-                    if (MMCLib.axis_done(0) == 1 && MMCLib.axis_done(1) == 1)
-                    {
-                        posZ_Move(1);
-                        stepPnp = Step.STEP05;
-                    }
-                    break;
-                case Step.STEP05:
-                    if (MMCLib.axis_done(2) == 1)
-                    {
-                        gripper.GripClose();
-                        stepPnp = Step.STEP06;
-                    }
-                    break;
-                case Step.STEP06:
-                    if (Gripper.Sen_Close)
-                    {
-                        posZ_Move(0);
-                        stepPnp = Step.STEP07;
-                    }
-                    break;
-                case Step.STEP07:
-                    if (MMCLib.axis_done(2) == 1)
-                    {
-                        posXY_Move(endPos);
-                        stepPnp = Step.STEP08;
-                    }
-                    break;
-                case Step.STEP08:
-                    if (MMCLib.axis_done(0) == 1 && MMCLib.axis_done(1) == 1)
-                    {
-                        posZ_Move(1);
-                        stepPnp = Step.STEP09;
-                    }
-                    break;
-                case Step.STEP09:
-                    if (MMCLib.axis_done(2) == 1)
-                    {
-                        gripper.GripOpen();
-                        stepPnp = Step.STEP10;
-                    }
-                    break;
-                case Step.STEP10:
-                    if (Gripper.Sen_Open)
-                    {
-                        posZ_Move(0);
-                        stepPnp = Step.STEP11;
-                    }
-                    break;
-                case Step.STEP11:
-                    if (MMCLib.axis_done(2) == 1)
-                    {
-                        posXY_Move(0);
-                        stepPnp = Step.STEP12;
-                    }
-                    break;
-                case Step.STEP12:
-                    if (MMCLib.axis_done(0) == 1 && MMCLib.axis_done(1) == 1)
+                    if (MMCLib.axis_done(2) == 1 && MMCLib.axis_done(3) == 1)
                     {
                         stepPnp = Step.STEP100;
                     }
@@ -283,13 +265,11 @@ namespace PCPRO_실기
                     }
                     break;
                 case Step.STEP01:
-                    gripper.GripOpen();
                     stepInit = Step.STEP02;
                     break;
                 case Step.STEP02:
                     if (gripper.Sen_Open)
                     {
-                        posZ_Move(0);
                         posXY_Move(0);
                         stepInit = Step.STEP03;
                     }
@@ -315,64 +295,6 @@ namespace PCPRO_실기
                     break;
             }
             return rptInit;
-        }
-
-
-        public void AutoRun()
-        {
-            int i = 0;
-            switch (i)
-            {
-                // Module1 동작 영역
-                case 0: // 제품 카트리지 이동?? Servo 동작
-                       
-                    break;
-                case 1: // 컨베이어 작동
-                    break;
-                case 2: // 컨베이어 정지
-                    break;
-                case 3: // Pick-Up Unit Cylinder Z축 하강
-                    break;
-                case 4: // Pick-Up Unit Rotator -90도 회전
-                    break;
-                case 5: // Pick-Up Unit Cylinder Z축 상승
-                    break;
-                case 6: // 공급 실린더 전진
-                    break;
-                case 7: // 공급 실린더 후진
-                    break;
-                // Module2 동작 영역
-                case 8: // 이송 실린더 Down
-                    break;
-                case 9: // 이송 실린더 Grip
-                    break;
-                case 10: // 이송 실린더 Up
-                    break;
-                case 11: // 이송 실린더 Right
-                    break;
-                case 12: // 이송 실린더 Down
-                    break;
-                case 13: // 이송 실린더 Ungrip
-                    break;
-                case 14: // 이송 실린더 Left
-                    break;
-                case 15: // 공급 실린더 CW
-                    break;
-                case 16: // 공급 실린더 정지
-                    break;
-                case 17: // 검사기 동작??
-                    break;
-                case 18: // 공급 실린더 CW
-                    break;
-                case 19: // 공급 실린더 정지
-                    break;
-                case 20: // 제품밀착 실린더 전진
-                    break;
-                case 21: // 제품밀착 실린더 후진
-                    break;
-                default:
-                    break;
-            }
         }
     }
 }

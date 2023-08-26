@@ -11,6 +11,8 @@ namespace PCPRO_실기
 {
     public class Servo : Actuator, IMotorTeach, IMotorConfig
     {
+        string originStep;
+
         bool svrEnable;
         short vel;
         double cmdPos, actPos, errPos, encoder;
@@ -27,6 +29,7 @@ namespace PCPRO_실기
         PLC plc;
 
         #region Property
+        public string OriginStep { get => originStep; set => originStep = value; }
         public bool SvrEnable { get => svrEnable; }
         public double CmdPos { get => cmdPos; }
         public double ActPos { get => actPos; }
@@ -171,12 +174,12 @@ namespace PCPRO_실기
                     }
                     break;
                 case Step.STEP02:
-                    if (AxNo == 2 && plc.cartridgeXAxisHome == 1)   // 2 : X
+                    if (AxNo == 2 && plc._plc1DeviceX[(int)Module1X.cartridgeXAxisHome])   // 2 : X
                     {
                         JogStop();
                         stepZr = Step.STEP03;
                     }
-                    if (AxNo == 3 && plc.cartridgeZAxisHome == 1)   // 3 : Z
+                    if (AxNo == 3 && plc._plc1DeviceX[(int)Module1X.cartridgeZAxisHome])   // 3 : Z
                     {
                         JogStop();
                         stepZr = Step.STEP03;
@@ -202,12 +205,12 @@ namespace PCPRO_실기
                     }
                     break;
                 case Step.STEP05:
-                    if (AxNo == 2 && plc.cartridgeXAxisHome == 0)
+                    if (AxNo == 2 && plc._plc1DeviceX[(int)Module1X.cartridgeXAxisHome])
                     {
                         JogStop();
                         stepZr = Step.STEP06;
                     }
-                    if (AxNo == 3 && plc.cartridgeZAxisHome == 0)
+                    if (AxNo == 3 && plc._plc1DeviceX[(int)Module1X.cartridgeZAxisHome])
                     {
                         JogStop();
                         stepZr = Step.STEP06;
@@ -233,12 +236,12 @@ namespace PCPRO_실기
                     }
                     break;
                 case Step.STEP08:
-                    if (AxNo == 2 && plc.cartridgeXAxisHome == 1)
+                    if (AxNo == 2 && plc._plc1DeviceX[(int)Module1X.cartridgeXAxisHome])
                     {
                         JogStop();
                         stepZr = Step.STEP09;
                     }
-                    if (AxNo == 3 && plc.cartridgeZAxisHome == 1)
+                    if (AxNo == 3 && plc._plc1DeviceX[(int)Module1X.cartridgeZAxisHome])
                     {
                         JogStop();
                         stepZr = Step.STEP09;
@@ -265,7 +268,6 @@ namespace PCPRO_실기
                     }
                     break;
             }
-
             return rptZr;
         }
         public void SaveConfig()

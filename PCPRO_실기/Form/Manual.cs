@@ -60,80 +60,67 @@ namespace PCPRO_실기
 
             }
 
-            // 모듈1 Z축
-            if (tag == 4)   // 모듈1 Z축 상승
-            {
-
-            }
-            else if (tag == 5)  // 모듈1 Z축 하강
-            {
-
-            }
-
-            // 모듈1 X축
-            if (tag == 6) // 모듈1 X축 Left
-            {
-
-            }
-            else if (tag == 7)  // 모듈1 X축 Right
-            {
-
-            }
-
             // 모듈2 공급실린더
             if (tag == 8)   // 모듈2 공급실린더 업
             {
-
+                module2PLC.PLCWrite("Y2C", 0);
             }
-            
             // 모듈2 공급실린더
             else if (tag == 9) // 모듈2 공급실린더 다운
             {
-
+                module2PLC.PLCWrite("Y2C", 1);
             }
             else if (tag == 10) // 모듈2 공급실린더 ccw
             {
-
+                module2PLC.PLCWrite("Y2A", 0);
+                module2PLC.PLCWrite("Y2B", 1);
             }
             else if (tag == 11) // 모듈2 공급실린더 cw
             {
-
+                module2PLC.PLCWrite("Y2B", 0);
+                module2PLC.PLCWrite("Y2A", 1);
             }
 
             // 제품밀착실린더
             if (tag == 12)  // 제품밀착실린더 전진
             {
-
+                module2PLC.PLCWrite("Y24", 0);
+                module2PLC.PLCWrite("Y23", 1);
             }
             else if (tag == 13) // 제품밀착실린더 후진
             {
-
+                module2PLC.PLCWrite("Y23", 0);
+                module2PLC.PLCWrite("Y24", 1);
             }
 
             // 이송실린더
             if (tag == 14)  // 이송실린더 업
             {
-
+                module2PLC.PLCWrite("Y27", 0);
+                module2PLC.PLCWrite("Y28", 1);
             }
             else if (tag == 15) // 이송실링더 다운
             {
-
+                module2PLC.PLCWrite("Y28", 0);
+                module2PLC.PLCWrite("Y27", 1);
             }
             else if (tag == 16) // 이송실링더 left
             {
-
+                module2PLC.PLCWrite("Y25", 0);
+                module2PLC.PLCWrite("Y26", 1);
             }
             else if (tag == 17) // 이송실링더 right
             {
-
+                module2PLC.PLCWrite("Y26", 0);
+                module2PLC.PLCWrite("Y25", 1);
             }
             else if (tag == 18) // 이송실링더 grip
             {
-
+                module2PLC.PLCWrite("Y29", 1);
             }
             else if (tag == 19) // 이송실링더 unngrip
             {
-
+                module2PLC.PLCWrite("Y29", 0);
             }
         }
                 

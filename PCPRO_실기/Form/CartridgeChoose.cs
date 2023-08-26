@@ -38,10 +38,12 @@ namespace PCPRO_실기
         private void btn_teachsave_Click(object sender, EventArgs e)
         {
             sCartridge = Cartridge;
+            this.Close();
         }
 
         private void Teach_Load(object sender, EventArgs e)
         {
+            Cartridge = sCartridge;
             foreach (Control ctr in gb_cartridge.Controls)
             {
                 if (ctr is Button)

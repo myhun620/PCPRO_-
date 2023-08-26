@@ -39,52 +39,75 @@
             this.btn_iecs_status = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.gb_module1 = new System.Windows.Forms.GroupBox();
+            this.btn_md1_manual = new System.Windows.Forms.Button();
             this.btn_md1_ems = new System.Windows.Forms.Button();
+            this.btn_md1_auto = new System.Windows.Forms.Button();
             this.btn_md1_pause = new System.Windows.Forms.Button();
             this.btn_md1_stop = new System.Windows.Forms.Button();
             this.btn_md1_run = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.gb_module2 = new System.Windows.Forms.GroupBox();
+            this.btn_md2_manual = new System.Windows.Forms.Button();
             this.btn_md2_ems = new System.Windows.Forms.Button();
             this.btn_md2_pause = new System.Windows.Forms.Button();
+            this.btn_md2_auto = new System.Windows.Forms.Button();
             this.btn_md2_stop = new System.Windows.Forms.Button();
             this.btn_md2_run = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.btn_plc_disconnect = new System.Windows.Forms.Button();
+            this.btn_mmc_connect = new System.Windows.Forms.Button();
             this.btn_plc_connect = new System.Windows.Forms.Button();
             this.btn_plc_status = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.lb_unstill = new System.Windows.Forms.Label();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.lb_still = new System.Windows.Forms.Label();
+            this.lb_Total = new System.Windows.Forms.Label();
             this.btn_initialize = new System.Windows.Forms.Button();
             this.btn_dio = new System.Windows.Forms.Button();
             this.btn_logoff = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
             this.btn_load_receive = new System.Windows.Forms.Button();
             this.btn_load_Send = new System.Windows.Forms.Button();
             this.btn_clear = new System.Windows.Forms.Button();
             this.btn_save = new System.Windows.Forms.Button();
-            this.tb_Message = new System.Windows.Forms.TextBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.tb_send_Message = new System.Windows.Forms.TextBox();
+            this.tb_rcv_Message = new System.Windows.Forms.TextBox();
+            this.gb_runMode = new System.Windows.Forms.GroupBox();
             this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btn_pause = new System.Windows.Forms.Button();
             this.btn_ems = new System.Windows.Forms.Button();
             this.btn_module2_1cycle = new System.Windows.Forms.Button();
             this.btn_module1_1cycle = new System.Windows.Forms.Button();
-            this.btn_md1_1cycle = new System.Windows.Forms.Button();
-            this.btn_md1_manual = new System.Windows.Forms.Button();
-            this.btn_md1_Auto = new System.Windows.Forms.Button();
+            this.btn_eqp_1cycle = new System.Windows.Forms.Button();
+            this.btn_manual = new System.Windows.Forms.Button();
+            this.btn_Auto = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.gb_equipmentStatus = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.btn_servoTeach = new System.Windows.Forms.Button();
+            this.btn_epuip_ems = new System.Windows.Forms.Button();
+            this.btn_epuip_pause = new System.Windows.Forms.Button();
+            this.btn_epuip_stop = new System.Windows.Forms.Button();
+            this.btn_epuip_run = new System.Windows.Forms.Button();
+            this.btn_cartridgeChoose = new System.Windows.Forms.Button();
             this.InitTimer = new System.Windows.Forms.Timer(this.components);
+            this.gb_serverSend = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tb_runtype = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tb_product = new System.Windows.Forms.TextBox();
+            this.tb_startable = new System.Windows.Forms.TextBox();
+            this.tb_commd = new System.Windows.Forms.TextBox();
+            this.tb_optmode = new System.Windows.Forms.TextBox();
+            this.tb_mode = new System.Windows.Forms.TextBox();
+            this.tb_netstatus = new System.Windows.Forms.TextBox();
+            this.tb_name = new System.Windows.Forms.TextBox();
+            this.IOUpdate = new System.Windows.Forms.Timer(this.components);
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gb_module1.SuspendLayout();
@@ -92,12 +115,11 @@
             this.gb_module2.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.groupBox12.SuspendLayout();
-            this.groupBox11.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            this.groupBox7.SuspendLayout();
+            this.gb_runMode.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.gb_equipmentStatus.SuspendLayout();
+            this.gb_serverSend.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox3
@@ -198,7 +220,9 @@
             // 
             // gb_module1
             // 
+            this.gb_module1.Controls.Add(this.btn_md1_manual);
             this.gb_module1.Controls.Add(this.btn_md1_ems);
+            this.gb_module1.Controls.Add(this.btn_md1_auto);
             this.gb_module1.Controls.Add(this.btn_md1_pause);
             this.gb_module1.Controls.Add(this.btn_md1_stop);
             this.gb_module1.Controls.Add(this.btn_md1_run);
@@ -209,57 +233,77 @@
             this.gb_module1.TabStop = false;
             this.gb_module1.Text = "운영 상태";
             // 
+            // btn_md1_manual
+            // 
+            this.btn_md1_manual.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_md1_manual.Location = new System.Drawing.Point(160, 93);
+            this.btn_md1_manual.Name = "btn_md1_manual";
+            this.btn_md1_manual.Size = new System.Drawing.Size(71, 67);
+            this.btn_md1_manual.TabIndex = 1;
+            this.btn_md1_manual.TabStop = false;
+            this.btn_md1_manual.Tag = "MANUAL";
+            this.btn_md1_manual.Text = "MANUAL";
+            this.btn_md1_manual.UseVisualStyleBackColor = true;
+            // 
             // btn_md1_ems
             // 
             this.btn_md1_ems.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_md1_ems.Location = new System.Drawing.Point(124, 93);
+            this.btn_md1_ems.Location = new System.Drawing.Point(83, 93);
             this.btn_md1_ems.Name = "btn_md1_ems";
-            this.btn_md1_ems.Size = new System.Drawing.Size(112, 67);
+            this.btn_md1_ems.Size = new System.Drawing.Size(71, 67);
             this.btn_md1_ems.TabIndex = 1;
             this.btn_md1_ems.TabStop = false;
             this.btn_md1_ems.Tag = "EMS";
             this.btn_md1_ems.Text = "EMS";
             this.btn_md1_ems.UseVisualStyleBackColor = true;
-            this.btn_md1_ems.Click += new System.EventHandler(this.BtnAction);
+            // 
+            // btn_md1_auto
+            // 
+            this.btn_md1_auto.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_md1_auto.Location = new System.Drawing.Point(160, 20);
+            this.btn_md1_auto.Name = "btn_md1_auto";
+            this.btn_md1_auto.Size = new System.Drawing.Size(71, 67);
+            this.btn_md1_auto.TabIndex = 1;
+            this.btn_md1_auto.TabStop = false;
+            this.btn_md1_auto.Tag = "AUTO";
+            this.btn_md1_auto.Text = "AUTO";
+            this.btn_md1_auto.UseVisualStyleBackColor = true;
             // 
             // btn_md1_pause
             // 
             this.btn_md1_pause.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md1_pause.Location = new System.Drawing.Point(6, 93);
             this.btn_md1_pause.Name = "btn_md1_pause";
-            this.btn_md1_pause.Size = new System.Drawing.Size(112, 67);
+            this.btn_md1_pause.Size = new System.Drawing.Size(71, 67);
             this.btn_md1_pause.TabIndex = 1;
             this.btn_md1_pause.TabStop = false;
             this.btn_md1_pause.Tag = "PAUSE";
             this.btn_md1_pause.Text = "PAUSE";
             this.btn_md1_pause.UseVisualStyleBackColor = true;
-            this.btn_md1_pause.Click += new System.EventHandler(this.BtnAction);
             // 
             // btn_md1_stop
             // 
             this.btn_md1_stop.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_md1_stop.Location = new System.Drawing.Point(124, 20);
+            this.btn_md1_stop.Location = new System.Drawing.Point(83, 20);
             this.btn_md1_stop.Name = "btn_md1_stop";
-            this.btn_md1_stop.Size = new System.Drawing.Size(112, 67);
+            this.btn_md1_stop.Size = new System.Drawing.Size(71, 67);
             this.btn_md1_stop.TabIndex = 1;
             this.btn_md1_stop.TabStop = false;
             this.btn_md1_stop.Tag = "STOP";
             this.btn_md1_stop.Text = "STOP";
             this.btn_md1_stop.UseVisualStyleBackColor = true;
-            this.btn_md1_stop.Click += new System.EventHandler(this.BtnAction);
             // 
             // btn_md1_run
             // 
             this.btn_md1_run.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md1_run.Location = new System.Drawing.Point(6, 20);
             this.btn_md1_run.Name = "btn_md1_run";
-            this.btn_md1_run.Size = new System.Drawing.Size(112, 67);
+            this.btn_md1_run.Size = new System.Drawing.Size(71, 67);
             this.btn_md1_run.TabIndex = 1;
             this.btn_md1_run.TabStop = false;
             this.btn_md1_run.Tag = "RUN";
             this.btn_md1_run.Text = "RUN";
             this.btn_md1_run.UseVisualStyleBackColor = true;
-            this.btn_md1_run.Click += new System.EventHandler(this.BtnAction);
             // 
             // groupBox2
             // 
@@ -273,8 +317,10 @@
             // 
             // gb_module2
             // 
+            this.gb_module2.Controls.Add(this.btn_md2_manual);
             this.gb_module2.Controls.Add(this.btn_md2_ems);
             this.gb_module2.Controls.Add(this.btn_md2_pause);
+            this.gb_module2.Controls.Add(this.btn_md2_auto);
             this.gb_module2.Controls.Add(this.btn_md2_stop);
             this.gb_module2.Controls.Add(this.btn_md2_run);
             this.gb_module2.Location = new System.Drawing.Point(10, 21);
@@ -284,12 +330,24 @@
             this.gb_module2.TabStop = false;
             this.gb_module2.Text = "운영 상태";
             // 
+            // btn_md2_manual
+            // 
+            this.btn_md2_manual.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_md2_manual.Location = new System.Drawing.Point(160, 93);
+            this.btn_md2_manual.Name = "btn_md2_manual";
+            this.btn_md2_manual.Size = new System.Drawing.Size(71, 67);
+            this.btn_md2_manual.TabIndex = 2;
+            this.btn_md2_manual.TabStop = false;
+            this.btn_md2_manual.Tag = "MANUAL";
+            this.btn_md2_manual.Text = "MANUAL";
+            this.btn_md2_manual.UseVisualStyleBackColor = true;
+            // 
             // btn_md2_ems
             // 
             this.btn_md2_ems.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_md2_ems.Location = new System.Drawing.Point(124, 93);
+            this.btn_md2_ems.Location = new System.Drawing.Point(83, 93);
             this.btn_md2_ems.Name = "btn_md2_ems";
-            this.btn_md2_ems.Size = new System.Drawing.Size(112, 67);
+            this.btn_md2_ems.Size = new System.Drawing.Size(71, 67);
             this.btn_md2_ems.TabIndex = 2;
             this.btn_md2_ems.TabStop = false;
             this.btn_md2_ems.Tag = "EMS";
@@ -301,19 +359,31 @@
             this.btn_md2_pause.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_pause.Location = new System.Drawing.Point(6, 93);
             this.btn_md2_pause.Name = "btn_md2_pause";
-            this.btn_md2_pause.Size = new System.Drawing.Size(112, 67);
+            this.btn_md2_pause.Size = new System.Drawing.Size(71, 67);
             this.btn_md2_pause.TabIndex = 2;
             this.btn_md2_pause.TabStop = false;
             this.btn_md2_pause.Tag = "PAUSE";
             this.btn_md2_pause.Text = "PAUSE";
             this.btn_md2_pause.UseVisualStyleBackColor = true;
             // 
+            // btn_md2_auto
+            // 
+            this.btn_md2_auto.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_md2_auto.Location = new System.Drawing.Point(160, 20);
+            this.btn_md2_auto.Name = "btn_md2_auto";
+            this.btn_md2_auto.Size = new System.Drawing.Size(71, 67);
+            this.btn_md2_auto.TabIndex = 2;
+            this.btn_md2_auto.TabStop = false;
+            this.btn_md2_auto.Tag = "AUTO";
+            this.btn_md2_auto.Text = "AUTO";
+            this.btn_md2_auto.UseVisualStyleBackColor = true;
+            // 
             // btn_md2_stop
             // 
             this.btn_md2_stop.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_md2_stop.Location = new System.Drawing.Point(124, 20);
+            this.btn_md2_stop.Location = new System.Drawing.Point(83, 20);
             this.btn_md2_stop.Name = "btn_md2_stop";
-            this.btn_md2_stop.Size = new System.Drawing.Size(112, 67);
+            this.btn_md2_stop.Size = new System.Drawing.Size(71, 67);
             this.btn_md2_stop.TabIndex = 2;
             this.btn_md2_stop.TabStop = false;
             this.btn_md2_stop.Tag = "STOP";
@@ -325,7 +395,7 @@
             this.btn_md2_run.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_md2_run.Location = new System.Drawing.Point(6, 20);
             this.btn_md2_run.Name = "btn_md2_run";
-            this.btn_md2_run.Size = new System.Drawing.Size(112, 67);
+            this.btn_md2_run.Size = new System.Drawing.Size(71, 67);
             this.btn_md2_run.TabIndex = 2;
             this.btn_md2_run.TabStop = false;
             this.btn_md2_run.Tag = "RUN";
@@ -335,6 +405,7 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.btn_plc_disconnect);
+            this.groupBox5.Controls.Add(this.btn_mmc_connect);
             this.groupBox5.Controls.Add(this.btn_plc_connect);
             this.groupBox5.Controls.Add(this.btn_plc_status);
             this.groupBox5.Location = new System.Drawing.Point(837, 212);
@@ -358,15 +429,29 @@
             this.btn_plc_disconnect.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
             this.btn_plc_disconnect.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
+            // btn_mmc_connect
+            // 
+            this.btn_mmc_connect.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_mmc_connect.Location = new System.Drawing.Point(71, 76);
+            this.btn_mmc_connect.Name = "btn_mmc_connect";
+            this.btn_mmc_connect.Size = new System.Drawing.Size(58, 44);
+            this.btn_mmc_connect.TabIndex = 3;
+            this.btn_mmc_connect.Tag = "8";
+            this.btn_mmc_connect.Text = "MMC 연결";
+            this.btn_mmc_connect.UseVisualStyleBackColor = true;
+            this.btn_mmc_connect.Click += new System.EventHandler(this.BtnAction);
+            this.btn_mmc_connect.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_mmc_connect.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            // 
             // btn_plc_connect
             // 
             this.btn_plc_connect.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_plc_connect.Location = new System.Drawing.Point(7, 76);
             this.btn_plc_connect.Name = "btn_plc_connect";
-            this.btn_plc_connect.Size = new System.Drawing.Size(117, 44);
+            this.btn_plc_connect.Size = new System.Drawing.Size(58, 44);
             this.btn_plc_connect.TabIndex = 3;
             this.btn_plc_connect.Tag = "2";
-            this.btn_plc_connect.Text = "PLC/MMC  연결";
+            this.btn_plc_connect.Text = "PLC 연결";
             this.btn_plc_connect.UseVisualStyleBackColor = true;
             this.btn_plc_connect.Click += new System.EventHandler(this.BtnAction);
             this.btn_plc_connect.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
@@ -384,8 +469,7 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.groupBox12);
-            this.groupBox6.Controls.Add(this.groupBox11);
+            this.groupBox6.Controls.Add(this.lb_Total);
             this.groupBox6.Location = new System.Drawing.Point(837, 348);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(270, 112);
@@ -393,45 +477,15 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "생산 수량";
             // 
-            // groupBox12
+            // lb_Total
             // 
-            this.groupBox12.Controls.Add(this.lb_unstill);
-            this.groupBox12.Location = new System.Drawing.Point(118, 20);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(103, 85);
-            this.groupBox12.TabIndex = 0;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "비금속";
-            // 
-            // lb_unstill
-            // 
-            this.lb_unstill.AutoSize = true;
-            this.lb_unstill.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_unstill.Location = new System.Drawing.Point(38, 32);
-            this.lb_unstill.Name = "lb_unstill";
-            this.lb_unstill.Size = new System.Drawing.Size(31, 29);
-            this.lb_unstill.TabIndex = 0;
-            this.lb_unstill.Text = "-";
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.lb_still);
-            this.groupBox11.Location = new System.Drawing.Point(9, 20);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(103, 85);
-            this.groupBox11.TabIndex = 0;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "금속";
-            // 
-            // lb_still
-            // 
-            this.lb_still.AutoSize = true;
-            this.lb_still.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_still.Location = new System.Drawing.Point(38, 32);
-            this.lb_still.Name = "lb_still";
-            this.lb_still.Size = new System.Drawing.Size(31, 29);
-            this.lb_still.TabIndex = 0;
-            this.lb_still.Text = "-";
+            this.lb_Total.AutoSize = true;
+            this.lb_Total.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_Total.Location = new System.Drawing.Point(120, 42);
+            this.lb_Total.Name = "lb_Total";
+            this.lb_Total.Size = new System.Drawing.Size(31, 29);
+            this.lb_Total.TabIndex = 1;
+            this.lb_Total.Text = "-";
             // 
             // btn_initialize
             // 
@@ -477,18 +531,39 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.label4);
+            this.groupBox8.Controls.Add(this.label3);
             this.groupBox8.Controls.Add(this.button7);
             this.groupBox8.Controls.Add(this.btn_load_receive);
             this.groupBox8.Controls.Add(this.btn_load_Send);
             this.groupBox8.Controls.Add(this.btn_clear);
             this.groupBox8.Controls.Add(this.btn_save);
-            this.groupBox8.Controls.Add(this.tb_Message);
+            this.groupBox8.Controls.Add(this.tb_send_Message);
+            this.groupBox8.Controls.Add(this.tb_rcv_Message);
             this.groupBox8.Location = new System.Drawing.Point(13, 364);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(806, 420);
             this.groupBox8.TabIndex = 4;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Message";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(412, 21);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(91, 12);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Send Message";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(10, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(107, 12);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Receive Message";
             // 
             // button7
             // 
@@ -498,7 +573,7 @@
             this.button7.TabIndex = 2;
             this.button7.Text = "button7";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button7_MouseDown);
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // btn_load_receive
             // 
@@ -560,35 +635,43 @@
             this.btn_save.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
             this.btn_save.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
-            // tb_Message
+            // tb_send_Message
             // 
-            this.tb_Message.Location = new System.Drawing.Point(7, 21);
-            this.tb_Message.Multiline = true;
-            this.tb_Message.Name = "tb_Message";
-            this.tb_Message.Size = new System.Drawing.Size(793, 345);
-            this.tb_Message.TabIndex = 0;
+            this.tb_send_Message.Location = new System.Drawing.Point(409, 36);
+            this.tb_send_Message.Multiline = true;
+            this.tb_send_Message.Name = "tb_send_Message";
+            this.tb_send_Message.Size = new System.Drawing.Size(387, 330);
+            this.tb_send_Message.TabIndex = 0;
             // 
-            // groupBox7
+            // tb_rcv_Message
             // 
-            this.groupBox7.Controls.Add(this.button6);
-            this.groupBox7.Controls.Add(this.button5);
-            this.groupBox7.Controls.Add(this.btn_ems);
-            this.groupBox7.Controls.Add(this.btn_module2_1cycle);
-            this.groupBox7.Controls.Add(this.btn_module1_1cycle);
-            this.groupBox7.Controls.Add(this.btn_md1_1cycle);
-            this.groupBox7.Controls.Add(this.btn_md1_manual);
-            this.groupBox7.Controls.Add(this.btn_md1_Auto);
-            this.groupBox7.Location = new System.Drawing.Point(13, 225);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(806, 133);
-            this.groupBox7.TabIndex = 5;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "운전 모드";
+            this.tb_rcv_Message.Location = new System.Drawing.Point(7, 36);
+            this.tb_rcv_Message.Multiline = true;
+            this.tb_rcv_Message.Name = "tb_rcv_Message";
+            this.tb_rcv_Message.Size = new System.Drawing.Size(387, 330);
+            this.tb_rcv_Message.TabIndex = 0;
+            // 
+            // gb_runMode
+            // 
+            this.gb_runMode.Controls.Add(this.button6);
+            this.gb_runMode.Controls.Add(this.btn_pause);
+            this.gb_runMode.Controls.Add(this.btn_ems);
+            this.gb_runMode.Controls.Add(this.btn_module2_1cycle);
+            this.gb_runMode.Controls.Add(this.btn_module1_1cycle);
+            this.gb_runMode.Controls.Add(this.btn_eqp_1cycle);
+            this.gb_runMode.Controls.Add(this.btn_manual);
+            this.gb_runMode.Controls.Add(this.btn_Auto);
+            this.gb_runMode.Location = new System.Drawing.Point(13, 225);
+            this.gb_runMode.Name = "gb_runMode";
+            this.gb_runMode.Size = new System.Drawing.Size(806, 133);
+            this.gb_runMode.TabIndex = 5;
+            this.gb_runMode.TabStop = false;
+            this.gb_runMode.Text = "운전 모드";
             // 
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button6.Location = new System.Drawing.Point(127, 20);
+            this.button6.Location = new System.Drawing.Point(439, 20);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(115, 102);
             this.button6.TabIndex = 1;
@@ -600,20 +683,20 @@
             this.button6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
             this.button6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
-            // button5
+            // btn_pause
             // 
-            this.button5.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button5.Location = new System.Drawing.Point(248, 20);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(115, 102);
-            this.button5.TabIndex = 1;
-            this.button5.TabStop = false;
-            this.button5.Tag = "3";
-            this.button5.Text = "PAUSE";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.BtnAction);
-            this.button5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.button5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.btn_pause.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_pause.Location = new System.Drawing.Point(560, 20);
+            this.btn_pause.Name = "btn_pause";
+            this.btn_pause.Size = new System.Drawing.Size(115, 102);
+            this.btn_pause.TabIndex = 1;
+            this.btn_pause.TabStop = false;
+            this.btn_pause.Tag = "3";
+            this.btn_pause.Text = "PAUSE";
+            this.btn_pause.UseVisualStyleBackColor = true;
+            this.btn_pause.Click += new System.EventHandler(this.BtnAction);
+            this.btn_pause.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_pause.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // btn_ems
             // 
@@ -633,7 +716,7 @@
             // btn_module2_1cycle
             // 
             this.btn_module2_1cycle.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_module2_1cycle.Location = new System.Drawing.Point(584, 73);
+            this.btn_module2_1cycle.Location = new System.Drawing.Point(342, 73);
             this.btn_module2_1cycle.Name = "btn_module2_1cycle";
             this.btn_module2_1cycle.Size = new System.Drawing.Size(91, 49);
             this.btn_module2_1cycle.TabIndex = 1;
@@ -648,7 +731,7 @@
             // btn_module1_1cycle
             // 
             this.btn_module1_1cycle.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_module1_1cycle.Location = new System.Drawing.Point(490, 73);
+            this.btn_module1_1cycle.Location = new System.Drawing.Point(248, 73);
             this.btn_module1_1cycle.Name = "btn_module1_1cycle";
             this.btn_module1_1cycle.Size = new System.Drawing.Size(91, 49);
             this.btn_module1_1cycle.TabIndex = 1;
@@ -660,50 +743,50 @@
             this.btn_module1_1cycle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
             this.btn_module1_1cycle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
-            // btn_md1_1cycle
+            // btn_eqp_1cycle
             // 
-            this.btn_md1_1cycle.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_md1_1cycle.Location = new System.Drawing.Point(490, 20);
-            this.btn_md1_1cycle.Name = "btn_md1_1cycle";
-            this.btn_md1_1cycle.Size = new System.Drawing.Size(185, 49);
-            this.btn_md1_1cycle.TabIndex = 1;
-            this.btn_md1_1cycle.TabStop = false;
-            this.btn_md1_1cycle.Tag = "5";
-            this.btn_md1_1cycle.Text = "1회 운전";
-            this.btn_md1_1cycle.UseVisualStyleBackColor = true;
-            this.btn_md1_1cycle.Click += new System.EventHandler(this.BtnAction);
-            this.btn_md1_1cycle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md1_1cycle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.btn_eqp_1cycle.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_eqp_1cycle.Location = new System.Drawing.Point(248, 20);
+            this.btn_eqp_1cycle.Name = "btn_eqp_1cycle";
+            this.btn_eqp_1cycle.Size = new System.Drawing.Size(185, 49);
+            this.btn_eqp_1cycle.TabIndex = 1;
+            this.btn_eqp_1cycle.TabStop = false;
+            this.btn_eqp_1cycle.Tag = "5";
+            this.btn_eqp_1cycle.Text = "1회 운전";
+            this.btn_eqp_1cycle.UseVisualStyleBackColor = true;
+            this.btn_eqp_1cycle.Click += new System.EventHandler(this.BtnAction);
+            this.btn_eqp_1cycle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_eqp_1cycle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
-            // btn_md1_manual
+            // btn_manual
             // 
-            this.btn_md1_manual.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_md1_manual.Location = new System.Drawing.Point(369, 20);
-            this.btn_md1_manual.Name = "btn_md1_manual";
-            this.btn_md1_manual.Size = new System.Drawing.Size(115, 102);
-            this.btn_md1_manual.TabIndex = 1;
-            this.btn_md1_manual.TabStop = false;
-            this.btn_md1_manual.Tag = "4";
-            this.btn_md1_manual.Text = "수동운전";
-            this.btn_md1_manual.UseVisualStyleBackColor = true;
-            this.btn_md1_manual.Click += new System.EventHandler(this.BtnAction);
-            this.btn_md1_manual.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md1_manual.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.btn_manual.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_manual.Location = new System.Drawing.Point(127, 20);
+            this.btn_manual.Name = "btn_manual";
+            this.btn_manual.Size = new System.Drawing.Size(115, 102);
+            this.btn_manual.TabIndex = 1;
+            this.btn_manual.TabStop = false;
+            this.btn_manual.Tag = "4";
+            this.btn_manual.Text = "수동운전";
+            this.btn_manual.UseVisualStyleBackColor = true;
+            this.btn_manual.Click += new System.EventHandler(this.BtnAction);
+            this.btn_manual.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_manual.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
-            // btn_md1_Auto
+            // btn_Auto
             // 
-            this.btn_md1_Auto.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_md1_Auto.Location = new System.Drawing.Point(6, 20);
-            this.btn_md1_Auto.Name = "btn_md1_Auto";
-            this.btn_md1_Auto.Size = new System.Drawing.Size(115, 102);
-            this.btn_md1_Auto.TabIndex = 1;
-            this.btn_md1_Auto.TabStop = false;
-            this.btn_md1_Auto.Tag = "1";
-            this.btn_md1_Auto.Text = "자동운전";
-            this.btn_md1_Auto.UseVisualStyleBackColor = true;
-            this.btn_md1_Auto.Click += new System.EventHandler(this.BtnAction);
-            this.btn_md1_Auto.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_md1_Auto.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.btn_Auto.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_Auto.Location = new System.Drawing.Point(6, 20);
+            this.btn_Auto.Name = "btn_Auto";
+            this.btn_Auto.Size = new System.Drawing.Size(115, 102);
+            this.btn_Auto.TabIndex = 1;
+            this.btn_Auto.TabStop = false;
+            this.btn_Auto.Tag = "1";
+            this.btn_Auto.Text = "자동운전";
+            this.btn_Auto.UseVisualStyleBackColor = true;
+            this.btn_Auto.Click += new System.EventHandler(this.BtnAction);
+            this.btn_Auto.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_Auto.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // groupBox9
             // 
@@ -717,10 +800,10 @@
             // 
             // gb_equipmentStatus
             // 
-            this.gb_equipmentStatus.Controls.Add(this.button1);
-            this.gb_equipmentStatus.Controls.Add(this.button2);
-            this.gb_equipmentStatus.Controls.Add(this.button3);
-            this.gb_equipmentStatus.Controls.Add(this.button4);
+            this.gb_equipmentStatus.Controls.Add(this.btn_epuip_ems);
+            this.gb_equipmentStatus.Controls.Add(this.btn_epuip_pause);
+            this.gb_equipmentStatus.Controls.Add(this.btn_epuip_stop);
+            this.gb_equipmentStatus.Controls.Add(this.btn_epuip_run);
             this.gb_equipmentStatus.Location = new System.Drawing.Point(7, 21);
             this.gb_equipmentStatus.Name = "gb_equipmentStatus";
             this.gb_equipmentStatus.Size = new System.Drawing.Size(246, 172);
@@ -728,85 +811,249 @@
             this.gb_equipmentStatus.TabStop = false;
             this.gb_equipmentStatus.Text = "운영 상태";
             // 
-            // button1
+            // btn_epuip_ems
             // 
-            this.button1.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button1.Location = new System.Drawing.Point(124, 93);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 67);
-            this.button1.TabIndex = 0;
-            this.button1.TabStop = false;
-            this.button1.Tag = "EMS";
-            this.button1.Text = "EMS";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.BtnAction);
+            this.btn_epuip_ems.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_epuip_ems.Location = new System.Drawing.Point(125, 93);
+            this.btn_epuip_ems.Name = "btn_epuip_ems";
+            this.btn_epuip_ems.Size = new System.Drawing.Size(115, 67);
+            this.btn_epuip_ems.TabIndex = 0;
+            this.btn_epuip_ems.TabStop = false;
+            this.btn_epuip_ems.Tag = "EMS";
+            this.btn_epuip_ems.Text = "EMS";
+            this.btn_epuip_ems.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btn_epuip_pause
             // 
-            this.button2.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button2.Location = new System.Drawing.Point(6, 93);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 67);
-            this.button2.TabIndex = 0;
-            this.button2.TabStop = false;
-            this.button2.Tag = "PAUSE";
-            this.button2.Text = "PAUSE";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.BtnAction);
+            this.btn_epuip_pause.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_epuip_pause.Location = new System.Drawing.Point(6, 93);
+            this.btn_epuip_pause.Name = "btn_epuip_pause";
+            this.btn_epuip_pause.Size = new System.Drawing.Size(115, 67);
+            this.btn_epuip_pause.TabIndex = 0;
+            this.btn_epuip_pause.TabStop = false;
+            this.btn_epuip_pause.Tag = "PAUSE";
+            this.btn_epuip_pause.Text = "PAUSE";
+            this.btn_epuip_pause.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btn_epuip_stop
             // 
-            this.button3.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button3.Location = new System.Drawing.Point(124, 20);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(112, 67);
-            this.button3.TabIndex = 0;
-            this.button3.TabStop = false;
-            this.button3.Tag = "STOP";
-            this.button3.Text = "STOP";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.BtnAction);
+            this.btn_epuip_stop.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_epuip_stop.Location = new System.Drawing.Point(125, 20);
+            this.btn_epuip_stop.Name = "btn_epuip_stop";
+            this.btn_epuip_stop.Size = new System.Drawing.Size(115, 67);
+            this.btn_epuip_stop.TabIndex = 0;
+            this.btn_epuip_stop.TabStop = false;
+            this.btn_epuip_stop.Tag = "STOP";
+            this.btn_epuip_stop.Text = "STOP";
+            this.btn_epuip_stop.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btn_epuip_run
             // 
-            this.button4.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button4.Location = new System.Drawing.Point(6, 20);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(112, 67);
-            this.button4.TabIndex = 0;
-            this.button4.TabStop = false;
-            this.button4.Tag = "RUN";
-            this.button4.Text = "RUN";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.BtnAction);
+            this.btn_epuip_run.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_epuip_run.Location = new System.Drawing.Point(6, 20);
+            this.btn_epuip_run.Name = "btn_epuip_run";
+            this.btn_epuip_run.Size = new System.Drawing.Size(115, 67);
+            this.btn_epuip_run.TabIndex = 0;
+            this.btn_epuip_run.TabStop = false;
+            this.btn_epuip_run.Tag = "RUN";
+            this.btn_epuip_run.Text = "RUN";
+            this.btn_epuip_run.UseVisualStyleBackColor = true;
             // 
-            // btn_servoTeach
+            // btn_cartridgeChoose
             // 
-            this.btn_servoTeach.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_servoTeach.Location = new System.Drawing.Point(975, 466);
-            this.btn_servoTeach.Name = "btn_servoTeach";
-            this.btn_servoTeach.Size = new System.Drawing.Size(132, 142);
-            this.btn_servoTeach.TabIndex = 3;
-            this.btn_servoTeach.Tag = "5";
-            this.btn_servoTeach.Text = "SERVO TEACH";
-            this.btn_servoTeach.UseVisualStyleBackColor = true;
-            this.btn_servoTeach.Click += new System.EventHandler(this.BtnAction);
-            this.btn_servoTeach.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_servoTeach.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.btn_cartridgeChoose.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_cartridgeChoose.Location = new System.Drawing.Point(975, 466);
+            this.btn_cartridgeChoose.Name = "btn_cartridgeChoose";
+            this.btn_cartridgeChoose.Size = new System.Drawing.Size(132, 142);
+            this.btn_cartridgeChoose.TabIndex = 3;
+            this.btn_cartridgeChoose.Tag = "5";
+            this.btn_cartridgeChoose.Text = "CARTRIDGE CHOOSE";
+            this.btn_cartridgeChoose.UseVisualStyleBackColor = true;
+            this.btn_cartridgeChoose.Click += new System.EventHandler(this.BtnAction);
+            this.btn_cartridgeChoose.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_cartridgeChoose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // InitTimer
             // 
             this.InitTimer.Tick += new System.EventHandler(this.InitTimer_Tick);
             // 
+            // gb_serverSend
+            // 
+            this.gb_serverSend.Controls.Add(this.label12);
+            this.gb_serverSend.Controls.Add(this.label11);
+            this.gb_serverSend.Controls.Add(this.label10);
+            this.gb_serverSend.Controls.Add(this.label9);
+            this.gb_serverSend.Controls.Add(this.label8);
+            this.gb_serverSend.Controls.Add(this.label7);
+            this.gb_serverSend.Controls.Add(this.label6);
+            this.gb_serverSend.Controls.Add(this.tb_runtype);
+            this.gb_serverSend.Controls.Add(this.label5);
+            this.gb_serverSend.Controls.Add(this.tb_product);
+            this.gb_serverSend.Controls.Add(this.tb_startable);
+            this.gb_serverSend.Controls.Add(this.tb_commd);
+            this.gb_serverSend.Controls.Add(this.tb_optmode);
+            this.gb_serverSend.Controls.Add(this.tb_mode);
+            this.gb_serverSend.Controls.Add(this.tb_netstatus);
+            this.gb_serverSend.Controls.Add(this.tb_name);
+            this.gb_serverSend.Location = new System.Drawing.Point(1114, 16);
+            this.gb_serverSend.Name = "gb_serverSend";
+            this.gb_serverSend.Size = new System.Drawing.Size(214, 265);
+            this.gb_serverSend.TabIndex = 6;
+            this.gb_serverSend.TabStop = false;
+            this.gb_serverSend.Text = "IECS 송신 정보";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(22, 225);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(64, 12);
+            this.label12.TabIndex = 1;
+            this.label12.Text = "RunType :";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(15, 198);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(71, 12);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "PRODUCT :";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(19, 171);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(67, 12);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Start Able :";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(28, 144);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(58, 12);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Commd :";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(22, 117);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(64, 12);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "OptMode :";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(37, 90);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(49, 12);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "MODE :";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(19, 63);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(67, 12);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "NetStatus :";
+            // 
+            // tb_runtype
+            // 
+            this.tb_runtype.Location = new System.Drawing.Point(88, 221);
+            this.tb_runtype.Name = "tb_runtype";
+            this.tb_runtype.Size = new System.Drawing.Size(100, 21);
+            this.tb_runtype.TabIndex = 0;
+            this.tb_runtype.TextChanged += new System.EventHandler(this.TextBoxChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(37, 37);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(49, 12);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "NAME :";
+            // 
+            // tb_product
+            // 
+            this.tb_product.Location = new System.Drawing.Point(88, 194);
+            this.tb_product.Name = "tb_product";
+            this.tb_product.Size = new System.Drawing.Size(100, 21);
+            this.tb_product.TabIndex = 0;
+            this.tb_product.Text = "0";
+            this.tb_product.TextChanged += new System.EventHandler(this.TextBoxChanged);
+            // 
+            // tb_startable
+            // 
+            this.tb_startable.Location = new System.Drawing.Point(88, 167);
+            this.tb_startable.Name = "tb_startable";
+            this.tb_startable.Size = new System.Drawing.Size(100, 21);
+            this.tb_startable.TabIndex = 0;
+            this.tb_startable.TextChanged += new System.EventHandler(this.TextBoxChanged);
+            // 
+            // tb_commd
+            // 
+            this.tb_commd.Location = new System.Drawing.Point(88, 140);
+            this.tb_commd.Name = "tb_commd";
+            this.tb_commd.Size = new System.Drawing.Size(100, 21);
+            this.tb_commd.TabIndex = 0;
+            this.tb_commd.TextChanged += new System.EventHandler(this.TextBoxChanged);
+            // 
+            // tb_optmode
+            // 
+            this.tb_optmode.Location = new System.Drawing.Point(88, 113);
+            this.tb_optmode.Name = "tb_optmode";
+            this.tb_optmode.Size = new System.Drawing.Size(100, 21);
+            this.tb_optmode.TabIndex = 0;
+            this.tb_optmode.TextChanged += new System.EventHandler(this.TextBoxChanged);
+            // 
+            // tb_mode
+            // 
+            this.tb_mode.Location = new System.Drawing.Point(88, 86);
+            this.tb_mode.Name = "tb_mode";
+            this.tb_mode.Size = new System.Drawing.Size(100, 21);
+            this.tb_mode.TabIndex = 0;
+            this.tb_mode.TextChanged += new System.EventHandler(this.TextBoxChanged);
+            // 
+            // tb_netstatus
+            // 
+            this.tb_netstatus.Location = new System.Drawing.Point(88, 59);
+            this.tb_netstatus.Name = "tb_netstatus";
+            this.tb_netstatus.Size = new System.Drawing.Size(100, 21);
+            this.tb_netstatus.TabIndex = 0;
+            this.tb_netstatus.TextChanged += new System.EventHandler(this.TextBoxChanged);
+            // 
+            // tb_name
+            // 
+            this.tb_name.Location = new System.Drawing.Point(88, 32);
+            this.tb_name.Name = "tb_name";
+            this.tb_name.Size = new System.Drawing.Size(100, 21);
+            this.tb_name.TabIndex = 0;
+            this.tb_name.TextChanged += new System.EventHandler(this.TextBoxChanged);
+            // 
+            // IOUpdate
+            // 
+            this.IOUpdate.Interval = 300;
+            this.IOUpdate.Tick += new System.EventHandler(this.IOUpdate_Tick);
+            // 
             // EQUIPMENT01
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1119, 824);
-            this.Controls.Add(this.groupBox7);
+            this.ClientSize = new System.Drawing.Size(1407, 824);
+            this.Controls.Add(this.gb_serverSend);
+            this.Controls.Add(this.gb_runMode);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.btn_logoff);
-            this.Controls.Add(this.btn_servoTeach);
+            this.Controls.Add(this.btn_cartridgeChoose);
             this.Controls.Add(this.btn_dio);
             this.Controls.Add(this.btn_initialize);
             this.Controls.Add(this.groupBox2);
@@ -831,15 +1078,14 @@
             this.gb_module2.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
+            this.groupBox6.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
+            this.gb_runMode.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.gb_equipmentStatus.ResumeLayout(false);
+            this.gb_serverSend.ResumeLayout(false);
+            this.gb_serverSend.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -865,7 +1111,7 @@
         private System.Windows.Forms.Button btn_dio;
         private System.Windows.Forms.Button btn_logoff;
         private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.TextBox tb_Message;
+        private System.Windows.Forms.TextBox tb_rcv_Message;
         private System.Windows.Forms.Button btn_load_Send;
         private System.Windows.Forms.Button btn_clear;
         private System.Windows.Forms.Button btn_save;
@@ -877,30 +1123,53 @@
         private System.Windows.Forms.Button btn_md2_pause;
         private System.Windows.Forms.Button btn_md2_stop;
         private System.Windows.Forms.Button btn_md2_run;
-        private System.Windows.Forms.GroupBox groupBox12;
-        private System.Windows.Forms.Label lb_unstill;
-        private System.Windows.Forms.GroupBox groupBox11;
-        private System.Windows.Forms.Label lb_still;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tb_iecsPort;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.Button btn_md1_1cycle;
-        private System.Windows.Forms.Button btn_md1_manual;
-        private System.Windows.Forms.Button btn_md1_Auto;
+        private System.Windows.Forms.GroupBox gb_runMode;
+        private System.Windows.Forms.Button btn_eqp_1cycle;
+        private System.Windows.Forms.Button btn_manual;
+        private System.Windows.Forms.Button btn_Auto;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.GroupBox gb_equipmentStatus;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btn_epuip_ems;
+        private System.Windows.Forms.Button btn_epuip_pause;
+        private System.Windows.Forms.Button btn_epuip_stop;
+        private System.Windows.Forms.Button btn_epuip_run;
         private System.Windows.Forms.Button btn_module2_1cycle;
         private System.Windows.Forms.Button btn_module1_1cycle;
-        private System.Windows.Forms.Button btn_servoTeach;
+        private System.Windows.Forms.Button btn_cartridgeChoose;
         private System.Windows.Forms.Button btn_ems;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btn_pause;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Timer InitTimer;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tb_send_Message;
+        private System.Windows.Forms.Button btn_md1_manual;
+        private System.Windows.Forms.Button btn_md1_auto;
+        private System.Windows.Forms.Button btn_md2_manual;
+        private System.Windows.Forms.Button btn_md2_auto;
+        private System.Windows.Forms.Label lb_Total;
+        private System.Windows.Forms.GroupBox gb_serverSend;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tb_runtype;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tb_product;
+        private System.Windows.Forms.TextBox tb_startable;
+        private System.Windows.Forms.TextBox tb_commd;
+        private System.Windows.Forms.TextBox tb_optmode;
+        private System.Windows.Forms.TextBox tb_mode;
+        private System.Windows.Forms.TextBox tb_netstatus;
+        private System.Windows.Forms.TextBox tb_name;
+        private System.Windows.Forms.Timer IOUpdate;
+        private System.Windows.Forms.Button btn_mmc_connect;
     }
 }
 
