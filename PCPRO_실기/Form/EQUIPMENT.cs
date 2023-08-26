@@ -53,6 +53,8 @@ namespace PCPRO_실기
         bool md2_OneCycle;          // module2 운전 1회 스위치
         int productOutCount;
 
+        bool bPause;
+
         // MMC 필드
         MotionKit motionkit;
 
@@ -103,6 +105,7 @@ namespace PCPRO_실기
 
             //운전관련필드 초기화
             bAutoRunReady = false;
+            bPause = false;
             serverOneCycle = Step.STEP00;
             originStep = Step.STEP00;
             bOneCylce = false;
@@ -186,6 +189,14 @@ namespace PCPRO_실기
             if (tabIndex == 1 && tag == 3)  // 일시정지
             {
                 RunModeStatus(gb, "PAUSE");
+                if (bPause == false)
+                {
+                    bPause = true;
+                }
+                else
+                {
+                    bPause = false;
+                }
             }
             if (tabIndex == 1 && tag == 4)  // 메뉴얼
             {
@@ -550,7 +561,8 @@ namespace PCPRO_실기
             {
                 try
                 {
-
+                    if (bPause)
+                        Thread.Sleep(Timeout.Infinite);
 
                     if (bOneCylce)
                     {
