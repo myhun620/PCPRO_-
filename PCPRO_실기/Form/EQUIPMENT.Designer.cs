@@ -70,11 +70,10 @@
             this.btn_load_receive = new System.Windows.Forms.Button();
             this.btn_load_Send = new System.Windows.Forms.Button();
             this.btn_clear = new System.Windows.Forms.Button();
-            this.btn_save = new System.Windows.Forms.Button();
             this.tb_send_Message = new System.Windows.Forms.TextBox();
             this.tb_rcv_Message = new System.Windows.Forms.TextBox();
             this.gb_runMode = new System.Windows.Forms.GroupBox();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btn_stop = new System.Windows.Forms.Button();
             this.btn_pause = new System.Windows.Forms.Button();
             this.btn_ems = new System.Windows.Forms.Button();
             this.btn_module2_1cycle = new System.Windows.Forms.Button();
@@ -91,6 +90,7 @@
             this.btn_cartridgeChoose = new System.Windows.Forms.Button();
             this.InitTimer = new System.Windows.Forms.Timer(this.components);
             this.gb_serverSend = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -98,6 +98,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.tb_endAble = new System.Windows.Forms.TextBox();
             this.tb_runtype = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tb_product = new System.Windows.Forms.TextBox();
@@ -108,6 +109,12 @@
             this.tb_netstatus = new System.Windows.Forms.TextBox();
             this.tb_name = new System.Windows.Forms.TextBox();
             this.IOUpdate = new System.Windows.Forms.Timer(this.components);
+            this.btn_AutoRun = new System.Windows.Forms.Button();
+            this.btn_oneCycle = new System.Windows.Forms.Button();
+            this.btn_MD1_One = new System.Windows.Forms.Button();
+            this.btn_MD2_One = new System.Windows.Forms.Button();
+            this.btn_SensorPass = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gb_module1.SuspendLayout();
@@ -120,6 +127,7 @@
             this.groupBox9.SuspendLayout();
             this.gb_equipmentStatus.SuspendLayout();
             this.gb_serverSend.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox3
@@ -537,7 +545,6 @@
             this.groupBox8.Controls.Add(this.btn_load_receive);
             this.groupBox8.Controls.Add(this.btn_load_Send);
             this.groupBox8.Controls.Add(this.btn_clear);
-            this.groupBox8.Controls.Add(this.btn_save);
             this.groupBox8.Controls.Add(this.tb_send_Message);
             this.groupBox8.Controls.Add(this.tb_rcv_Message);
             this.groupBox8.Location = new System.Drawing.Point(13, 364);
@@ -620,21 +627,6 @@
             this.btn_clear.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
             this.btn_clear.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
-            // btn_save
-            // 
-            this.btn_save.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_save.Location = new System.Drawing.Point(398, 372);
-            this.btn_save.Name = "btn_save";
-            this.btn_save.Size = new System.Drawing.Size(96, 42);
-            this.btn_save.TabIndex = 1;
-            this.btn_save.TabStop = false;
-            this.btn_save.Tag = "9";
-            this.btn_save.Text = "Save";
-            this.btn_save.UseVisualStyleBackColor = true;
-            this.btn_save.Click += new System.EventHandler(this.BtnAction);
-            this.btn_save.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.btn_save.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
-            // 
             // tb_send_Message
             // 
             this.tb_send_Message.Location = new System.Drawing.Point(409, 36);
@@ -653,7 +645,7 @@
             // 
             // gb_runMode
             // 
-            this.gb_runMode.Controls.Add(this.button6);
+            this.gb_runMode.Controls.Add(this.btn_stop);
             this.gb_runMode.Controls.Add(this.btn_pause);
             this.gb_runMode.Controls.Add(this.btn_ems);
             this.gb_runMode.Controls.Add(this.btn_module2_1cycle);
@@ -668,20 +660,20 @@
             this.gb_runMode.TabStop = false;
             this.gb_runMode.Text = "운전 모드";
             // 
-            // button6
+            // btn_stop
             // 
-            this.button6.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button6.Location = new System.Drawing.Point(439, 20);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(115, 102);
-            this.button6.TabIndex = 1;
-            this.button6.TabStop = false;
-            this.button6.Tag = "2";
-            this.button6.Text = "STOP";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.BtnAction);
-            this.button6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
-            this.button6.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
+            this.btn_stop.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_stop.Location = new System.Drawing.Point(439, 20);
+            this.btn_stop.Name = "btn_stop";
+            this.btn_stop.Size = new System.Drawing.Size(115, 102);
+            this.btn_stop.TabIndex = 1;
+            this.btn_stop.TabStop = false;
+            this.btn_stop.Tag = "2";
+            this.btn_stop.Text = "STOP";
+            this.btn_stop.UseVisualStyleBackColor = true;
+            this.btn_stop.Click += new System.EventHandler(this.BtnAction);
+            this.btn_stop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Down);
+            this.btn_stop.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonColor_Up);
             // 
             // btn_pause
             // 
@@ -879,6 +871,7 @@
             // 
             // gb_serverSend
             // 
+            this.gb_serverSend.Controls.Add(this.label13);
             this.gb_serverSend.Controls.Add(this.label12);
             this.gb_serverSend.Controls.Add(this.label11);
             this.gb_serverSend.Controls.Add(this.label10);
@@ -886,6 +879,7 @@
             this.gb_serverSend.Controls.Add(this.label8);
             this.gb_serverSend.Controls.Add(this.label7);
             this.gb_serverSend.Controls.Add(this.label6);
+            this.gb_serverSend.Controls.Add(this.tb_endAble);
             this.gb_serverSend.Controls.Add(this.tb_runtype);
             this.gb_serverSend.Controls.Add(this.label5);
             this.gb_serverSend.Controls.Add(this.tb_product);
@@ -897,10 +891,19 @@
             this.gb_serverSend.Controls.Add(this.tb_name);
             this.gb_serverSend.Location = new System.Drawing.Point(1114, 16);
             this.gb_serverSend.Name = "gb_serverSend";
-            this.gb_serverSend.Size = new System.Drawing.Size(214, 265);
+            this.gb_serverSend.Size = new System.Drawing.Size(214, 293);
             this.gb_serverSend.TabIndex = 6;
             this.gb_serverSend.TabStop = false;
             this.gb_serverSend.Text = "IECS 송신 정보";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(22, 252);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(64, 12);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "End Able :";
             // 
             // label12
             // 
@@ -965,6 +968,14 @@
             this.label6.TabIndex = 1;
             this.label6.Text = "NetStatus :";
             // 
+            // tb_endAble
+            // 
+            this.tb_endAble.Location = new System.Drawing.Point(88, 248);
+            this.tb_endAble.Name = "tb_endAble";
+            this.tb_endAble.Size = new System.Drawing.Size(100, 21);
+            this.tb_endAble.TabIndex = 0;
+            this.tb_endAble.TextChanged += new System.EventHandler(this.TextBoxChanged);
+            // 
             // tb_runtype
             // 
             this.tb_runtype.Location = new System.Drawing.Point(88, 221);
@@ -997,7 +1008,6 @@
             this.tb_startable.Name = "tb_startable";
             this.tb_startable.Size = new System.Drawing.Size(100, 21);
             this.tb_startable.TabIndex = 0;
-            this.tb_startable.TextChanged += new System.EventHandler(this.TextBoxChanged);
             // 
             // tb_commd
             // 
@@ -1041,14 +1051,81 @@
             // 
             // IOUpdate
             // 
-            this.IOUpdate.Interval = 300;
+            this.IOUpdate.Interval = 20;
             this.IOUpdate.Tick += new System.EventHandler(this.IOUpdate_Tick);
+            // 
+            // btn_AutoRun
+            // 
+            this.btn_AutoRun.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_AutoRun.Location = new System.Drawing.Point(17, 33);
+            this.btn_AutoRun.Name = "btn_AutoRun";
+            this.btn_AutoRun.Size = new System.Drawing.Size(116, 36);
+            this.btn_AutoRun.TabIndex = 7;
+            this.btn_AutoRun.Text = "AutoRun";
+            this.btn_AutoRun.UseVisualStyleBackColor = true;
+            // 
+            // btn_oneCycle
+            // 
+            this.btn_oneCycle.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_oneCycle.Location = new System.Drawing.Point(17, 75);
+            this.btn_oneCycle.Name = "btn_oneCycle";
+            this.btn_oneCycle.Size = new System.Drawing.Size(116, 36);
+            this.btn_oneCycle.TabIndex = 8;
+            this.btn_oneCycle.Text = "One Cycle";
+            this.btn_oneCycle.UseVisualStyleBackColor = true;
+            // 
+            // btn_MD1_One
+            // 
+            this.btn_MD1_One.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_MD1_One.Location = new System.Drawing.Point(17, 117);
+            this.btn_MD1_One.Name = "btn_MD1_One";
+            this.btn_MD1_One.Size = new System.Drawing.Size(116, 36);
+            this.btn_MD1_One.TabIndex = 9;
+            this.btn_MD1_One.Text = "MD1_One";
+            this.btn_MD1_One.UseVisualStyleBackColor = true;
+            // 
+            // btn_MD2_One
+            // 
+            this.btn_MD2_One.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_MD2_One.Location = new System.Drawing.Point(17, 159);
+            this.btn_MD2_One.Name = "btn_MD2_One";
+            this.btn_MD2_One.Size = new System.Drawing.Size(116, 36);
+            this.btn_MD2_One.TabIndex = 10;
+            this.btn_MD2_One.Text = "MD2_One";
+            this.btn_MD2_One.UseVisualStyleBackColor = true;
+            // 
+            // btn_SensorPass
+            // 
+            this.btn_SensorPass.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_SensorPass.Location = new System.Drawing.Point(139, 33);
+            this.btn_SensorPass.Name = "btn_SensorPass";
+            this.btn_SensorPass.Size = new System.Drawing.Size(62, 162);
+            this.btn_SensorPass.TabIndex = 11;
+            this.btn_SensorPass.Text = "Sensor PASS";
+            this.btn_SensorPass.UseVisualStyleBackColor = true;
+            this.btn_SensorPass.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btn_SensorPass_MouseDown);
+            this.btn_SensorPass.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btn_SensorPass_MouseUp);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.btn_AutoRun);
+            this.groupBox4.Controls.Add(this.btn_SensorPass);
+            this.groupBox4.Controls.Add(this.btn_oneCycle);
+            this.groupBox4.Controls.Add(this.btn_MD2_One);
+            this.groupBox4.Controls.Add(this.btn_MD1_One);
+            this.groupBox4.Location = new System.Drawing.Point(1114, 315);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(214, 222);
+            this.groupBox4.TabIndex = 12;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "운전 MODE";
             // 
             // EQUIPMENT01
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1407, 824);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.gb_serverSend);
             this.Controls.Add(this.gb_runMode);
             this.Controls.Add(this.groupBox8);
@@ -1086,6 +1163,7 @@
             this.gb_equipmentStatus.ResumeLayout(false);
             this.gb_serverSend.ResumeLayout(false);
             this.gb_serverSend.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1114,7 +1192,6 @@
         private System.Windows.Forms.TextBox tb_rcv_Message;
         private System.Windows.Forms.Button btn_load_Send;
         private System.Windows.Forms.Button btn_clear;
-        private System.Windows.Forms.Button btn_save;
         private System.Windows.Forms.Button btn_load_receive;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tb_iecsIPAddress;
@@ -1139,7 +1216,7 @@
         private System.Windows.Forms.Button btn_module1_1cycle;
         private System.Windows.Forms.Button btn_cartridgeChoose;
         private System.Windows.Forms.Button btn_ems;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btn_stop;
         private System.Windows.Forms.Button btn_pause;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Timer InitTimer;
@@ -1170,6 +1247,14 @@
         private System.Windows.Forms.TextBox tb_name;
         private System.Windows.Forms.Timer IOUpdate;
         private System.Windows.Forms.Button btn_mmc_connect;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox tb_endAble;
+        private System.Windows.Forms.Button btn_AutoRun;
+        private System.Windows.Forms.Button btn_oneCycle;
+        private System.Windows.Forms.Button btn_MD1_One;
+        private System.Windows.Forms.Button btn_MD2_One;
+        private System.Windows.Forms.Button btn_SensorPass;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }
 

@@ -15,7 +15,6 @@ using System.Net.Sockets;
 
 using SocketProtocol;   // 서버프로그램과 연결 클래스
 using ActUtlTypeLib;    // MX Component .dll
-using System.Linq;
 
 namespace PCPRO_실기
 {
@@ -28,9 +27,14 @@ namespace PCPRO_실기
 
         // 운전 필드
         Step module1_runStep;
+        private bool bPAUSE_Motionkit;
         Step module2_runStep;
         Step serverOneCycle;
+        Step serverAutoRun;
         RptMsg rptPnp;
+        private int iBefor_CartridgePos;
+        private RptMsg rptPnp_MD1_Pause;
+        private CmdMsg cmdMsg_MD1_Pause;
         RptMsg RunrptPnp;
         RptMsg module1_rptPnp;
         RptMsg module2_rptPnp;
@@ -43,17 +47,17 @@ namespace PCPRO_실기
         bool bAutoRunReady;
         private int cartridgePos;
         bool escapeFor;
+        private bool bAuto_Module1comp;
         CmdMsg autoRun1 = CmdMsg.START;
         CmdMsg autoRun2 = CmdMsg.START;
 
         bool bEquipmentAutoRun;     // 자동운전 스위치
         bool bModule2Run;           // 자동운전할때 Module2 시작 스위치
-        bool bOneCylce;             // EQP 운전 1회 스위치
+        bool bOneCycle;             // EQP 운전 1회 스위치
         bool md1_OneCycle;          // module1 운전 1회 스위치
         bool md2_OneCycle;          // module2 운전 1회 스위치
         int productOutCount;
-
-        bool bPause;
+        int autoRunCartridgeCountTemp;
 
         // MMC 필드
         MotionKit motionkit;
@@ -71,17 +75,26 @@ namespace PCPRO_실기
         // IECS 통신 필드
         bool bServerConnect;
         Protocol protocol;
-        Netstatus _netStatus;
-        Modulemode _ModuleMode;
-        Operationmode _operationMode;
-        Command _command;
-        Startable _startAble;
+        Netstatus? _netStatus;
+        Modulemode? _ModuleMode;
+        Operationmode? _operationMode;
+        Command? _command;
+        Startable? _startAble;
         int[] _product;
-        Runtype _runtype;
+        Runtype? _runtype;
+        Endable? _endAble;
         string ReceiveMessageSum;
 
+        // Pause, STOP 필드
+        private bool bPAUSE;
+        private bool bSTOP;
+        private bool _bSensorPass_Temp;
+
         // 임시사용 필드
-        int _temp;
+        bool bMD1_StartSW;
+        bool bMD2_StartSW;
+        private int iProductINCount;
+        private int iBefor_productOutCount;
 
         public EQUIPMENT01()
         {
@@ -105,16 +118,23 @@ namespace PCPRO_실기
 
             //운전관련필드 초기화
             bAutoRunReady = false;
-            bPause = false;
             serverOneCycle = Step.STEP00;
+            serverAutoRun = Step.STEP00;
             originStep = Step.STEP00;
-            bOneCylce = false;
+            bOneCycle = false;
             escapeFor = false;
             oneCycleStep = Step.STEP00;
             bInitialze_Origin = false;
             bEquipmentAutoRun = false;
             bModule2Run = false;
             productOutCount = 0;
+            iProductINCount = 0;
+            bPAUSE = false;
+            iBefor_productOutCount = 0;
+
+            // PLC용 S/W
+            bMD1_StartSW = false;
+            bMD2_StartSW = false;
 
             // PLC 연결(MX Component) 초기화
             module1 = new ActUtlType();
@@ -136,6 +156,8 @@ namespace PCPRO_실기
 
             // IOUpdate Timer
             IOUpdate.Start();
+
+            _bSensorPass_Temp = false;
         }
 
         private void EQUIPMENT01_Load(object sender, EventArgs e)
@@ -151,6 +173,7 @@ namespace PCPRO_실기
             tb_startable.Text = "OFF";
             tb_product.Text = "0";
             tb_runtype.Text = "OneTime";
+            tb_endAble.Text = "OFF";
         }
 
         // 각 버튼별 Action 함수
@@ -165,38 +188,27 @@ namespace PCPRO_실기
             // EQP1
             if (tabIndex == 1 && tag == 1)  // 자동운전
             {
-                if (bInitialze_Origin && Teach.sCartridge.Count(b => b == true) > 0)
-                { 
-                    bAutoRunReady = true;
-                    RunModeStatus(gb, "RUN");
-                }
-                else
-                {
-                    MessageBox.Show($"Initialize : {bInitialze_Origin}, Product : {Teach.sCartridge.Count(b => b == true)}EA");
-                }
-                // 상태 보고
-                //bEquipmentAutoRun = true;
-                //escapeFor = false;
-                //module1_runStep = Step.STEP00;
-                //module2_runStep = Step.STEP06;
-                //_temp = Teach.sCartridge.Count(b => b == true);
+                AutoRunCheckMethod();
             }
 
             if (tabIndex == 1 && tag == 2)  // 정지
             {
                 RunModeStatus(gb, "STOP");
+                if (bEquipmentAutoRun)
+                {
+                    if (!bSTOP)
+                        bSTOP = true;
+                    else
+                        bSTOP = false;
+                }
             }
             if (tabIndex == 1 && tag == 3)  // 일시정지
             {
                 RunModeStatus(gb, "PAUSE");
-                if (bPause == false)
-                {
-                    bPause = true;
-                }
+                if (!bPAUSE)
+                    bPAUSE = true;
                 else
-                {
-                    bPause = false;
-                }
+                    bPAUSE = false;
             }
             if (tabIndex == 1 && tag == 4)  // 메뉴얼
             {
@@ -218,7 +230,7 @@ namespace PCPRO_실기
             if (tabIndex == 1 && tag == 5)  // Equipment 1Cycle
             {
                 RunModeStatus(gb, "RUN");
-                bOneCylce = true;
+                bOneCycle = true;
                 escapeFor = false;
                 oneCycleStep = Step.STEP00;
             }
@@ -241,16 +253,20 @@ namespace PCPRO_실기
             {
                 RunModeStatus(gb, "EMS");
                 tb_optmode.Text = "EMS";
+                EMS();
             }
 
             // Log 버튼
-            if (tabIndex == 1 && tag == 9)  // log save
+            if (tabIndex == 1 && tag == 10)  // send log load
             {
                 FileIO fi = new FileIO();
-                fi.FileIOFuction(LogModule.SAVE, LogModule.RECEIVE, "RECEIVE");
-                fi.FileIOFuction(LogModule.SAVE, LogModule.SEND, "SEND");
+                fi.FileIOFuction(LogModule.LOAD, LogModule.SEND, "");
+                for (int i = 0; i < fi.LogString.Length; i++)
+                {
+                    tb_send_Message.AppendText(fi.LogString[i] + "\r\n");
+                }
             }
-            if (tabIndex == 1 && tag == 10)  // send log load
+            if (tabIndex == 1 && tag == 11)  // receive log load
             {
                 FileIO fi = new FileIO();
                 fi.FileIOFuction(LogModule.LOAD, LogModule.RECEIVE, "");
@@ -259,18 +275,10 @@ namespace PCPRO_실기
                     tb_rcv_Message.AppendText(fi.LogString[i] + "\r\n");
                 }
             }
-            if (tabIndex == 1 && tag == 11)  // receive log load
-            {
-                FileIO fi = new FileIO();
-                fi.FileIOFuction(LogModule.LOAD, LogModule.SEND, "");
-                for (int i = 0; i < fi.LogString.Length; i++)
-                {
-                    tb_rcv_Message.AppendText(fi.LogString[i] + "\r\n");
-                }
-            }
             if (tabIndex == 1 && tag == 12) // 메세지 텍스트박스 클리어
             {
                 tb_rcv_Message.Clear();
+                tb_send_Message.Clear();
             }
 
             // IECS 연결
@@ -294,6 +302,7 @@ namespace PCPRO_실기
             // PLC 연결
             if (tabIndex == 3 && tag == 2)
             {
+                Thread.Sleep(1000);
                 if (module1PLC.IRet != 0 && module2PLC.IRet != 0)
                 {
                     module1PLC.IRet = module1PLC.PLCOpen();
@@ -358,8 +367,16 @@ namespace PCPRO_실기
             {
                 RunModeStatus(gb, "PAUSE");
                 module1PLC.PLCWrite("Y29", 1);
-                originStep = Step.STEP00;
-                InitTimer.Start();
+                if (bInitialze_Origin)
+                {
+                    MessageBox.Show("원점복귀 완료 상태입니다.");
+                    bInitialze_Origin = false;
+                }
+                else
+                {
+                    originStep = Step.STEP01;
+                    InitTimer.Start();
+                }
             }
             // Log OFF
             if (tabIndex == 3 && tag == 7)
@@ -440,7 +457,6 @@ namespace PCPRO_실기
                 }));
             }
         }
-
         private void SendMessageSort(Netstatus netStatus, Modulemode ModuleMode, Operationmode operationMode, Command command, Startable startAble, Product product)
         {
             protocol.Name = Modulename.Feed;
@@ -451,9 +467,13 @@ namespace PCPRO_실기
             protocol.StartAble = startAble;
             protocol.ProDuct = product;
 
+            FileIO fi = new FileIO();
+            string sendLog = "Feed, " + netStatus.ToString() + ", " + ModuleMode.ToString() + ", " + operationMode.ToString() + ", "
+                + command.ToString() + ", " + startAble.ToString() + ", " + product.Total.ToString();
+            fi.FileIOFuction(LogModule.SAVE, LogModule.SEND, sendLog);
+
             tcpClientNetWork.SendMessage(protocol);
         }
-
         private void ReceiveMessageSort()
         {
             Protocol ptc = tcpClientNetWork.ReceiveMessage();
@@ -467,91 +487,119 @@ namespace PCPRO_실기
             _product[1] = ptc.ProDuct.NonMtl;
             _product[2] = ptc.ProDuct.Total;
             _runtype = ptc.RunType;
+            _endAble = ptc.EndAble;
 
             ReceiveMessageSum = _netStatus.ToString() + ", " + _ModuleMode.ToString() + ", " +
                                 _operationMode.ToString() + ", " + _command.ToString() + ", " +
-                                _startAble.ToString() + ", " + _product[2].ToString() + ", " + _runtype.ToString() + "/";
-        }
+                                _startAble.ToString() + ", " + _product[2].ToString() + ", " +
+                                _runtype.ToString() + ", " + _endAble.ToString();
 
+            FileIO fi = new FileIO();
+            fi.FileIOFuction(LogModule.SAVE, LogModule.RECEIVE, ReceiveMessageSum);
+        }
+        private void SendToServer_OnCycleEqupiStatus()
+        {
+            switch (serverOneCycle)
+            {
+                case Step.STEP00:
+                    break;
+                case Step.STEP01:
+                    if (serverOneCycle == Step.STEP01)
+                    {
+                        if (!bEquipmentAutoRun && !bOneCycle && !md1_OneCycle && !md2_OneCycle && bServerConnect)
+                        {
+                            serverOneCycle = Step.STEP02;
+                        }
+                    }
+                    break;
+                case Step.STEP02:
+                    if (serverOneCycle == Step.STEP02)
+                    {
+                        tb_startable.Text = "OFF";
+                        tb_commd.Text = "BUSY";
+                        bOneCycle = true;
+                        serverOneCycle = Step.STEP03;
+                    }
+                    break;
+                case Step.STEP03:
+                    if (serverOneCycle == Step.STEP03)
+                    {
+                        if (bOneCycle == false)
+                        {
+                            tb_commd.Text = "COMP";
+                            serverOneCycle = Step.STEP04;
+                        }
+                    }
+                    break;
+                case Step.STEP04:
+                    if (serverOneCycle == Step.STEP04)
+                    {
+                        tb_startable.Text = "ON";
+                        tb_commd.Text = "ABLE";
+                        serverOneCycle = Step.STEP101;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void SendToServer_AutoRunEqupiStatus()
+        {
+            switch (serverAutoRun)
+            {
+                case Step.STEP00:
+                    if (serverAutoRun == Step.STEP00) { }
+
+                    break;
+                case Step.STEP01:
+                    if (serverAutoRun == Step.STEP01)
+                    {
+                        if (!bEquipmentAutoRun && !bOneCycle && !md1_OneCycle && !md2_OneCycle && bServerConnect)
+                        {
+                            bEquipmentAutoRun = true;
+                            iBefor_productOutCount = productOutCount;
+                            serverAutoRun = Step.STEP02;
+                        }
+                    }
+                    break;
+                case Step.STEP02:
+                    if (serverAutoRun == Step.STEP02)
+                    {
+                        tb_startable.Text = "OFF";
+                        tb_commd.Text = "BUSY";
+
+                        if (iBefor_productOutCount < productOutCount)
+                        {
+                            iBefor_productOutCount = productOutCount;
+                            serverAutoRun = Step.STEP03;
+                        }
+                    }
+                    break;
+                case Step.STEP03:
+                    if (serverAutoRun == Step.STEP03)
+                    {
+                        tb_startable.Text = "ON";
+                        tb_commd.Text = "COMP";
+                        if (productOutCount != autoRunCartridgeCountTemp)
+                        {
+                            serverAutoRun = Step.STEP02;
+                        }
+                        else if (!bEquipmentAutoRun)
+                        {
+                            serverAutoRun = Step.STEP00;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
         #endregion
+
         private void button7_Click(object sender, EventArgs e)
         {
             
         }
-
-        private void FeedReady()
-        {
-            if (_runtype == Runtype.OneTime)
-            {
-                switch (serverOneCycle)
-                {
-                    case Step.STEP00:
-                        if (serverOneCycle == Step.STEP00)
-                        {
-                            // 설비 오리진, 서버연결, 원싸이클 OFF, MD1싸이클 OFF, MD2싸이클 OFF, 자동운전 OFF, 카트리지에 제품있음
-                            //if (bInitialze_Origin && bServerConnect && !bOneCylce && !md1_OneCycle && !md2_OneCycle && !bEquipmentAutoRun && Teach.sCartridge.Count(b => b == true) > 0)
-                            if (!bOneCylce && bServerConnect && !bOneCylce && !md1_OneCycle && !md2_OneCycle && !bEquipmentAutoRun && Teach.sCartridge.Count(b => b == true) > 0)
-                            {
-                                tb_optmode.Text = "RUN";
-                                tb_commd.Text = "ABLE";
-                                tb_startable.Text = "ON";
-                                serverOneCycle = Step.STEP01;
-                            }
-                        }
-                        break;
-                    case Step.STEP01:
-                        if (serverOneCycle == Step.STEP01)
-                        {
-                            if (_operationMode == Operationmode.RUN && _command == Command.DO && _runtype == Runtype.OneTime)
-                            {
-                                tb_commd.Text = "BUSY";
-                                tb_startable.Text = "OFF";
-                                bOneCylce = true;
-                                serverOneCycle = Step.STEP02;
-                            }
-                        }
-                        break;
-                    case Step.STEP02:
-                        if (serverOneCycle == Step.STEP02)
-                        {
-                            if (bOneCylce == false)
-                            {
-                                tb_optmode.Text = "STOP";
-                                tb_commd.Text = "COMP";
-                                serverOneCycle = Step.STEP03;
-                            }
-                        }
-                        break;
-                    case Step.STEP03:
-                        if (serverOneCycle == Step.STEP03)
-                        {
-                            tb_startable.Text = "ON";
-                            serverOneCycle = Step.STEP00;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         #region Thread
         // Main form 모듈별 상태 업데이트 Thread
@@ -561,26 +609,6 @@ namespace PCPRO_실기
             {
                 try
                 {
-                    if (bPause)
-                        Thread.Sleep(Timeout.Infinite);
-
-                    if (bOneCylce)
-                    {
-                        EQP_OneCycle();
-                    }
-                    if (md1_OneCycle)
-                    {
-                        Module1_AutoRun_use();
-                    }
-                    if (md2_OneCycle)
-                    {
-                        Module2_AutoRun_use();
-                    }
-                    if (bEquipmentAutoRun)
-                    {
-                        EqupimentAutoRun();
-                    }
-
                     // 서버 송수신 표시
                     if (bServerConnect && tcpClientNetWork.ReceiveMessageList.Count > 0)
                     {
@@ -593,6 +621,87 @@ namespace PCPRO_실기
                             }));
                         }
                     }
+                    else
+                    {
+                        _netStatus = null;
+                        _ModuleMode = null;
+                        _operationMode = null;
+                        _command = null;
+                        _startAble = null;
+                        _runtype = null;
+                    }
+
+                    if (_operationMode == Operationmode.RUN && _command == Command.DO && _runtype == Runtype.OneTime && (!bOneCycle && !bEquipmentAutoRun))
+                        serverOneCycle = Step.STEP01;
+
+                    if (_operationMode == Operationmode.RUN && _command == Command.DO && _runtype == Runtype.Continue && (!bOneCycle && !bEquipmentAutoRun))
+                        serverAutoRun = Step.STEP01;
+                    
+                    // 판넬 스타트 버튼 스위치
+                    if (module1PLC._plc1DevicePanel[(int)ModulePanel.start])
+                        bMD1_StartSW = true;
+                    else
+                        bMD1_StartSW = false;
+                    if (module2PLC._plc2DevicePanel[(int)ModulePanel.start])
+                        bMD2_StartSW = true;
+                    else
+                        bMD2_StartSW = false;
+                    
+                    // STOP
+                    if (_operationMode == Operationmode.STOP 
+                        || module1PLC._plc1DevicePanel[(int)ModulePanel.stop] 
+                        || module2PLC._plc2DevicePanel[(int)ModulePanel.stop])
+                        bSTOP = true;
+                    else if (bSTOP && _operationMode == Operationmode.RUN)
+                        bSTOP = false;
+
+
+                    // PAUSE
+                    if (_operationMode == Operationmode.PAUSE)
+                        bPAUSE = true;
+                    else if (bPAUSE && _operationMode == Operationmode.RUN)
+                        bPAUSE = false;
+
+
+                    if (bOneCycle)
+                    {
+                        EQP_OneCycle();
+                        btn_oneCycle.BackColor = Color.YellowGreen;
+                    }
+                    else
+                    {
+                        btn_oneCycle.BackColor = SystemColors.Control;
+                    }
+                    if (md1_OneCycle)
+                    {
+                        Module1_AutoRun_use();
+                        btn_MD1_One.BackColor = Color.YellowGreen;
+                    }
+                    else
+                    {
+                        btn_MD1_One.BackColor = SystemColors.Control;
+                    }
+                    if (md2_OneCycle)
+                    {
+                        Module2_AutoRun_use();
+                        btn_MD2_One.BackColor = Color.YellowGreen;
+                    }
+                    else
+                    {
+                        btn_MD2_One.BackColor = SystemColors.Control;
+
+                    }
+                    if (bEquipmentAutoRun)
+                    {
+                        EqupimentAutoRun();
+                        btn_AutoRun.BackColor = Color.YellowGreen;
+                    }
+                    else
+                    {
+                        btn_AutoRun.BackColor = SystemColors.Control;
+                    }
+
+
                 }
                 catch (ThreadInterruptedException)
                 {
@@ -617,25 +726,13 @@ namespace PCPRO_실기
 
 
 
-
-
-
-
-
-
-
-
-
-
         #region 운전
-        private void Auto()
-        {
 
-        }
         private void EMS()
         {
             if (module1PLC.IRet != 0 && module2PLC.IRet != 0)
                 return;
+
             if (!module1PLC._plc1DevicePanel[(int)ModulePanel.emo])
                 btn_md1_ems.BackColor = Color.Red;
             else
@@ -645,30 +742,60 @@ namespace PCPRO_실기
             else
                 btn_md2_ems.BackColor = SystemColors.Control;
 
-            if (!module1PLC._plc1DevicePanel[(int)ModulePanel.emo] ||  !module2PLC._plc2DevicePanel[(int)ModulePanel.emo] || _operationMode == Operationmode.EMS)
+            if (!module1PLC._plc1DevicePanel[(int)ModulePanel.emo] || !module2PLC._plc2DevicePanel[(int)ModulePanel.emo] || _operationMode == Operationmode.EMS || btn_ems.BackColor == Color.YellowGreen)
             {
                 btn_ems.BackColor = Color.Red;
+                btn_Auto.BackColor = SystemColors.Control;
                 tb_optmode.Text = "EMS";
                 bStatusUpdateThread = false;    // MainThread 종료
-                bInitialze_Origin = false;      // 원점복귀 False
+                statusUpdateThread.Join();
+                bOneCycle = false;
+                bEquipmentAutoRun = false;
+                md1_OneCycle = false;
+                md2_OneCycle = false;
 
+                bInitialze_Origin = false;      // 원점복귀 False
+                for (int i = 0; i < Teach.sCartridge.Length; i++)
+                    Teach.sCartridge[i] = false;
+                tb_product.Text = "0";
+                lb_Total.Text = "0";
+                productOutCount = 0;
+                iBefor_productOutCount = 0;
+
+                // 각운전모드 정지 추가 필요
                 motionkit[(int)Axis.X].Stop();
                 motionkit[(int)Axis.Z].Stop();
                 motionkit[(int)Axis.X].ServoOff();  // 카트리지 서보OFF, 즉시 정지
                 motionkit[(int)Axis.Z].ServoOff();
 
-                // 각운전모드 정지 추가 필요
+                module1PLC.PLCWrite("Y24", 0);      // 공급 실린더 후진 오프
+                module1PLC.PLCWrite("Y23", 0);      // 공급 실린더 전진 오프
+                module1PLC.PLCWrite("Y28", 0);      // Module1 컨베이어 정지
+                if (module2PLC._plc2DeviceX[(int)Module2X.supplyCylinderUp])        // 모듈2 공급 실린더 업/다운       
+                    module2PLC.PLCWrite("Y2C", 0);
+                else if (module2PLC._plc2DeviceX[(int)Module2X.supplyCylinderDown])
+                    module2PLC.PLCWrite("Y2C", 1);
 
+                module1PLC.PLCWrite("Y2A", 0);      // 공급실린더 cw,ccw
+                module1PLC.PLCWrite("Y2B", 0);
+
+                module2PLC.PLCWrite("Y24", 0);      // 제품밀착실린더 
+                module2PLC.PLCWrite("Y23", 0);
+
+                module2PLC.PLCWrite("Y27", 0);      // 이송실린더 업/다운
+                module2PLC.PLCWrite("Y28", 0);
+
+                module2PLC.PLCWrite("Y25", 0);      // 이송실린더 Left,Right
+                module2PLC.PLCWrite("Y26", 0);
+
+                if (module2PLC._plc2DeviceX[(int)Module2X.transferGrip])        // 모듈2 Grip,Ungrip
+                    module2PLC.PLCWrite("Y29", 1);
+                else if (module2PLC._plc2DeviceX[(int)Module2X.transferUnGrip])
+                    module2PLC.PLCWrite("Y29", 0);
+
+                bStatusUpdateThread = true;
+                Task t1 = Task.Run(() => MainThread());
             }
-        }
-        private void PAUSE()
-        {
-            // 각 위치에 Thread Sleep 할것
-        }
-
-        private void STOP() // Cycle Stop
-        {
-            // 연속런 동작 중 투입정지
         }
 
         private void InitTimer_Tick(object sender, EventArgs e)     // 이니셜용 타이머
@@ -676,24 +803,16 @@ namespace PCPRO_실기
 
             switch (originStep)
             {
-                case Step.STEP00:
-                    if (originStep == Step.STEP00)
+                case Step.STEP01:
+                    if (originStep == Step.STEP01)
                     {
-                        if (bInitialze_Origin)
-                        {
-                            tb_rcv_Message.AppendText("\r\nInitialize가 완료인 상태 입니다.");
-                            originStep = Step.STEP04;
-                        }
-                        else
-                        {
-                            motionkit[(int)Axis.X].ServoOn();
-                            motionkit[(int)Axis.Z].ServoOn();
-                            originStep = Step.STEP01;
-                        }
+                        motionkit[(int)Axis.X].ServoOn();
+                        motionkit[(int)Axis.Z].ServoOn();
+                        originStep = Step.STEP02;
                     }
                     break;
-                case Step.STEP01:   // 실린더 복귀
-                    if (originStep == Step.STEP01)
+                case Step.STEP02:   // 실린더 복귀
+                    if (originStep == Step.STEP02)
                     {
                         module1PLC.PLCWrite("Y23", 0);  // 공급 실린더 후진
                         module1PLC.PLCWrite("Y24", 1);
@@ -717,24 +836,24 @@ namespace PCPRO_실기
 
                         module2PLC.PLCWrite("Y29", 0);  // 이송 실린더 Ungrip
 
-                        originStep = Step.STEP02;
+                        originStep = Step.STEP03;
                     }
                     break;
-                case Step.STEP02:   // 엑추에이터 복귀 확인
-                    if (originStep == Step.STEP02)
+                case Step.STEP03:   // 엑추에이터 복귀 확인
+                    if (originStep == Step.STEP03)
                     {
-                        if (module1PLC._plc1DeviceX[(int)Module1X.md1_SupplyCylinderBWD] 
+                        if (module1PLC._plc1DeviceX[(int)Module1X.md1_SupplyCylinderBWD]
                             && !module1PLC._plc1DeviceY[(int)Module1Y.md1_conveyorOnOff]
                             && module2PLC._plc2DeviceX[(int)Module2X.productCylinderBWD] && module2PLC._plc2DeviceX[(int)Module2X.transferCylinderLeft]
                             && module2PLC._plc2DeviceX[(int)Module2X.transferCylinderUp] && module2PLC._plc2DeviceX[(int)Module2X.transferUnGrip]
                             && module2PLC._plc2DeviceX[(int)Module2X.supplyCylinderCCW] && module2PLC._plc2DeviceX[(int)Module2X.supplyCylinderUp])
                         {
-                            originStep = Step.STEP03;
+                            originStep = Step.STEP04;
                         }
                     }
                     break;
-                case Step.STEP03:
-                    if (originStep == Step.STEP03)
+                case Step.STEP04:
+                    if (originStep == Step.STEP04)
                     {
                         // 서보
                         tb_rcv_Message.Text = motionkit.str;
@@ -754,17 +873,17 @@ namespace PCPRO_실기
                         else if (rptOrg == RptMsg.READY && cmdOrg == CmdMsg.END)
                         {
                             cmdOrg = CmdMsg.CHECK;
-                            originStep = Step.STEP04;
+                            originStep = Step.STEP05;
                         }
                     }
                     break;
-                case Step.STEP04:
-                    if (originStep == Step.STEP04)
+                case Step.STEP05:
+                    if (originStep == Step.STEP05)
                     {
-                        module1_rptPnp = RptMsg.READY;
-                        module2_rptPnp = RptMsg.READY;
                         bInitialze_Origin = true;
                         originStep = Step.STEP00;
+                        RunSwitchInitial();
+                        MessageBox.Show("Initialize Complete!");
                         InitTimer.Stop();
                     }
                     break;
@@ -772,11 +891,49 @@ namespace PCPRO_실기
                     break;
             }
         }
+
+        private void RunSwitchInitial()
+        {
+
+            btn_Auto.BackColor = SystemColors.Control;
+            cmdPnp = CmdMsg.CHECK;
+            // rptPnp = RptMsg.Ready            // Module1 Cartridge RptMsg
+            module1_cmdPnp = CmdMsg.CHECK;      // Module1 Cartridge CmdPnp
+            RunrptPnp = RptMsg.READY;           // Module1 내부 RptMsg, Module2에서도 사용함..?
+
+            module1_runStep = Step.STEP00;      // Module1 Step 
+            md1_OneCycle = false;
+            module1_rptPnp = RptMsg.READY;      //  Module1 외부 RptMsg
+            escapeFor = false;
+
+
+            module2_runStep = Step.STEP06;      // Module2 Step
+            bModule2Run = false;                // Module2 연속동작 스위치
+            module2_rptPnp = RptMsg.READY;      //  Module2 외부 RptMsg
+            md2_OneCycle = false;
+
+            oneCycleStep = Step.STEP00;         // 1Cycle Step
+            bOneCycle = false;
+
+            autoRun1 = CmdMsg.CHECK;            // cmdPnp로 대체 가능?
+            autoRun2 = CmdMsg.CHECK;
+
+            serverOneCycle = Step.STEP00;       // 1Cycle 서버 보고용 함수의 Step
+            serverAutoRun = Step.STEP00;        // AutoRun 서버 보고용 함수의 Step
+            bEquipmentAutoRun = false;          // 연속운전 스위치
+            autoRunCartridgeCountTemp = 0;
+            iProductINCount = 0;                // 투입 카운트 추가
+
+            // Pause, Stop
+            bPAUSE = false;
+            bSTOP = false;
+        }
+
         private void EqupimentAutoRun()
         {
             module1_rptPnp = Module1_AutoRun(autoRun1);
 
-            if (module1_rptPnp == RptMsg.READY && autoRun1 == CmdMsg.CHECK && !module2PLC._plc2DeviceX[(int)Module2X.productSensor])
+            if (module1_rptPnp == RptMsg.READY && autoRun1 == CmdMsg.CHECK && (!module2PLC._plc2DeviceX[(int)Module2X.productSensor] || _bSensorPass_Temp)) // Sensor Pass 추가
             {
                 autoRun1 = CmdMsg.START;
             }
@@ -792,14 +949,16 @@ namespace PCPRO_실기
             {
                 autoRun1 = CmdMsg.CHECK;
                 escapeFor = false;
+                bAuto_Module1comp = true;
             }
 
-            if (module2PLC._plc2DeviceX[(int)Module2X.productSensor]|| bModule2Run)
+            if (bAuto_Module1comp || bModule2Run)
             {
                 module2_rptPnp = Module2_AutoRun(autoRun2);
                 if (module2_rptPnp == RptMsg.READY && autoRun2 == CmdMsg.CHECK)
                 {
                     autoRun2 = CmdMsg.START;
+
                 }
                 else if (module2_rptPnp == RptMsg.BUSY)
                 {
@@ -812,19 +971,16 @@ namespace PCPRO_실기
                 else if (module2_rptPnp == RptMsg.READY && autoRun2 == CmdMsg.END)
                 {
                     autoRun2 = CmdMsg.CHECK;
-                    if (productOutCount == _temp)
+                    if (productOutCount >= autoRunCartridgeCountTemp)      // 카트리지 현재 남은 수량과 생산완료된 수량이 같으면 종료
                     {
                         bModule2Run = false;
                         bEquipmentAutoRun = false;
                     }
                 }
             }
-            if (module2_runStep == Step.STEP101) // 자동(연속운전) 생산수량 카운트
-            {
-                productOutCount++;
-                // 공정 완료 Flag 추가
-            }
         }
+
+
         private void EQP_OneCycle()
         {
             switch (oneCycleStep)
@@ -877,7 +1033,9 @@ namespace PCPRO_실기
                         else if (module2_rptPnp == RptMsg.READY && cmdPnp == CmdMsg.END)
                         {
                             cmdPnp = CmdMsg.CHECK;
-                            bOneCylce = false;
+                            bOneCycle = false;
+                            escapeFor = false;
+                            oneCycleStep = Step.STEP00;
                         }
                     }
                     break;
@@ -885,6 +1043,10 @@ namespace PCPRO_실기
                     break;
             }
         }
+
+        
+
+
         private void Module1_AutoRun_use()
         {
             module1_rptPnp = Module1_AutoRun(cmdPnp);
@@ -907,6 +1069,7 @@ namespace PCPRO_실기
                 md1_OneCycle = false;
             }
         }
+
         private void Module2_AutoRun_use()
         {
             module2_rptPnp = Module2_AutoRun(cmdPnp);
@@ -931,6 +1094,67 @@ namespace PCPRO_실기
 
         private RptMsg Module1_AutoRun(CmdMsg cmd)
         {
+            bInitialze_Origin = false;
+
+            if (bPAUSE)
+            {
+                if (module1_runStep == Step.STEP01)
+                {
+                    motionkit[(int)Axis.X].Stop();
+                    motionkit[(int)Axis.Z].Stop();
+                    rptPnp_MD1_Pause = RptMsg.READY;
+                    cmdMsg_MD1_Pause = CmdMsg.START;
+                    motionkit.stepPnp = Step.STEP00;
+                    bPAUSE_Motionkit = true;
+                }
+                if (module1PLC._plc1DeviceY[(int)Module1Y.md1_conveyorOnOff] && (module1_runStep == Step.STEP04 || module1_runStep == Step.STEP05))
+                {
+                    module1PLC.PLCWrite("Y28", 0);
+                }
+                return RunrptPnp;
+            }
+            else if (!bPAUSE)
+            {
+                if (!module1PLC._plc1DeviceY[(int)Module1Y.md1_conveyorOnOff] && (module1_runStep == Step.STEP04 || module1_runStep == Step.STEP05))
+                {
+                    module1PLC.PLCWrite("Y28", 1);
+                }
+
+                if (bPAUSE_Motionkit && module1_runStep == Step.STEP01 && module1PLC._plc1DeviceX[(int)Module1X.md1_SupplyCylinderBWD])
+                {
+                    rptPnp_MD1_Pause = motionkit.CartridgeRun(iBefor_CartridgePos, cmdMsg_MD1_Pause);
+
+                    if (rptPnp_MD1_Pause == RptMsg.READY && cmdMsg_MD1_Pause == CmdMsg.CHECK)
+                    {
+                        cmdMsg_MD1_Pause = CmdMsg.START;
+                    }
+                    else if (rptPnp_MD1_Pause == RptMsg.BUSY)
+                    {
+                        cmdMsg_MD1_Pause = CmdMsg.CHECK;
+                    }
+                    else if (rptPnp_MD1_Pause == RptMsg.COMPLETE)
+                    {
+                        cmdMsg_MD1_Pause = CmdMsg.END;
+                    }
+                    else if (rptPnp_MD1_Pause == RptMsg.READY && cmdMsg_MD1_Pause == CmdMsg.END)
+                    {
+                        cmdMsg_MD1_Pause = CmdMsg.CHECK;
+                        if (!bSTOP) // Stop 확인 후 투입
+                        {
+                            bPAUSE_Motionkit = false;
+                            motionkit.stepPnp = Step.STEP00;
+                            module1_runStep = Step.STEP02;
+                            rptPnp = RptMsg.READY;
+                            module1_cmdPnp = CmdMsg.CHECK;
+                        }
+                    }
+                    else if (bPAUSE_Motionkit)
+                    {
+                        return RunrptPnp;
+                    }
+                }
+            }
+
             switch (module1_runStep)
             {
                 case Step.STEP00:
@@ -941,14 +1165,11 @@ namespace PCPRO_실기
                         {
                             RunrptPnp = RptMsg.BUSY;
                             module1_runStep = Step.STEP01;
+
                         }
                         else
                         {
                             module1_runStep = Step.STEP100;
-                            tb_rcv_Message.Invoke(new MethodInvoker(delegate ()
-                            {
-                                tb_rcv_Message.AppendText("선택된 제품이 없습니다.");
-                            }));
                         }
                     }
                     break;
@@ -968,6 +1189,7 @@ namespace PCPRO_실기
                             }
 
                             rptPnp = motionkit.CartridgeRun(cartridgePos, module1_cmdPnp);
+                            iBefor_CartridgePos = cartridgePos;
 
                             if (rptPnp == RptMsg.READY && module1_cmdPnp == CmdMsg.CHECK)
                             {
@@ -984,7 +1206,10 @@ namespace PCPRO_실기
                             else if (rptPnp == RptMsg.READY && module1_cmdPnp == CmdMsg.END)
                             {
                                 module1_cmdPnp = CmdMsg.CHECK;
-                                module1_runStep = Step.STEP02;
+                                if (!bSTOP) // Stop 확인 후 투입
+                                {
+                                    module1_runStep = Step.STEP02;
+                                }
                             }
                         }
                     }
@@ -1007,6 +1232,7 @@ namespace PCPRO_실기
                         {
                             module1PLC.PLCWrite("Y23", 0);
                             module1PLC.PLCWrite("Y24", 1);
+                            iProductINCount++;
                             module1_runStep = Step.STEP04;
                         }
                     }
@@ -1024,9 +1250,9 @@ namespace PCPRO_실기
                 case Step.STEP05:
                     if (module1_runStep == Step.STEP05) // 컨베이어 정지, 제품 감지되자 마자 정지??
                     {
-                        if (module2PLC._plc2DeviceX[(int)Module2X.productSensor])
+                        if (module1PLC._plc1DeviceY[(int)Module1Y.md1_conveyorOnOff] && (module2PLC._plc2DeviceX[(int)Module2X.productSensor] || _bSensorPass_Temp))
                         {
-                            Thread.Sleep(2000);
+                            Thread.Sleep(1000);
                             module1PLC.PLCWrite("Y28", 0);
                             module1_runStep = Step.STEP100;
                         }
@@ -1049,18 +1275,27 @@ namespace PCPRO_실기
 
             return RunrptPnp;
         }
+
         private RptMsg Module2_AutoRun(CmdMsg cmd)
         {
+            bInitialze_Origin = false;
+
+            if (bPAUSE)
+            {
+                return RunrptPnp;
+            }
+
             switch (module2_runStep)
             {
                 case Step.STEP06:
-                    if (module2_runStep == Step.STEP06) // 모듈2 공급실린더 하강
+                    if (cmd == CmdMsg.START && module2_runStep == Step.STEP06) // 모듈2 공급실린더 하강
                     {
-                        if (module2PLC._plc2DeviceX[(int)Module2X.productSensor])
+                        if (module2PLC._plc2DeviceX[(int)Module2X.productSensor] || _bSensorPass_Temp)
                         {
                             module2PLC.PLCWrite("Y2C", 1);
                             module2_runStep = Step.STEP07;
-                            bModule2Run = true;
+                            bModule2Run = true;     // 연속운전을 위한 스위치
+                            bAuto_Module1comp = false;  // Module1 완료 신호 초기화
                         }
                     }
                     break;
@@ -1159,7 +1394,7 @@ namespace PCPRO_실기
                 case Step.STEP15:
                     if (module2_runStep == Step.STEP15) // 모듈2 이송실린더 Right 이동
                     {
-                        if (module2PLC._plc2DeviceX[(int)Module2X.transferCylinderUp] 
+                        if (module2PLC._plc2DeviceX[(int)Module2X.transferCylinderUp]
                             && module2PLC._plc2DeviceX[(int)Module2X.transferCylinderLeft])
                         {
                             module2PLC.PLCWrite("Y26", 0);
@@ -1171,7 +1406,8 @@ namespace PCPRO_실기
                 case Step.STEP16:
                     if (module2_runStep == Step.STEP16) // 모듈2 이송실린더 Down
                     {
-                        if (module2PLC._plc2DeviceX[(int)Module2X.transferCylinderRight] && module2PLC._plc2DeviceX[(int)Module2X.transferCylinderUp])
+                        if (module2PLC._plc2DeviceX[(int)Module2X.transferCylinderRight] && module2PLC._plc2DeviceX[(int)Module2X.transferCylinderUp]
+                            && _endAble == Endable.ON)  // 후단 EndAble 신호 추가
                         {
                             module2PLC.PLCWrite("Y28", 0);
                             module2PLC.PLCWrite("Y27", 1);
@@ -1207,11 +1443,19 @@ namespace PCPRO_실기
                         {
                             module2PLC.PLCWrite("Y25", 0);
                             module2PLC.PLCWrite("Y26", 1);
-                            module2_runStep = Step.STEP100;
+                            module2_runStep = Step.STEP20;
                         }
                     }
                     break;
                 case Step.STEP20:
+                    if (module2_runStep == Step.STEP20)
+                    {
+                        if (module2PLC._plc2DeviceX[(int)Module2X.transferCylinderLeft])
+                        {
+                            productOutCount++;
+                            module2_runStep = Step.STEP100;
+                        }
+                    }
                     break;
                 case Step.STEP100:
                     RunrptPnp = RptMsg.COMPLETE;
@@ -1232,32 +1476,21 @@ namespace PCPRO_실기
 
         #endregion
 
+
+
         #region Form관련 영역
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /// <summary>
-        /// 운영상태 버튼 상태 변경
-        /// </summary>
-        /// <param name="gb"></param>
-        /// <param name="num">RUN, STOP, PAUSE, EMS</param>
-        private void IOUpdate_Tick(object sender, EventArgs e)   // Main UI 표시 상태, TextBox 값변경은 Timer에서만...
+        private void IOUpdate_Tick(object sender, EventArgs e)
         {
-            // 자동운전과 수동운전 전환
-            if (module1PLC._plc1DevicePanel[(int)ModulePanel.auto]&& module2PLC._plc2DevicePanel[(int)ModulePanel.auto])   // Panel Auto 전환
-            { 
+
+            if (module1PLC._plc1DevicePanel[(int)ModulePanel.start] || (bMD1_StartSW && bMD2_StartSW))
+            {
+                AutoRunCheckMethod();
+            }
+
+            // 자동운전과 수동운전 전환, Panel Auto 전환
+            if (module1PLC._plc1DevicePanel[(int)ModulePanel.auto] && module2PLC._plc2DevicePanel[(int)ModulePanel.auto])   
+            {
                 btn_Auto.Enabled = true;
                 btn_Auto.Text = "READY";
                 btn_eqp_1cycle.Enabled = false;
@@ -1271,7 +1504,34 @@ namespace PCPRO_실기
                 btn_Auto.Text = "자동운전";
             }
 
-            if (module1PLC._plc1DevicePanel[(int)ModulePanel.manual ]&& module2PLC._plc2DevicePanel[(int)ModulePanel.manual])   // Panel Manual 전환
+            // PAUSE
+            if (bPAUSE)
+            {
+                btn_pause.BackColor = Color.Brown;
+                tb_optmode.Text = "PAUSE";
+            }
+            else
+            {
+                btn_pause.BackColor = SystemColors.Control;
+                if (_operationMode == Operationmode.RUN)
+                {
+                    tb_optmode.Text = "RUN";
+                }
+            }
+
+            // STOP
+            if (bSTOP)
+            {
+                btn_stop.BackColor = Color.Brown;
+                tb_optmode.Text = "STOP";
+            }
+            else
+            {
+                btn_stop.BackColor = SystemColors.Control;
+            }
+
+            // Panel Manual 전환
+            if (module1PLC._plc1DevicePanel[(int)ModulePanel.manual] && module2PLC._plc2DevicePanel[(int)ModulePanel.manual])   
             {
                 btn_manual.Enabled = true;
                 btn_manual.Text = "JOG 동작";
@@ -1281,7 +1541,7 @@ namespace PCPRO_실기
                 tb_mode.Text = "MANUAL";
             }
             else
-            { 
+            {
                 btn_manual.Enabled = false;
                 btn_manual.Text = "수동운전";
             }
@@ -1299,17 +1559,12 @@ namespace PCPRO_실기
                 btn_Auto.BackColor = SystemColors.Control;
             }
 
-            Auto();
+            // 운전별 서버 보고용 함수
+            SendToServer_OnCycleEqupiStatus();
+            SendToServer_AutoRunEqupiStatus();
 
             // EMS 추가 필요
             EMS();
-
-            // PAUSE 추가 필요
-            PAUSE();
-
-            // STOP(CYCLE STOP)
-            FeedReady();
-
 
             if (tcpClientNetWork != null)
             {
@@ -1334,25 +1589,41 @@ namespace PCPRO_실기
             // 서버 연결상태 표시
             if (bServerConnect)
             {
-                btn_iecs_status.BackColor = Color.YellowGreen;
-                btn_iecs_status.Text = "IN-LINE";
-                tb_netstatus.Text = "ON";
+                if (tcpClientNetWork.tcpClient.Client.Poll(0, SelectMode.SelectRead) && tcpClientNetWork.tcpClient.Client.Available == 0)
+                {
+                    tcpClientNetWork.bSendMessage = false;
+                    tcpClientNetWork.thd_Network.Join();
+                    tcpClientNetWork.thd_Receive.Join();
+                    btn_iecs_status.BackColor = SystemColors.Control;
+                    btn_iecs_status.Text = "OFFLINE";
+                    tb_netstatus.Text = "OFF";
+                    bServerConnect = false;
+                }
+                else
+                {
+                    btn_iecs_status.BackColor = Color.YellowGreen;
+                    btn_iecs_status.Text = "IN-LINE";
+                    tb_netstatus.Text = "ON";
+                }
             }
             else
             {
-                btn_iecs_status.BackColor = SystemColors.Control;
                 btn_iecs_status.Text = "OFFLINE";
                 tb_netstatus.Text = "OFF";
             }
-
-            if (module1PLC.IRet == 0)   // Module1 PLC
+            
+            // Module1 Panel 상태표시
+            if (module1PLC.IRet == 0)   
             {
                 if (module1PLC._plc1DevicePanel[(int)ModulePanel.auto])   // 오토
                     btn_md1_auto.BackColor = Color.YellowGreen;
                 else
                     btn_md1_auto.BackColor = SystemColors.Control;
                 if (module1PLC._plc1DevicePanel[(int)ModulePanel.manual]) // 메뉴얼
+                {
                     btn_md1_manual.BackColor = Color.YellowGreen;
+                    tb_optmode.Text = "STOP";
+                }
                 else
                     btn_md1_manual.BackColor = SystemColors.Control;
                 if (module1PLC._plc1DevicePanel[(int)ModulePanel.emo])    // EMO
@@ -1360,15 +1631,19 @@ namespace PCPRO_실기
                 else
                     btn_md1_ems.BackColor = Color.Red;
             }
-
-            if (module2PLC.IRet == 0)   // Module2 PLC
+            
+            // Module2 Panel
+            if (module2PLC.IRet == 0)   
             {
-                if (module2PLC._plc2DevicePanel[(int)ModulePanel.auto]&& module2PLC.IRet == 0)
+                if (module2PLC._plc2DevicePanel[(int)ModulePanel.auto] && module2PLC.IRet == 0)
                     btn_md2_auto.BackColor = Color.YellowGreen;
                 else
                     btn_md2_auto.BackColor = SystemColors.Control;
                 if (module2PLC._plc2DevicePanel[(int)ModulePanel.manual])
+                { 
                     btn_md2_manual.BackColor = Color.YellowGreen;
+                    tb_optmode.Text = "STOP";
+                }
                 else
                     btn_md2_manual.BackColor = SystemColors.Control;
                 if (module2PLC._plc2DevicePanel[(int)ModulePanel.emo])
@@ -1377,6 +1652,63 @@ namespace PCPRO_실기
                     btn_md2_ems.BackColor = Color.Red;
             }
         }
+
+        private void AutoRunCheckMethod()
+        {
+            if (bInitialze_Origin && Teach.sCartridge.Count(b => b == true) > 0 && bServerConnect)
+            {
+                bAutoRunReady = true;
+                RunModeStatus(gb, "RUN");
+
+                tb_commd.Text = "ABLE";         // 서버에 Ready 보고
+                tb_startable.Text = "ON";
+                tb_optmode.Text = "RUN";
+                autoRunCartridgeCountTemp = Teach.sCartridge.Count(b => b == true) + productOutCount;
+            }
+            else
+            {
+                MessageBox.Show($"Initialize : {bInitialze_Origin}, Product : {Teach.sCartridge.Count(b => b == true)}EA, Server연결 : {bServerConnect}");
+            }
+        }
+
+        private void FormClosingMethod()
+        {
+            // Thread 종료
+            try
+            {
+                bStatusUpdateThread = false;
+                statusUpdateThread.Abort();
+                module1PLC.bThdReadPLC = false;
+                module2PLC.bThdReadPLC = false;
+                module1PLC.Timer.Stop();
+                module2PLC.Timer.Stop();
+                motionkit[(int)Axis.X].ServoOff();
+                motionkit[(int)Axis.Z].ServoOff();
+                if (tcpClientNetWork != null && bServerConnect)
+                {
+                    tcpClientNetWork.bSendMessage = false;
+                    tcpClientNetWork.thd_Network.Abort();
+                    tcpClientNetWork.thd_Receive.Abort();
+                }
+            }
+            catch (ThreadInterruptedException ex)
+            {
+                tcpClientNetWork.bSendMessage = false;
+            }
+            catch (ThreadAbortException ex)
+            {
+                tcpClientNetWork.bSendMessage = false;
+            }
+            catch (SocketException ex)
+            {
+
+            }
+            catch (NullReferenceException ex)
+            {
+
+            }
+        }
+
         private void RunModeStatus(GroupBox[] gb, string num)
         {
             for (int i = 0; i < gb.Length; i++)
@@ -1421,6 +1753,7 @@ namespace PCPRO_실기
                 }
             }
         }
+
         private void RunModeStatus(GroupBox gb, string num)
         {
 
@@ -1460,62 +1793,40 @@ namespace PCPRO_실기
                 }
             }
         }
-        private void ButtonColor_Down(object sender, MouseEventArgs e) // 버튼 컬러 바꾸기 함수
+
+        private void ButtonColor_Down(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
             btn.BackColor = Color.YellowGreen;
         }
-        private void ButtonColor_Up(object sender, MouseEventArgs e) // 버튼 컬러 바꾸기 함수
+
+        private void ButtonColor_Up(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
             btn.BackColor = SystemColors.Control;
         }
+
         private void EQUIPMENT01_FormClosing(object sender, FormClosingEventArgs e)
         {
             FormClosingMethod();
         }
-        private void FormClosingMethod()
+
+        private void btn_SensorPass_MouseDown(object sender, MouseEventArgs e)
         {
-            // Thread 종료
-            try
-            {
-                bStatusUpdateThread = false;
-                statusUpdateThread.Abort();
-                module1PLC.bThdReadPLC = false;
-                module2PLC.bThdReadPLC = false;
-                module1PLC.Timer.Stop();
-                module2PLC.Timer.Stop();
-                motionkit[(int)Axis.X].ServoOff();
-                motionkit[(int)Axis.Z].ServoOff();
-                if (tcpClientNetWork != null)
-                {
-                    tcpClientNetWork.bSendMessage = false;
-                    tcpClientNetWork.thd_Network.Abort();
-                    tcpClientNetWork.thd_Receive.Abort();
-                }
-            }
-            catch (ThreadInterruptedException ex)
-            {
-                tcpClientNetWork.bSendMessage = false;
-            }
-            catch (ThreadAbortException ex)
-            {
-                tcpClientNetWork.bSendMessage = false;
-            }
-            catch (SocketException ex)
-            {
-
-            }
-            catch (NullReferenceException ex)
-            {
-
-            }
+            _bSensorPass_Temp = true;
         }
+
+        private void btn_SensorPass_MouseUp(object sender, MouseEventArgs e)
+        {
+            _bSensorPass_Temp = false;
+        }
+
         private void EQUIPMENT01_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Thread 종료
             statusUpdateThread.Join();
         }
+        
         private void LoginPage()
         {
             // 로그인 페이지

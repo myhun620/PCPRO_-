@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 
 namespace PCPRO_실기
 {
-    public class sym
-    {
-        public const double GearRatio = 1000.0;
-    }
     public enum Dir
     {
         FWD, BWD, LEFT, RIGHT, UP, DOWN

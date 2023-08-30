@@ -55,8 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Actuator.cs" />
-    <Compile Include="Class\Cylinder.cs" />
-    <Compile Include="Class\DIO.cs" />
     <Compile Include="Class\FileIO.cs" />
     <Compile Include="Class\MotionKit.cs" />
     <Compile Include="Class\NetWork.cs" />

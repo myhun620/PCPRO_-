@@ -10,6 +10,5 @@ namespace PCPRO_실기
     {
         void JogMove(Dir dir);
         void JogStop();
-        void InchingMove(double dist);
     }
 }

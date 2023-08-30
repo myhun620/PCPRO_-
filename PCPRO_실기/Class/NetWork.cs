@@ -20,7 +20,7 @@ namespace PCPRO_실기
     {
         public string statusMessage { get; set; }
 
-        TcpClient tcpClient;
+        public TcpClient tcpClient;
         IPEndPoint ipep;
         public Thread thd_Network, thd_Receive;
         public bool bSendMessage;
@@ -51,9 +51,9 @@ namespace PCPRO_실기
                 thd_Receive.Start();
                 msg = "Server 접속 성공. Thread 시작합니다.";
             }
-            catch (SocketException ex)
+            catch (SocketException)
             {
-                msg = ex.Message;
+                connected = false;
             }
             catch (Exception ex) 
             {
@@ -136,7 +136,7 @@ namespace PCPRO_실기
             {
                 try
                 {
-                    ConnetedCheck();
+                    //ConnetedCheck();
 
                     if (tcpClient.Available > 0)
                     {

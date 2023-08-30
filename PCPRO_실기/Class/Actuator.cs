@@ -15,7 +15,6 @@ namespace PCPRO_실기
         }
         public Actuator(short axNo)
         {
-
             this.axNo = axNo;
         }
     }

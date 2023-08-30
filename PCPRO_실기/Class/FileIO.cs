@@ -91,8 +91,17 @@ namespace PCPRO_실기
 
         private string[] FileLoad(string fileSaveFilePath)
         {
-            string[] str = System.IO.File.ReadAllLines(fileSaveFilePath);
-            return str;
+            try
+            {
+                string[] str = System.IO.File.ReadAllLines(fileSaveFilePath);
+                return str;
+            }
+            catch (Exception ex)
+            {
+                string[] str = new string[1] { "출력 메시지 : " + ex.Message };
+                return str;
+                throw;
+            }
             // Log파일 로드 부분, Return 부분 추가해야됨
         }
     }
