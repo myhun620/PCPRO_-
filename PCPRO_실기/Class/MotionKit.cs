@@ -22,8 +22,7 @@ namespace PCPRO_실기
 
         Point[] posXY;
 
-        RptMsg rptPnp;
-        public int beforTargetPos;
+        public RptMsg rptPnp;
         public Step stepPnp;
 
         PLC module1PLC;
@@ -204,7 +203,6 @@ namespace PCPRO_실기
                     if (MMCLib.axis_done(2) == 1)
                     {
                         posXY_Move(targetPos);
-                        beforTargetPos = targetPos;
                         stepPnp = Step.STEP02;
                     }
                     break;

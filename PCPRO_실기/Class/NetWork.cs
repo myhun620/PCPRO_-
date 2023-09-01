@@ -118,6 +118,10 @@ namespace PCPRO_실기
                     statusMessage = ex.Message;
                     return;
                 }
+                catch (Exception)
+                {
+
+                }
                 Thread.Sleep(10);
             }
         }
@@ -165,6 +169,10 @@ namespace PCPRO_실기
                     bSendMessage = false;
                     statusMessage = ex.Message;
                     return;
+                }
+                catch (Exception)
+                {
+
                 }
                 Thread.Sleep(10);
             }

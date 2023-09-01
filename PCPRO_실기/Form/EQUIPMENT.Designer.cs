@@ -66,7 +66,6 @@
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
             this.btn_load_receive = new System.Windows.Forms.Button();
             this.btn_load_Send = new System.Windows.Forms.Button();
             this.btn_clear = new System.Windows.Forms.Button();
@@ -115,6 +114,7 @@
             this.btn_MD2_One = new System.Windows.Forms.Button();
             this.btn_SensorPass = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gb_module1.SuspendLayout();
@@ -541,7 +541,6 @@
             // 
             this.groupBox8.Controls.Add(this.label4);
             this.groupBox8.Controls.Add(this.label3);
-            this.groupBox8.Controls.Add(this.button7);
             this.groupBox8.Controls.Add(this.btn_load_receive);
             this.groupBox8.Controls.Add(this.btn_load_Send);
             this.groupBox8.Controls.Add(this.btn_clear);
@@ -572,20 +571,10 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Receive Message";
             // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(82, 385);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(112, 23);
-            this.button7.TabIndex = 2;
-            this.button7.Text = "button7";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // btn_load_receive
             // 
             this.btn_load_receive.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_load_receive.Location = new System.Drawing.Point(602, 372);
+            this.btn_load_receive.Location = new System.Drawing.Point(500, 372);
             this.btn_load_receive.Name = "btn_load_receive";
             this.btn_load_receive.Size = new System.Drawing.Size(96, 42);
             this.btn_load_receive.TabIndex = 1;
@@ -600,7 +589,7 @@
             // btn_load_Send
             // 
             this.btn_load_Send.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_load_Send.Location = new System.Drawing.Point(500, 372);
+            this.btn_load_Send.Location = new System.Drawing.Point(602, 372);
             this.btn_load_Send.Name = "btn_load_Send";
             this.btn_load_Send.Size = new System.Drawing.Size(96, 42);
             this.btn_load_Send.TabIndex = 1;
@@ -632,6 +621,7 @@
             this.tb_send_Message.Location = new System.Drawing.Point(409, 36);
             this.tb_send_Message.Multiline = true;
             this.tb_send_Message.Name = "tb_send_Message";
+            this.tb_send_Message.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tb_send_Message.Size = new System.Drawing.Size(387, 330);
             this.tb_send_Message.TabIndex = 0;
             // 
@@ -640,6 +630,7 @@
             this.tb_rcv_Message.Location = new System.Drawing.Point(7, 36);
             this.tb_rcv_Message.Multiline = true;
             this.tb_rcv_Message.Name = "tb_rcv_Message";
+            this.tb_rcv_Message.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tb_rcv_Message.Size = new System.Drawing.Size(387, 330);
             this.tb_rcv_Message.TabIndex = 0;
             // 
@@ -1218,7 +1209,6 @@
         private System.Windows.Forms.Button btn_ems;
         private System.Windows.Forms.Button btn_stop;
         private System.Windows.Forms.Button btn_pause;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Timer InitTimer;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -1255,6 +1245,7 @@
         private System.Windows.Forms.Button btn_MD2_One;
         private System.Windows.Forms.Button btn_SensorPass;
         private System.Windows.Forms.GroupBox groupBox4;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 

@@ -95,6 +95,7 @@ namespace PCPRO_실기
         bool bMD2_StartSW;
         private int iProductINCount;
         private int iBefor_productOutCount;
+        private bool bEMS;
 
         public EQUIPMENT01()
         {
@@ -374,6 +375,11 @@ namespace PCPRO_실기
                 }
                 else
                 {
+                    bEMS = false;
+                    btn_Auto.BackColor = SystemColors.Control;
+                    btn_ems.BackColor = SystemColors.Control;
+                    bAutoRunReady = false;
+                    tb_optmode.Text = "STOP";
                     originStep = Step.STEP01;
                     InitTimer.Start();
                 }
@@ -386,6 +392,7 @@ namespace PCPRO_실기
         }
 
         #region 통신영역
+
         /// <summary>
         /// 서버로 신호보내기
         /// </summary>
@@ -447,6 +454,7 @@ namespace PCPRO_실기
                 tb_send_Message.AppendText($"\r\n보낸 메시지 : Feed, {netStatus}, {ModuleMode}, {operationMode}, {command}, {startAble}, {product.Total}");
             }
         }
+
         private void ControlThreadChanged(Control txt, string str)
         {
             if (txt.InvokeRequired)
@@ -457,6 +465,7 @@ namespace PCPRO_실기
                 }));
             }
         }
+
         private void SendMessageSort(Netstatus netStatus, Modulemode ModuleMode, Operationmode operationMode, Command command, Startable startAble, Product product)
         {
             protocol.Name = Modulename.Feed;
@@ -474,6 +483,7 @@ namespace PCPRO_실기
 
             tcpClientNetWork.SendMessage(protocol);
         }
+
         private void ReceiveMessageSort()
         {
             Protocol ptc = tcpClientNetWork.ReceiveMessage();
@@ -497,6 +507,7 @@ namespace PCPRO_실기
             FileIO fi = new FileIO();
             fi.FileIOFuction(LogModule.SAVE, LogModule.RECEIVE, ReceiveMessageSum);
         }
+
         private void SendToServer_OnCycleEqupiStatus()
         {
             switch (serverOneCycle)
@@ -543,6 +554,7 @@ namespace PCPRO_실기
                     break;
             }
         }
+
         private void SendToServer_AutoRunEqupiStatus()
         {
             switch (serverAutoRun)
@@ -594,14 +606,13 @@ namespace PCPRO_실기
                     break;
             }
         }
+
         #endregion
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-            
-        }
+
 
         #region Thread
+
         // Main form 모듈별 상태 업데이트 Thread
         private void MainThread()
         {
@@ -631,6 +642,12 @@ namespace PCPRO_실기
                         _runtype = null;
                     }
 
+                    // EMS
+                    if (_operationMode == Operationmode.EMS)
+                    {
+                        bEMS = true;
+                    }
+
                     if (_operationMode == Operationmode.RUN && _command == Command.DO && _runtype == Runtype.OneTime && (!bOneCycle && !bEquipmentAutoRun))
                         serverOneCycle = Step.STEP01;
 
@@ -652,16 +669,17 @@ namespace PCPRO_실기
                         || module1PLC._plc1DevicePanel[(int)ModulePanel.stop] 
                         || module2PLC._plc2DevicePanel[(int)ModulePanel.stop])
                         bSTOP = true;
-                    else if (bSTOP && _operationMode == Operationmode.RUN)
-                        bSTOP = false;
 
+                    if ((bEquipmentAutoRun || bOneCycle) && ((module1PLC._plc1DevicePanel[(int)ModulePanel.manual] && module2PLC._plc2DevicePanel[(int)ModulePanel.manual]) && bServerConnect))
+                    {
+                        bSTOP = true;
+                    }
 
                     // PAUSE
                     if (_operationMode == Operationmode.PAUSE)
                         bPAUSE = true;
                     else if (bPAUSE && _operationMode == Operationmode.RUN)
                         bPAUSE = false;
-
 
                     if (bOneCycle)
                     {
@@ -717,12 +735,12 @@ namespace PCPRO_실기
                     bStatusUpdateThread = false;
                     return;
                 }
-                Thread.Sleep(100);
+
+                Thread.Sleep(10);
             }
         }
 
         #endregion
-
 
 
 
@@ -734,21 +752,29 @@ namespace PCPRO_실기
                 return;
 
             if (!module1PLC._plc1DevicePanel[(int)ModulePanel.emo])
+            {
                 btn_md1_ems.BackColor = Color.Red;
+            }
             else
                 btn_md1_ems.BackColor = SystemColors.Control;
             if (!module2PLC._plc2DevicePanel[(int)ModulePanel.emo])
+            { 
                 btn_md2_ems.BackColor = Color.Red;
+            }
             else
                 btn_md2_ems.BackColor = SystemColors.Control;
 
-            if (!module1PLC._plc1DevicePanel[(int)ModulePanel.emo] || !module2PLC._plc2DevicePanel[(int)ModulePanel.emo] || _operationMode == Operationmode.EMS || btn_ems.BackColor == Color.YellowGreen)
+            if (!module1PLC._plc1DevicePanel[(int)ModulePanel.emo] || !module2PLC._plc2DevicePanel[(int)ModulePanel.emo] 
+                || bEMS || _operationMode == Operationmode.EMS || btn_ems.BackColor == Color.YellowGreen)
             {
                 btn_ems.BackColor = Color.Red;
                 btn_Auto.BackColor = SystemColors.Control;
                 tb_optmode.Text = "EMS";
+                
                 bStatusUpdateThread = false;    // MainThread 종료
+                statusUpdateThread.Abort();
                 statusUpdateThread.Join();
+
                 bOneCycle = false;
                 bEquipmentAutoRun = false;
                 md1_OneCycle = false;
@@ -793,8 +819,9 @@ namespace PCPRO_실기
                 else if (module2PLC._plc2DeviceX[(int)Module2X.transferUnGrip])
                     module2PLC.PLCWrite("Y29", 0);
 
-                bStatusUpdateThread = true;
-                Task t1 = Task.Run(() => MainThread());
+                bStatusUpdateThread = true;     // Thread 다시 시작
+                statusUpdateThread = new Thread(new ThreadStart(MainThread));
+                statusUpdateThread.Start();
             }
         }
 
@@ -808,7 +835,14 @@ namespace PCPRO_실기
                     {
                         motionkit[(int)Axis.X].ServoOn();
                         motionkit[(int)Axis.Z].ServoOn();
+
+                        bOneCycle = false;
+                        bEquipmentAutoRun = false;
+                        md1_OneCycle = false;
+                        md2_OneCycle = false;
+                        
                         originStep = Step.STEP02;
+
                     }
                     break;
                 case Step.STEP02:   // 실린더 복귀
@@ -896,6 +930,9 @@ namespace PCPRO_실기
         {
 
             btn_Auto.BackColor = SystemColors.Control;
+            for (int i = 0; i < Teach.sCartridge.Length; i++)
+                Teach.sCartridge[i] = false;
+            
             cmdPnp = CmdMsg.CHECK;
             // rptPnp = RptMsg.Ready            // Module1 Cartridge RptMsg
             module1_cmdPnp = CmdMsg.CHECK;      // Module1 Cartridge CmdPnp
@@ -905,7 +942,7 @@ namespace PCPRO_실기
             md1_OneCycle = false;
             module1_rptPnp = RptMsg.READY;      //  Module1 외부 RptMsg
             escapeFor = false;
-
+            rptPnp = RptMsg.READY;              // 새로 추가
 
             module2_runStep = Step.STEP06;      // Module2 Step
             bModule2Run = false;                // Module2 연속동작 스위치
@@ -924,16 +961,26 @@ namespace PCPRO_실기
             autoRunCartridgeCountTemp = 0;
             iProductINCount = 0;                // 투입 카운트 추가
 
-            // Pause, Stop
+            rptPnp_MD1_Pause = RptMsg.READY;
+            cmdMsg_MD1_Pause = CmdMsg.CHECK;
+
+            motionkit.rptPnp = RptMsg.READY;
+            motionkit.stepPnp = Step.STEP00;
+
+            // Pause, Stop, EMS
             bPAUSE = false;
             bSTOP = false;
+
+            bMD1_StartSW = false;
+            bMD2_StartSW = false;
         }
 
         private void EqupimentAutoRun()
         {
             module1_rptPnp = Module1_AutoRun(autoRun1);
 
-            if (module1_rptPnp == RptMsg.READY && autoRun1 == CmdMsg.CHECK && (!module2PLC._plc2DeviceX[(int)Module2X.productSensor] || _bSensorPass_Temp)) // Sensor Pass 추가
+            if (module1_rptPnp == RptMsg.READY && autoRun1 == CmdMsg.CHECK 
+                && (!module2PLC._plc2DeviceX[(int)Module2X.productSensor]  || _bSensorPass_Temp)) // Sensor Pass 추가
             {
                 autoRun1 = CmdMsg.START;
             }
@@ -1407,7 +1454,14 @@ namespace PCPRO_실기
                     if (module2_runStep == Step.STEP16) // 모듈2 이송실린더 Down
                     {
                         if (module2PLC._plc2DeviceX[(int)Module2X.transferCylinderRight] && module2PLC._plc2DeviceX[(int)Module2X.transferCylinderUp]
-                            && _endAble == Endable.ON)  // 후단 EndAble 신호 추가
+                            && _endAble == Endable.ON && !bSTOP)  // 후단 EndAble 신호 추가
+                        {
+                            module2PLC.PLCWrite("Y28", 0);
+                            module2PLC.PLCWrite("Y27", 1);
+                            module2_runStep = Step.STEP17;
+                        }
+                        else if (module2PLC._plc2DeviceX[(int)Module2X.transferCylinderRight] && module2PLC._plc2DeviceX[(int)Module2X.transferCylinderUp]
+                                 && module2PLC._plc2DevicePanel[(int)ModulePanel.manual])  // 후단 EndAble 신호 추가
                         {
                             module2PLC.PLCWrite("Y28", 0);
                             module2PLC.PLCWrite("Y27", 1);
@@ -1478,7 +1532,7 @@ namespace PCPRO_실기
 
 
 
-        #region Form관련 영역
+        #region Form
 
         private void IOUpdate_Tick(object sender, EventArgs e)
         {
@@ -1530,6 +1584,16 @@ namespace PCPRO_실기
                 btn_stop.BackColor = SystemColors.Control;
             }
 
+            if (module1PLC._plc1DevicePanel[(int)ModulePanel.manual] && bMD1_StartSW)
+            {
+                md1_OneCycle = true;
+            }
+
+            if (module2PLC._plc2DevicePanel[(int)ModulePanel.manual] && bMD2_StartSW)
+            {
+                md2_OneCycle = true;
+            }
+
             // Panel Manual 전환
             if (module1PLC._plc1DevicePanel[(int)ModulePanel.manual] && module2PLC._plc2DevicePanel[(int)ModulePanel.manual])   
             {
@@ -1562,9 +1626,20 @@ namespace PCPRO_실기
             // 운전별 서버 보고용 함수
             SendToServer_OnCycleEqupiStatus();
             SendToServer_AutoRunEqupiStatus();
+            
+            if (module1PLC.IRet == 0 && module2PLC.IRet == 0)
+            {
+                if (!module1PLC._plc1DevicePanel[(int)ModulePanel.emo] || !module2PLC._plc2DevicePanel[(int)ModulePanel.emo])
+                {
+                    bEMS = true;
+                }
+            }
 
             // EMS 추가 필요
-            EMS();
+            if (bEMS)
+            {
+                EMS();
+            }
 
             if (tcpClientNetWork != null)
             {
@@ -1608,6 +1683,7 @@ namespace PCPRO_실기
             }
             else
             {
+                btn_iecs_status.BackColor = SystemColors.Control;
                 btn_iecs_status.Text = "OFFLINE";
                 tb_netstatus.Text = "OFF";
             }
@@ -1623,6 +1699,7 @@ namespace PCPRO_실기
                 {
                     btn_md1_manual.BackColor = Color.YellowGreen;
                     tb_optmode.Text = "STOP";
+                    tb_mode.Text = "MANUAL";
                 }
                 else
                     btn_md1_manual.BackColor = SystemColors.Control;
@@ -1643,6 +1720,7 @@ namespace PCPRO_실기
                 { 
                     btn_md2_manual.BackColor = Color.YellowGreen;
                     tb_optmode.Text = "STOP";
+                    tb_mode.Text = "MANUAL";
                 }
                 else
                     btn_md2_manual.BackColor = SystemColors.Control;
@@ -1665,7 +1743,7 @@ namespace PCPRO_실기
                 tb_optmode.Text = "RUN";
                 autoRunCartridgeCountTemp = Teach.sCartridge.Count(b => b == true) + productOutCount;
             }
-            else
+            else if(!module1PLC._plc1DevicePanel[(int)ModulePanel.manual] || !module2PLC._plc2DevicePanel[(int)ModulePanel.manual])
             {
                 MessageBox.Show($"Initialize : {bInitialze_Origin}, Product : {Teach.sCartridge.Count(b => b == true)}EA, Server연결 : {bServerConnect}");
             }
@@ -1841,6 +1919,9 @@ namespace PCPRO_실기
             }
         }
         #endregion
+
+
+
     }
 }
 
